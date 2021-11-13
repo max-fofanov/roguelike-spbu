@@ -2,7 +2,7 @@
 
 namespace roguelike_spbu
 {
-    interface Enemy
+    class Enenmy : IMovable
     {
     }
 }
