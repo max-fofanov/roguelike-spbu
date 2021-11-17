@@ -2,30 +2,26 @@
 
 namespace roguelike_spbu
 {
-    class Player : IMovable
+    class Player : Creature
     {
         private int x;
         private int y;
         private Trait trait;
-
-        public int X
-        {
-            get { return this.x;  }
-            set { this.x = value;  }
-        }
-
-        public int Y
-        {
-            get { return this.Y; }
-            set { this.Y = value; }
-        }
-
-        public Player(int x = 0, int y = 0, Trait trait = Trait.Saber)
+        private char symbol = '@';
+        private ConsoleColor color = ConsoleColor.Red;
+        
+        public Player(int x, int y, Trait trait = Trait.Saber)
         {
             this.x = x;
             this.y = y;
             this.trait = trait;
+            X = x;
+            Y = y;
+            Symbol = symbol;
+            Color = color;
+            
         }
+
 
         
     }

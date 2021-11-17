@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace roguelike_spbu
 {
-    interface Interface1
+    interface IEntity
     {
     }
 }
