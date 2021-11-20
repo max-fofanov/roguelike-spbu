@@ -14,11 +14,11 @@ namespace roguelike_spbu
 
 
 
-        public GameBoard(int width, int length, Tile[] tiles)
+        public GameBoard(int width, int length/*, Tile[] tiles*/)
         {
             this.width = width;
             this.length = length;
-            this.tiles = tiles;
+            this.tiles = Generate2(width, length);
 
             kM = new KeyBoardMaster();
             kM.downPressedEvent += down;
@@ -45,6 +45,49 @@ namespace roguelike_spbu
                 this.board[tile.Landscape.X][tile.Landscape.Y] = tile;
             }
 
+        }
+
+        private Tile[] Generate2(int i, int j)
+        {
+            Random rand = new Random();
+            
+            Tile[] temp = new Tile[i * j];
+            
+            for (int n = 0; n < i; n++)
+            {
+                for (int m = 0; m < j; m++)
+                {
+                    int t = rand.Next(0, 4);
+                    
+                    switch (t)
+                    {
+                        case 0:
+                            temp[n * j + m] = new Tile(new Field(n, m));
+                            break;
+                        case 1:
+                            temp[n * j + m] = new Tile(new Tree(n, m));
+                            break;
+                        case 2:
+                            temp[n * j + m] = new Tile(new Rock(n, m));
+                            break;
+                        case 3:
+                            temp[n * j + m] = new Tile(new Water(n, m));
+                            break;
+                    }
+                }
+            }
+
+            if (this.player != null)
+            {
+                temp[player.Y * width + player.X] = new Tile(temp[player.Y * width + player.X].Landscape, player);
+            }
+            else
+            {
+                player = new Player(0, 0);
+                temp[0] = new Tile(temp[0].Landscape, player);
+            }
+
+            return temp;
         }
 
         public void MovePlayer(ConsoleKeyInfo key)
@@ -100,6 +143,15 @@ namespace roguelike_spbu
                 board[player.Y][player.X - 1].Inhabitat = player;
                 player.X -= 1;
             }
+            else
+            {
+                board[player.Y][player.X].Inhabitat = null;
+                board[player.Y][length - 1].Inhabitat = player;
+                player.X = length - 1;
+
+                this.tiles = Generate2(width, length);
+                Generate();
+            }
         }
 
         private void right()
@@ -109,6 +161,15 @@ namespace roguelike_spbu
                 board[player.Y][player.X].Inhabitat = null;
                 board[player.Y][player.X + 1].Inhabitat = player;
                 player.X += 1;
+            }
+            else
+            {
+                board[player.Y][player.X].Inhabitat = null;
+                board[player.Y][0].Inhabitat = player;
+                player.X = 0;
+
+                this.tiles = Generate2(width, length);
+                Generate();
             }
         }
 
@@ -120,6 +181,15 @@ namespace roguelike_spbu
                 board[player.Y - 1][player.X].Inhabitat = player;
                 player.Y -= 1;
             }
+            else
+            {
+                board[player.Y][player.X].Inhabitat = null;
+                board[width - 1][player.X].Inhabitat = player;
+                player.Y = width - 1;
+
+                this.tiles = Generate2(width, length);
+                Generate();
+            }
         }
 
         private void down()
@@ -130,6 +200,15 @@ namespace roguelike_spbu
                 board[player.Y][player.X].Inhabitat = null;
                 board[player.Y + 1][player.X].Inhabitat = player;
                 player.Y += 1;
+            }
+            else
+            {
+                board[player.Y][player.X].Inhabitat = null;
+                board[0][player.X].Inhabitat = player;
+                player.Y = 0;
+
+                this.tiles = Generate2(width, length);
+                Generate();
             }
         }
     }

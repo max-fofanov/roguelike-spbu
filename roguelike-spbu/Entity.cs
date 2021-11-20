@@ -85,4 +85,21 @@ namespace roguelike_spbu
         }
 
     }
+
+    class Water : Entity
+    {
+        private int x;
+        private int y;
+        private ConsoleColor color = ConsoleColor.Blue;
+        private char symbol = 'W';
+
+        public Water(int x, int y)
+        {
+            X = x;
+            Y = y;
+            Color = this.color;
+            Symbol = this.symbol;
+        }
+
+    }
 }
