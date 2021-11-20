@@ -3,7 +3,7 @@
 
 namespace roguelike_spbu
 {       
-    class GameBoard
+    class Room
     {
         private int length;
         private int width;
@@ -14,7 +14,7 @@ namespace roguelike_spbu
 
 
 
-        public GameBoard(int width, int length/*, Tile[] tiles*/)
+        public Room(int width, int length/*, Tile[] tiles*/)
         {
             this.width = width;
             this.length = length;
@@ -42,7 +42,7 @@ namespace roguelike_spbu
         {
             foreach (Tile tile in this.tiles)
             {
-                this.board[tile.Landscape.X][tile.Landscape.Y] = tile;
+                this.board[tile.Landscape.Y][tile.Landscape.X] = tile;
             }
 
         }
@@ -62,16 +62,16 @@ namespace roguelike_spbu
                     switch (t)
                     {
                         case 0:
-                            temp[n * j + m] = new Tile(new Field(n, m));
+                            temp[n * j + m] = new Tile(new Field(m, n));
                             break;
                         case 1:
-                            temp[n * j + m] = new Tile(new Tree(n, m));
+                            temp[n * j + m] = new Tile(new Tree(m, n));
                             break;
                         case 2:
-                            temp[n * j + m] = new Tile(new Rock(n, m));
+                            temp[n * j + m] = new Tile(new Rock(m, n));
                             break;
                         case 3:
-                            temp[n * j + m] = new Tile(new Water(n, m));
+                            temp[n * j + m] = new Tile(new Water(m, n));
                             break;
                     }
                 }
@@ -79,7 +79,7 @@ namespace roguelike_spbu
 
             if (this.player != null)
             {
-                temp[player.Y * width + player.X] = new Tile(temp[player.Y * width + player.X].Landscape, player);
+                temp[player.Y * length + player.X].Inhabitat = player;
             }
             else
             {
@@ -115,10 +115,6 @@ namespace roguelike_spbu
 
                     if (tile.Inhabitat != null)
                     {
-                        if (tile.Inhabitat is Player)
-                        {
-                            player = (Player) tile.Inhabitat;
-                        }
                         Console.ForegroundColor = tile.Inhabitat.Color;
                         Console.Write(tile.Inhabitat.Symbol);
                     }
