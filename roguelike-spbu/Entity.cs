@@ -35,6 +35,23 @@ namespace roguelike_spbu
         
     }
 
+    class Border : Entity
+    {
+        private int x;
+        private int y;
+        private ConsoleColor color = ConsoleColor.White;
+        private char symbol = '#';
+       
+
+
+        public Border(int x, int y)
+        {
+            X = x;
+            Y = y;
+            Color = this.color;
+            Symbol = this.symbol;
+        }
+    }
     class Tree : Entity
     {
         private int x;
@@ -73,7 +90,7 @@ namespace roguelike_spbu
     {
         private int x;
         private int y;
-        private ConsoleColor color = ConsoleColor.White;
+        private ConsoleColor color = ConsoleColor.Gray;
         private char symbol = '.';
 
         public Field(int x, int y)

@@ -5,8 +5,8 @@ namespace roguelike_spbu
 {       
     class Room
     {
-        private int length;
-        private int width;
+        private int x;
+        private int y;
         private Tile[][] board;
         private Tile[] tiles;
         private Player player;
@@ -14,11 +14,19 @@ namespace roguelike_spbu
 
 
 
-        public Room(int width, int length/*, Tile[] tiles*/)
+        public Room(int x, int y/*, Tile[] tiles*/)
         {
-            this.width = width;
-            this.length = length;
-            this.tiles = Generate2(width, length);
+            this.x = x;
+            this.y = y;
+
+            board = new Tile[this.x][];
+
+            for (int i = 0; i < this.x; i++)
+            {
+                board[i] = new Tile[this.y];
+            }
+
+            this.tiles = Generate3();/*Generate2(width, length);*/
 
             kM = new KeyBoardMaster();
             kM.downPressedEvent += down;
@@ -26,14 +34,7 @@ namespace roguelike_spbu
             kM.rightPressedEvent += right;
             kM.leftPressedEvent += left;
 
-            Tile[][] board = new Tile[width][];
-
-            for (int i = 0; i < board.Length; i++)
-            {
-                board[i] = new Tile[length];
-            }
-
-            this.board = board;
+            
 
             Generate();
         }
@@ -42,44 +43,45 @@ namespace roguelike_spbu
         {
             foreach (Tile tile in this.tiles)
             {
-                this.board[tile.Landscape.Y][tile.Landscape.X] = tile;
+                this.board[tile.Landscape.X][tile.Landscape.Y] = tile;
             }
 
         }
 
-        private Tile[] Generate2(int i, int j)
+        private Tile[] Generate2()
         {
             Random rand = new Random();
             
-            Tile[] temp = new Tile[i * j];
+            Tile[] temp = new Tile[x * y];
             
-            for (int n = 0; n < i; n++)
+            for (int n = 0; n < x; n++)
             {
-                for (int m = 0; m < j; m++)
+                for (int m = 0; m < y; m++)
                 {
-                    int t = rand.Next(0, 4);
+                    int r = rand.Next(0, 4);
                     
-                    switch (t)
+                    switch (r)
                     {
                         case 0:
-                            temp[n * j + m] = new Tile(new Field(m, n));
+                            temp[n * y + m] = new Tile(new Field(n, m));
                             break;
                         case 1:
-                            temp[n * j + m] = new Tile(new Tree(m, n));
+                            temp[n * y + m] = new Tile(new Tree(n, m));
                             break;
                         case 2:
-                            temp[n * j + m] = new Tile(new Rock(m, n));
+                            temp[n * y + m] = new Tile(new Rock(n, m));
                             break;
                         case 3:
-                            temp[n * j + m] = new Tile(new Water(m, n));
+                            temp[n * y + m] = new Tile(new Water(n, m));
                             break;
                     }
+                   
                 }
             }
 
             if (this.player != null)
             {
-                temp[player.Y * length + player.X].Inhabitat = player;
+                temp[player.X * this.y + player.Y].Inhabitat = player;
             }
             else
             {
@@ -88,6 +90,170 @@ namespace roguelike_spbu
             }
 
             return temp;
+        }
+
+        public Tile[] Generate3()
+        {
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    Random rand = new Random();
+                    int r = rand.Next(0, 4);
+
+
+                    if (board[i][j] == null)
+                    {
+                        switch (r)
+                        {
+                            case 0:
+                                if (j - 1 >= 0)
+                                {
+                                    if (board[i][j - 1] != null)
+                                    {
+                                        board[i][j] = new Tile(getValueOfType(i, j, board[i][j - 1].Landscape));
+                                    }
+                                    else
+                                    {
+                                        board[i][j] = new Tile(getRandom(i, j));
+                                    }
+
+                                }
+                                else
+                                {
+                                    board[i][j] = new Tile(getRandom(i, j));
+                                }
+                                break;
+                            case 1:
+                                if (i - 1 >= 0)
+                                {
+                                    if (board[i - 1][j] != null)
+                                    {
+                                        board[i][j] = new Tile(getValueOfType(i, j, board[i - 1][j].Landscape));
+                                    }
+                                    else
+                                    {
+                                        board[i][j] = new Tile(getRandom(i, j));
+                                    }
+
+                                }
+                                else
+                                {
+                                    board[i][j] = new Tile(getRandom(i, j));
+                                }
+                                break;
+                            case 2:
+                                if (j + 1 < x)
+                                {
+                                    if (board[i][j + 1] != null)
+                                    {
+                                        board[i][j] = new Tile(getValueOfType(i, j, board[i][j + 1].Landscape));
+                                    }
+                                    else
+                                    {
+                                        board[i][j] = new Tile(getRandom(i, j));
+                                    }
+
+                                }
+                                else
+                                {
+                                    board[i][j] = new Tile(getRandom(i, j));
+                                }
+                                break;
+                            case 3:
+                                if (i + 1 < x)
+                                {
+                                    if (board[i + 1][j] != null)
+                                    {
+                                        board[i][j] = new Tile(getValueOfType(i, j, board[i + 1][j].Landscape));
+                                    }
+                                    else
+                                    {
+                                        board[i][j] = new Tile(getRandom(i, j));
+                                    }
+
+                                }
+                                else
+                                {
+                                    board[i][j] = new Tile(getRandom(i, j));
+                                }
+                                break;
+
+                        }
+                    }
+
+                }
+            }
+            return flatten();
+        }
+
+        public Tile[] flatten()
+        {
+            Tile[] tile = new Tile[x * x];
+
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < x; j++)
+                {
+                    tile[x * i + j] = board[i][j];
+                }
+            }
+
+            if (this.player != null)
+            {
+                tile[player.X * this.y + player.Y].Inhabitat = player;
+            }
+            else
+            {
+                player = new Player(0, 0);
+                tile[0] = new Tile(tile[0].Landscape, player);
+            }
+
+            return tile;
+        }
+
+        private Entity getRandom(int x, int y)
+        {
+            Random rand = new Random();
+            int r = rand.Next(0, 4);
+
+            switch (r)
+            {
+                case 0:
+                    return new Water(x, y);
+                case 1:
+                    return new Rock(x, y);
+                case 2:
+                    return new Field(x, y);
+                case 3:
+                    return new Tree(x, y);
+
+            }
+
+            return new Entity();
+        }
+
+        private Entity getValueOfType(int x, int y, Entity entity)
+        {
+            if (entity.GetType() == new Rock(0, 0).GetType())
+            {
+                return new Rock(x, y);
+            }
+            else if (entity.GetType() == new Field(0, 0).GetType())
+            {
+                return new Field(x, y);
+            }
+            else if (entity.GetType() == new Water(0, 0).GetType())
+            {
+                return new Water(x, y);
+            }
+            else if (entity.GetType() == new Tree(0, 0).GetType())
+            {
+                return new Tree(x, y);
+            }
+
+            return new Entity();
+
         }
 
         public void MovePlayer(ConsoleKeyInfo key)
@@ -107,9 +273,9 @@ namespace roguelike_spbu
 
         public void Print()
         {
-            for (int i = 0; i < width; i++)
+            for (int i = 0; i < x; i++)
             {
-                for (int j = 0; j < length; j++)
+                for (int j = 0; j < y; j++)
                 {
                     Tile tile = board[i][j];
 
@@ -133,57 +299,57 @@ namespace roguelike_spbu
         }
         private void left()
         {
-            if (player.X > 0)
+            if (player.Y > 0)
             {
-                board[player.Y][player.X].Inhabitat = null;
-                board[player.Y][player.X - 1].Inhabitat = player;
-                player.X -= 1;
+                board[player.X][player.Y].Inhabitat = null;
+                board[player.X][player.Y - 1].Inhabitat = player;
+                player.Y -= 1;
             }
             else
             {
-                board[player.Y][player.X].Inhabitat = null;
-                board[player.Y][length - 1].Inhabitat = player;
-                player.X = length - 1;
+                board[player.X][player.Y].Inhabitat = null;
+                board[player.X][y - 1].Inhabitat = player;
+                player.Y = y - 1;
 
-                this.tiles = Generate2(width, length);
+                this.tiles = Generate2();
                 Generate();
             }
         }
 
         private void right()
         {
-            if (player.X < length - 1)
+            if (player.Y < y - 1)
             {
-                board[player.Y][player.X].Inhabitat = null;
-                board[player.Y][player.X + 1].Inhabitat = player;
-                player.X += 1;
+                board[player.X][player.Y].Inhabitat = null;
+                board[player.X][player.Y + 1].Inhabitat = player;
+                player.Y += 1;
             }
             else
             {
-                board[player.Y][player.X].Inhabitat = null;
-                board[player.Y][0].Inhabitat = player;
-                player.X = 0;
+                board[player.X][player.Y].Inhabitat = null;
+                board[player.X][0].Inhabitat = player;
+                player.Y = 0;
 
-                this.tiles = Generate2(width, length);
+                this.tiles = Generate2();
                 Generate();
             }
         }
 
         private void up()
         {
-            if (player.Y > 0)
+            if (player.X > 0) 
             {
-                board[player.Y][player.X].Inhabitat = null;
-                board[player.Y - 1][player.X].Inhabitat = player;
-                player.Y -= 1;
+                board[player.X][player.Y].Inhabitat = null;
+                board[player.X - 1][player.Y].Inhabitat = player;
+                player.X -= 1;
             }
             else
             {
-                board[player.Y][player.X].Inhabitat = null;
-                board[width - 1][player.X].Inhabitat = player;
-                player.Y = width - 1;
+                board[player.X][player.Y].Inhabitat = null;
+                board[x - 1][player.Y].Inhabitat = player;
+                player.X = x - 1;
 
-                this.tiles = Generate2(width, length);
+                this.tiles = Generate2();
                 Generate();
             }
         }
@@ -191,19 +357,19 @@ namespace roguelike_spbu
         private void down()
         {
 
-            if (player.Y < width - 1)
+            if (player.X < x - 1)
             {
-                board[player.Y][player.X].Inhabitat = null;
-                board[player.Y + 1][player.X].Inhabitat = player;
-                player.Y += 1;
+                board[player.X][player.Y].Inhabitat = null;
+                board[player.X + 1][player.Y].Inhabitat = player;
+                player.X += 1;
             }
             else
             {
-                board[player.Y][player.X].Inhabitat = null;
-                board[0][player.X].Inhabitat = player;
-                player.Y = 0;
+                board[player.X][player.Y].Inhabitat = null;
+                board[0][player.Y].Inhabitat = player;
+                player.X = 0;
 
-                this.tiles = Generate2(width, length);
+                this.tiles = Generate2();
                 Generate();
             }
         }

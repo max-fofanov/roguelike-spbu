@@ -10,7 +10,7 @@ namespace roguelike_spbu
             Console.CursorVisible = false;
             bool turnedOn = true;
 
-            Room board = new Room(3, 5);
+            Room board = new Room(10, 18);
             
             while (turnedOn)
             { 

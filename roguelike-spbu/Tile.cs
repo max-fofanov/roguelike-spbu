@@ -19,10 +19,12 @@ namespace roguelike_spbu
             set { this.inhabitat = value; }
         }
 
+
         public Tile(Entity landscape, Creature inhabitat = null)
         {
             this.Landscape = landscape;
             this.Inhabitat = inhabitat;
+
         }
     }
 }
