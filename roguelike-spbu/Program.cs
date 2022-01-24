@@ -17,6 +17,14 @@ namespace roguelike_spbu
                 board.Print();
                 board.MovePlayer(Console.ReadKey());
             }
+        } 
+    }
+
+    class Clone<T>
+    {
+        public static T GetT(T obj)
+        {
+            
         }
     }
 }

@@ -2,7 +2,16 @@
 
 namespace roguelike_spbu
 {
-    class Enenmy : IMovable
+    class Enemy : Creature
     {
+        
+        public Enemy(int x, int y)
+        {
+            this.X = x;
+            this.Y = y;
+            this.Symbol = '%';
+            this.Color = ConsoleColor.Yellow;
+        }
+
     }
 }

@@ -10,6 +10,7 @@ namespace roguelike_spbu
     {
         private int x;
         private int y;
+        private int health;
         private char symbol;
         private ConsoleColor color;
 

@@ -10,6 +10,7 @@ namespace roguelike_spbu
         private Tile[][] board;
         private Tile[] tiles;
         private Player player;
+        private Enemy[] enemies;
         private KeyBoardMaster kM;
 
 
