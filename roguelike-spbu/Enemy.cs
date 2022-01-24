@@ -2,7 +2,16 @@
 
 namespace roguelike_spbu
 {
-    interface Enemy
+    class Enemy : Creature
     {
+        
+        public Enemy(int x, int y)
+        {
+            this.X = x;
+            this.Y = y;
+            this.Symbol = '%';
+            this.Color = ConsoleColor.Yellow;
+        }
+
     }
 }

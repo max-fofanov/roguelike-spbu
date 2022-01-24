@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace roguelike_spbu
 {
@@ -6,10 +7,24 @@ namespace roguelike_spbu
     {
         static void Main(string[] args)
         {
-            GameBoard board = new GameBoard(10, 10);
+            Console.CursorVisible = false;
+            bool turnedOn = true;
 
-            board.Generate();
-            board.Print();
+            Room board = new Room(10, 18);
+            
+            while (turnedOn)
+            { 
+                board.Print();
+                board.MovePlayer(Console.ReadKey());
+            }
+        } 
+    }
+
+    class Clone<T>
+    {
+        public static T GetT(T obj)
+        {
+            
         }
     }
 }
