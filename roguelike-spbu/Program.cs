@@ -11,20 +11,12 @@ namespace roguelike_spbu
             bool turnedOn = true;
 
             Room board = new Room(10, 18);
-            
+
             while (turnedOn)
-            { 
+            {
                 board.Print();
                 board.MovePlayer(Console.ReadKey());
             }
-        } 
-    }
-
-    class Clone<T>
-    {
-        public static T GetT(T obj)
-        {
-            
         }
     }
 }
