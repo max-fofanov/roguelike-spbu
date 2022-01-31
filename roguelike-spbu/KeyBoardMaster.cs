@@ -13,6 +13,7 @@ namespace roguelike_spbu
         public event KeyboardDelegate upPressedEvent = null;
         public event KeyboardDelegate leftPressedEvent = null;
         public event KeyboardDelegate rightPressedEvent = null;
+        public event KeyboardDelegate qPressedEvent = null;
 
         public void UpPressedEvent()
         {
@@ -36,6 +37,12 @@ namespace roguelike_spbu
         {
             if (rightPressedEvent != null)
                 rightPressedEvent.Invoke();
+        }
+        
+        public void QPressedEvent() {
+            if (qPressedEvent != null) {
+                qPressedEvent.Invoke();
+            }
         }
     }
 }

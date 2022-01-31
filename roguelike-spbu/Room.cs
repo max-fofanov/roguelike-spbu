@@ -13,12 +13,15 @@ namespace roguelike_spbu
         private Enemy[] enemies;
         private KeyBoardMaster kM;
 
+        private int cursorPosition;
+
 
 
         public Room(int x, int y/*, Tile[] tiles*/)
         {
             this.x = x;
             this.y = y;
+            this.cursorPosition = Console.CursorTop;
 
             board = new Tile[this.x][];
 
@@ -34,6 +37,7 @@ namespace roguelike_spbu
             kM.upPressedEvent += up;
             kM.rightPressedEvent += right;
             kM.leftPressedEvent += left;
+            kM.qPressedEvent += quit;
 
             
 
@@ -92,6 +96,10 @@ namespace roguelike_spbu
 
             return temp;
         }
+
+        /* public Tile[] Generate4() {
+
+        } */
 
         public Tile[] Generate3()
         {
@@ -267,13 +275,15 @@ namespace roguelike_spbu
                 kM.RightPressedEvent();
             else if (key.Key == ConsoleKey.LeftArrow)
                 kM.LeftPressedEvent();
-
+            else if (key.Key == ConsoleKey.Q)
+                kM.QPressedEvent();
 
         }
 
 
         public void Print()
         {
+            
             for (int i = 0; i < x; i++)
             {
                 for (int j = 0; j < y; j++)
@@ -296,7 +306,27 @@ namespace roguelike_spbu
             }
 
             Console.ForegroundColor = ConsoleColor.White;
-            Console.SetCursorPosition(0, 0);
+            Console.SetCursorPosition(0, cursorPosition);
+        }
+
+        public void Print_2() {
+            foreach (Tile tile in tiles) 
+            {
+                Console.CursorLeft = tile.Landscape.Y;
+                Console.CursorTop = tile.Landscape.X;
+
+                if (tile.Inhabitat != null) 
+                {
+                    Console.ForegroundColor = tile.Inhabitat.Color;
+                    Console.Write(tile.Inhabitat.Symbol);
+                }
+                else 
+                {
+                    Console.ForegroundColor = tile.Landscape.Color;
+                    Console.Write(tile.Landscape.Symbol);
+                }
+                
+            }
         }
         private void left()
         {
@@ -373,6 +403,11 @@ namespace roguelike_spbu
                 this.tiles = Generate2();
                 Generate();
             }
+        }
+
+        private void quit() {
+            Console.Clear();
+            Environment.Exit(0);
         }
     }
 }
