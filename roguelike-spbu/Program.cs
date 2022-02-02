@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Drawing;
 using System.Threading;
+using Pastel;
 
 namespace roguelike_spbu
 {
@@ -7,6 +9,7 @@ namespace roguelike_spbu
     {
         static void Main(string[] args)
         {
+            Console.Clear();
             Console.CursorVisible = false;
             bool turnedOn = true;
 

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Text;
+using Pastel;
 
 
 namespace roguelike_spbu
-{       
+{
     class Room
     {
         private int x;
@@ -35,7 +37,7 @@ namespace roguelike_spbu
             kM.rightPressedEvent += right;
             kM.leftPressedEvent += left;
 
-            
+
 
             Generate();
         }
@@ -52,15 +54,15 @@ namespace roguelike_spbu
         private Tile[] Generate2()
         {
             Random rand = new Random();
-            
+
             Tile[] temp = new Tile[x * y];
-            
+
             for (int n = 0; n < x; n++)
             {
                 for (int m = 0; m < y; m++)
                 {
                     int r = rand.Next(0, 4);
-                    
+
                     switch (r)
                     {
                         case 0:
@@ -76,7 +78,7 @@ namespace roguelike_spbu
                             temp[n * y + m] = new Tile(new Water(n, m));
                             break;
                     }
-                   
+
                 }
             }
 
@@ -274,6 +276,12 @@ namespace roguelike_spbu
 
         public void Print()
         {
+            Console.SetCursorPosition(0, 0);
+
+            StringBuilder buffer = new StringBuilder();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
+
             for (int i = 0; i < x; i++)
             {
                 for (int j = 0; j < y; j++)
@@ -282,21 +290,23 @@ namespace roguelike_spbu
 
                     if (tile.Inhabitat != null)
                     {
-                        Console.ForegroundColor = tile.Inhabitat.Color;
-                        Console.Write(tile.Inhabitat.Symbol);
+
+                        buffer.Append(tile.Inhabitat.Symbol.ToString().Pastel(ColorConvertor.FromColor(tile.Inhabitat.Color)));
+                        // Console.ForegroundColor = tile.Inhabitat.Color;
+                        // Console.Write(tile.Inhabitat.Symbol);
                     }
                     else
                     {
-                        Console.ForegroundColor = tile.Landscape.Color;
-                        Console.Write(tile.Landscape.Symbol);
+                        buffer.Append(tile.Landscape.Symbol.ToString().Pastel(ColorConvertor.FromColor(tile.Landscape.Color)));
+                        // Console.ForegroundColor = tile.Landscape.Color;
+                        // Console.Write(tile.Landscape.Symbol);
                     }
-                    
                 }
-                Console.WriteLine();
+                buffer.AppendLine();
+                // Console.WriteLine();
             }
 
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.SetCursorPosition(0, 0);
+            Console.WriteLine(buffer);
         }
         private void left()
         {
@@ -338,7 +348,7 @@ namespace roguelike_spbu
 
         private void up()
         {
-            if (player.X > 0) 
+            if (player.X > 0)
             {
                 board[player.X][player.Y].Inhabitat = null;
                 board[player.X - 1][player.Y].Inhabitat = player;
