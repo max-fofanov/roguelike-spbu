@@ -7,7 +7,7 @@ namespace roguelike_spbu
 {
     class Room
     {
-        private int x;
+        /*private int x;
         private int y;
         private Tile[][] board;
         private Tile[] tiles;
@@ -17,7 +17,7 @@ namespace roguelike_spbu
 
 
 
-        public Room(int x, int y/*, Tile[] tiles*/)
+        public Room(int x, int y)
         {
             this.x = x;
             this.y = y;
@@ -29,7 +29,7 @@ namespace roguelike_spbu
                 board[i] = new Tile[this.y];
             }
 
-            this.tiles = Generate3();/*Generate2(width, length);*/
+            this.tiles = Generate3();
 
             kM = new KeyBoardMaster();
             kM.downPressedEvent += down;
@@ -384,5 +384,6 @@ namespace roguelike_spbu
                 Generate();
             }
         }
+        */
     }
 }

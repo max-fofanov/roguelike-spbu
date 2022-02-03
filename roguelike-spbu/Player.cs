@@ -9,17 +9,25 @@ namespace roguelike_spbu
         private Trait trait;
         private char symbol = '@';
         private ConsoleColor color = ConsoleColor.Red;
+
+        public int X {
+            get;
+            set;
+        }
+
+        public int Y {
+            get;
+            set;
+        }
         
         public Player(int x, int y, Trait trait = Trait.Saber)
         {
-            this.x = x;
-            this.y = y;
-            this.trait = trait;
             X = x;
             Y = y;
+            this.trait = trait;
+
             Symbol = symbol;
             Color = color;
-            
         }
 
 

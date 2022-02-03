@@ -13,6 +13,7 @@ namespace roguelike_spbu
             Console.CursorVisible = false;
             bool turnedOn = true;
 
+            /*
             Room board = new Room(10, 18);
 
             while (turnedOn)
@@ -20,6 +21,20 @@ namespace roguelike_spbu
                 board.Print();
                 board.MovePlayer(Console.ReadKey());
             }
+            */
+            for (int a = 0; a < 10; a++) {
+                char[][] board = Generation.Generate(45, 180, (22, 0), (22, 179));
+
+                for (int i = 0; i < 45; i++) {
+                    for (int j = 0; j < 180; j++) {
+                        Console.Write(board[i][j]);
+                    }
+                    Console.WriteLine();
+                }
+
+                Console.WriteLine();
+            }
+
         }
     }
 }
