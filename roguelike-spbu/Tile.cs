@@ -2,29 +2,41 @@
 
 namespace roguelike_spbu
 {
-    class Tile
+    public enum TileStatus {
+        isHidden, 
+        isVisible,
+        wasSeen
+    }
+    public class Tile
     {
-        private Entity landscape;
-        private Creature inhabitat;
-
-        public Entity Landscape
-        {
-            get { return this.landscape; }
-            set { this.landscape = value; }
+        
+        public int X {
+            get;
+            set;
+        }
+        public int Y {
+            get;
+            set;
+        }
+        public TileType Type {
+            get;
+            set;
         }
 
-        public Creature Inhabitat
+        public TileStatus Status 
         {
-            get { return this.inhabitat; }
-            set { this.inhabitat = value; }
+            get;
+            set;
         }
 
-
-        public Tile(Entity landscape, Creature inhabitat = null)
+        public Tile(int x, int y, TileType type,  TileStatus status)
         {
-            this.Landscape = landscape;
-            this.Inhabitat = inhabitat;
-
+            X = x;
+            Y = y;
+            Type = type;
+            Status = status;
         }
+
+        
     }
 }

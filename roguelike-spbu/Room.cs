@@ -215,7 +215,7 @@ namespace roguelike_spbu
             return tile;
         }
 
-        private Entity getRandom(int x, int y)
+        private TileType getRandom(int x, int y)
         {
             Random rand = new Random();
             int r = rand.Next(0, 4);
@@ -233,29 +233,29 @@ namespace roguelike_spbu
 
             }
 
-            return new Entity();
+            return new TileType();
         }
 
-        private Entity getValueOfType(int x, int y, Entity entity)
+        private TileType getValueOfType(int x, int y, TileType TileType)
         {
-            if (entity.GetType() == new Rock(0, 0).GetType())
+            if (TileType.GetType() == new Rock(0, 0).GetType())
             {
                 return new Rock(x, y);
             }
-            else if (entity.GetType() == new Field(0, 0).GetType())
+            else if (TileType.GetType() == new Field(0, 0).GetType())
             {
                 return new Field(x, y);
             }
-            else if (entity.GetType() == new Water(0, 0).GetType())
+            else if (TileType.GetType() == new Water(0, 0).GetType())
             {
                 return new Water(x, y);
             }
-            else if (entity.GetType() == new Tree(0, 0).GetType())
+            else if (TileType.GetType() == new Tree(0, 0).GetType())
             {
                 return new Tree(x, y);
             }
 
-            return new Entity();
+            return new TileType();
 
         }
 
