@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
 
 namespace roguelike_spbu
 {
@@ -11,8 +8,8 @@ namespace roguelike_spbu
         private int x;
         private int y;
         private int health;
-        private char symbol;
-        private ConsoleColor color;
+        private string symbol;
+        private Color color;
 
         public int X
         {
@@ -26,13 +23,13 @@ namespace roguelike_spbu
             set { this.y = value; }
         }
 
-        public ConsoleColor Color
+        public Color Color
         {
             get { return this.color; }
             set { this.color = value; }
         }
 
-        public char Symbol
+        public string Symbol
         {
             get { return this.symbol; }
             set { this.symbol = value; }

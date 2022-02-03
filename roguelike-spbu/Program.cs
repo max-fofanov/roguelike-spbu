@@ -13,13 +13,13 @@ namespace roguelike_spbu
             Console.CursorVisible = false;
             bool turnedOn = true;
 
-            Room board = new Room(10, 18);
+            // Room board = new Room(10, 18);
 
-            while (turnedOn)
-            {
-                board.Print();
-                board.MovePlayer(Console.ReadKey());
-            }
+            // while (turnedOn)
+            // {
+            //     board.Print();
+            //     board.MovePlayer(Console.ReadKey());
+            // }
         }
     }
 }
