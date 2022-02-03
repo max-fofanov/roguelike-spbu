@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 namespace roguelike_spbu
 {
@@ -7,6 +8,7 @@ namespace roguelike_spbu
         private int x;
         private int y;
         private Trait trait;
+<<<<<<< HEAD
         private char symbol = '@';
         private ConsoleColor color = ConsoleColor.Red;
 
@@ -20,6 +22,11 @@ namespace roguelike_spbu
             set;
         }
         
+=======
+        private string symbol = "@";
+        private Color color = Color.Red;
+
+>>>>>>> 780df2adc037017609b9ffa6db56e16d9cb2f2b6
         public Player(int x, int y, Trait trait = Trait.Saber)
         {
             X = x;
@@ -28,9 +35,13 @@ namespace roguelike_spbu
 
             Symbol = symbol;
             Color = color;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 780df2adc037017609b9ffa6db56e16d9cb2f2b6
         }
 
 
-        
+
     }
 }
