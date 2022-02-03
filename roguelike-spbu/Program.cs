@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-﻿using System;
+﻿﻿using System;
 using System.Drawing;
 using System.Threading;
 using Pastel;
@@ -39,30 +38,3 @@ namespace roguelike_spbu
         }
     }
 }
-=======
-﻿using System;
-using System.Drawing;
-using System.Threading;
-using Pastel;
-
-namespace roguelike_spbu
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.Clear();
-            Console.CursorVisible = false;
-            bool turnedOn = true;
-
-            // Room board = new Room(10, 18);
-
-            // while (turnedOn)
-            // {
-            //     board.Print();
-            //     board.MovePlayer(Console.ReadKey());
-            // }
-        }
-    }
-}
->>>>>>> 780df2adc037017609b9ffa6db56e16d9cb2f2b6
