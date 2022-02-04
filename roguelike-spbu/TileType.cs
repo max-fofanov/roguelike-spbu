@@ -3,47 +3,15 @@ using System.Drawing;
 
 namespace roguelike_spbu
 {
-    public class TileType
-    {
-        public string Symbol
-        {
-            get;
-            set;
-        }
-        public Color PrimaryForegroundColor 
-        {
-            get;
-            set;
-        }
-        public Color PrimaryBackgroundColor 
-        {
-            get;
-            set;
-        }
-
-        /*
-        public Color SecondaryForegroundColor 
-        {
-            get;
-            set;
-        }
-        public Color SecondaryBackgroundColor 
-        {
-            get;
-            set;
-        }  
-        */    
-    }
-
-    class Border : TileType
+    class Border : Tile
     {
         public Border()
         {
-           Symbol = "#";
-           PrimaryForegroundColor = Color.White;
+            Symbol = "#";
+            PrimaryForegroundColor = Color.DimGray;
         }
     }
-    public class Tree : TileType
+    public class Tree : Tile
     {
         public Tree()
         {
@@ -53,7 +21,7 @@ namespace roguelike_spbu
 
     }
 
-    public class Rock : TileType
+    public class Rock : Tile
     {
         public Rock()
         {
@@ -63,17 +31,18 @@ namespace roguelike_spbu
 
     }
 
-    public class Field : TileType
+    public class Field : Tile
     {
         public Field()
         {
             Symbol = ".";
-            PrimaryForegroundColor = Color.White;
+            PrimaryForegroundColor = Color.Green;
+            PrimaryBackgroundColor = Color.DarkGreen;
         }
 
     }
 
-    public class Water : TileType
+    public class Water : Tile
     {
         public Water()
         {

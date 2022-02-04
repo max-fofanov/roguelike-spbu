@@ -1,39 +1,47 @@
 using System;
 
-namespace roguelike_spbu 
+namespace roguelike_spbu
 {
-    class Map
+    public class Map
     {
-        public int Height {
+        public int Height
+        {
             get;
             set;
         }
-        public int Width {
+        public int Width
+        {
             get;
             set;
         }
 
-        public Tile[][] Tiles {
+        public Tile[][] Tiles
+        {
             get;
             set;
         }
 
-        public Map(int height, int width) {
+        public Map(int height, int width)
+        {
             Height = height;
             Width = width;
 
             Tiles = new Tile[Height][];
-            TileType genericType = new Field();
 
-            for (int i = 0; i < Height; i++) {
-                
+            for (int i = 0; i < Height; i++)
+            {
+
                 Tiles[i] = new Tile[width];
 
-                for (int j = 0; j < width; j++) {
-                    Tiles[i][j] = new Tile(i, j, genericType, TileStatus.isVisible);
+                for (int j = 0; j < width; j++)
+                {
+                    Tile genericTile = new Border();
+                    genericTile.X = i;
+                    genericTile.Y = j;
+                    Tiles[i][j] = genericTile;
                 }
             }
         }
 
-    }    
+    }
 }

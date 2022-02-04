@@ -3,22 +3,20 @@ using System.Drawing;
 
 namespace roguelike_spbu
 {
-    public enum TileStatus {
-        isHidden, 
-        isVisible,
-        wasSeen
-    }
-    public class Tile
+    public class Entity
     {
-        
-        public int X {
+        public int X
+        {
             get;
             set;
         }
-        public int Y {
+
+        public int Y
+        {
             get;
             set;
         }
+
         private string _symbol = "";
         public string Symbol
         {
@@ -36,7 +34,7 @@ namespace roguelike_spbu
             get;
             set;
         }
-        public Color PrimaryBackgroundColor
+        public Color? PrimaryBackgroundColor
         {
             get;
             set;
@@ -55,22 +53,10 @@ namespace roguelike_spbu
         }  
         */
 
-        public TileStatus Status 
+        public TileStatus Status
         {
             get;
             set;
         }
-
-        public Tile(int x = 0, int y = 0, string symbol = " ", Color? PFC = null, Color? PBC = null, TileStatus status = TileStatus.isVisible)
-        {
-            X = x;
-            Y = y;
-            Symbol = symbol;
-            PrimaryForegroundColor = PFC ?? Color.White;
-            PrimaryBackgroundColor = PBC ?? Color.Black;
-            Status = status;
-        }
-
-        
     }
 }
