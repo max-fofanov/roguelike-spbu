@@ -44,14 +44,16 @@ namespace roguelike_spbu
                     else
                     {
                         Tile tmp = map.Tiles[x + i][y + j];
-                        buffer[i, j] = tmp.Type.Symbol.
-                            Pastel(tmp.Type.PrimaryForegroundColor).
-                            PastelBg(tmp.Type.PrimaryBackgroundColor);
+                        buffer[i, j] = tmp.Symbol.
+                            Pastel(tmp.PrimaryForegroundColor).
+                            PastelBg(tmp.PrimaryBackgroundColor);
                     }
                 }
             }
 
-            buffer[player.X - x, player.Y - y] = player.Symbol.Pastel(player.Color);
+            buffer[player.X - x, player.Y - y] = player.Symbol
+                .Pastel(player.PrimaryForegroundColor)
+                .PastelBg(player.PrimaryBackgroundColor ?? map.Tiles[x][y].PrimaryBackgroundColor);
 
             StringBuilder screenBuffer = new StringBuilder();
 

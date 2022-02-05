@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace roguelike_spbu
 {
-    class Player : Creature
+    class Player : Entity
     {
         private int x;
         private int y;
@@ -16,9 +16,8 @@ namespace roguelike_spbu
             X = x;
             Y = y;
             this.trait = trait;
-
             Symbol = symbol;
-            Color = color;
+            PrimaryForegroundColor = color;
         }
 
 

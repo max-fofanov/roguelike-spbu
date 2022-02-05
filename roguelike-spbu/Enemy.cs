@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace roguelike_spbu
 {
-    class Enemy : Creature
+    class Enemy : Entity
     {
 
         public Enemy(int x, int y)
@@ -11,7 +11,7 @@ namespace roguelike_spbu
             this.X = x;
             this.Y = y;
             this.Symbol = "%";
-            this.Color = Color.Yellow;
+            this.PrimaryForegroundColor = Color.Yellow;
         }
 
     }
