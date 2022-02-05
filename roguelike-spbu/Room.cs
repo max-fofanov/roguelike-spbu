@@ -7,6 +7,32 @@ namespace roguelike_spbu
 {
     class Room
     {
+        
+        public int X0 {
+            get;
+            set;
+        }
+        public int X1 {
+            get;
+            set;
+        }
+        public int Y0 {
+            get;
+            set;
+        }
+        public int Y1 {
+            get;
+            set;
+        }
+        
+        public Room(int x0, int x1, int y0, int y1) {
+            X0 = x0;
+            Y0 = y0;
+            X1 = x1;
+            Y1 = y1;
+        }
+        
+        
         /*private int x;
         private int y;
         private Tile[][] board;

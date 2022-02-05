@@ -4,7 +4,13 @@ namespace roguelike_spbu {
     
     public class Generation {
 
-        public static char[][] Generate(int x, int y, (int, int) startingPosition, (int, int) endingPosition) {
+
+
+        public Generation() {
+
+        }
+
+        public static char[][] GenerateCave(int x, int y, (int, int) startingPosition, (int, int) endingPosition) {
 
             char[][] dungeon = new char[x][];
             Player player = new Player(startingPosition.Item1, startingPosition.Item2);
@@ -55,7 +61,7 @@ namespace roguelike_spbu {
 
             if (freeSpace * 2  > x * y) {
 
-                return Generate(x, y, startingPosition, endingPosition);
+                return GenerateCave(x, y, startingPosition, endingPosition);
             }
             else {
 
@@ -63,5 +69,139 @@ namespace roguelike_spbu {
             }
             
         }
+
+        public static char[][] GenerateDungeon(int x, int y) {
+
+            char[][] dungeon = new char[x][];
+            Player player = new Player(0, 0);
+            Random random = new Random();
+
+            List<Room> rooms = new List<Room>();
+            
+
+            for (int i = 0; i < x; i++) {
+                
+                dungeon[i] = new char[y];
+
+                for (int j = 0; j < y; j++) {
+                    dungeon[i][j] = '#';
+                }
+            }
+
+            for (int i = 0; i < 15; i++) {
+
+                bool flag = false;
+                int x0 = random.Next(x - 15);
+                int y0 = random.Next(y - 30);
+                int x1, y1;
+
+                do {
+                    x1 = x0 + random.Next(7, 15);
+                    y1 = y0 + random.Next(20, 30);
+                } while (x1 > x - 1 || y1 > y - 1);
+
+                foreach (Room room in rooms) {
+
+                    if (x0 >= room.X0 && x1 <= room.X0 && y0 >= room.Y0 && y1 <= room.Y1) 
+                    {
+                        flag = true;
+                        break;
+                    }
+                    else if (x0 <= room.X0 && x1 >= room.X0 && y0 <= room.Y0 && y1 >= room.Y1) 
+                    {
+                        flag = true;
+                        break;
+                    }
+                    else if (x0 >= room.X0 && x0 <= room.X1 && room.Y0 >= y0 && room.Y0 <= y1)
+                    {
+                        flag = true;
+                        break;
+                    }
+                    else if (x0 >= room.X0 && x0 <= room.X1 && room.Y1 >= y0 && room.Y1 <= y1)
+                    {
+                        flag = true;
+                        break;
+                    }
+                    else if (x1 >= room.X0 && x1 <= room.X1 && room.Y0 >= y0 && room.Y0 <= y1)
+                    {
+                        flag = true;
+                        break;
+                    }
+                    else if (x1 >= room.X0 && x1 <= room.X1 && room.Y1 >= y0 && room.Y1 <= y1)
+                    {
+                        flag = true;
+                        break;
+                    }
+                    else if (room.X0 >= x0 && room.X0 <= x1 && y0 >= room.Y0 && y0 <= room.Y1)
+                    {
+                        flag = true;
+                        break;
+                    }
+                    else if (room.X0 >= x0 && room.X0 <= x1 && y1 >= room.Y0 && y1 <= room.Y1)
+                    {
+                        flag = true;
+                        break;
+                    }
+                    else if (room.X1 >= x0 && room.X1 <= x1 && y0 >= room.Y0 && y0 <= room.Y1)
+                    {
+                        flag = true;
+                        break;
+                    }
+                    else if (room.X1 >= x0 && room.X1 <= x1 && y1 >= room.Y0 && y1 <= room.Y1)
+                    {
+                        flag = true;
+                        break;
+                    }
+
+                    
+                }
+
+                if (flag) { i -= 1; continue; }
+                else { rooms.Add(new Room(x0, x1, y0, y1)); }
+                for (int a = x0; a < x1; a++) {
+                    for (int b = y0; b < y1; b++) {
+                        dungeon[a][b] = '.';
+                    }
+                }
+            }
+
+            return dungeon;
+        }
+
+
     }
 }
+/*
+                    if (x0 >= room.X0 && y0 >= room.Y0 && x0 <= room.X1 && y0 <= room.Y1) {
+                        flag = true;
+                        break;
+                    }
+                    else if (x1 >= room.X0 && y1 >= room.Y0 && x1 <= room.X1 && y1 <= room.Y1) {
+                        flag = true;
+                        break;
+                    }
+                    else if (x0 >= room.X0 && y1 >= room.Y0 && x0 <= room.X1 && y1 <= room.Y1) {
+                        flag = true;
+                        break;
+                    }
+                    else if (x1 >= room.X0 && y0 >= room.Y0 && x1 <= room.X1 && y0 <= room.Y1) {
+                        flag = true;
+                        break;
+                    }
+                    else if (x0 <= room.X0 && y0 <= room.Y0 && x0 >= room.X1 && y0 >= room.Y1) {
+                        flag = true;
+                        break;
+                    }
+                    else if (x1 <= room.X0 && y1 <= room.Y0 && x1 >= room.X1 && y1 >= room.Y1) {
+                        flag = true;
+                        break;
+                    }
+                    else if (x0 <= room.X0 && y1 <= room.Y0 && x0 >= room.X1 && y1 >= room.Y1) {
+                        flag = true;
+                        break;
+                    }
+                    else if (x1 <= room.X0 && y0 <= room.Y0 && x1 >= room.X1 && y0 >= room.Y1) {
+                        flag = true;
+                        break;
+                    }
+*/
