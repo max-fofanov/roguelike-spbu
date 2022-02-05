@@ -9,7 +9,7 @@ namespace roguelike_spbu
     {
         static void Main(string[] args)
         {
-            Console.Clear();
+            /*Console.Clear();
             Console.CursorVisible = false;
 
             Map board = Generation.GenerateCave(45, 180, (22, 0), (22, 179));
@@ -25,6 +25,16 @@ namespace roguelike_spbu
                 Console.SetCursorPosition(0, 0);
 
             }
+            */
+            float [] prob = {0.5F, 1, 1};
+            int [] res = new int[prob.Length];
+            for (int i = 0; i < 10000; i++)
+            {
+                res[Walker.Alias(prob)] ++;
+            }
+
+            foreach (int n in res)
+                Console.WriteLine(n);
 
         }
     }
