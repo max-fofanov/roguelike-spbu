@@ -3,11 +3,6 @@ using System.Drawing;
 
 namespace roguelike_spbu
 {
-    public enum TileStatus {
-        isHidden, 
-        isVisible,
-        wasSeen
-    }
     public class Tile
     {
         
@@ -55,13 +50,13 @@ namespace roguelike_spbu
         }  
         */
 
-        public TileStatus Status 
+        public VisualStatus Status
         {
             get;
             set;
         }
 
-        public Tile(int x = 0, int y = 0, string symbol = " ", Color? PFC = null, Color? PBC = null, TileStatus status = TileStatus.isVisible)
+        public Tile(int x = 0, int y = 0, string symbol = " ", Color? PFC = null, Color? PBC = null, VisualStatus status = VisualStatus.isVisible)
         {
             X = x;
             Y = y;
