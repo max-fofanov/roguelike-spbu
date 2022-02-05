@@ -67,23 +67,14 @@ namespace roguelike_spbu {
 
         }
 
-        public static char[][] GenerateDungeon(int x, int y) {
+        public static Map GenerateDungeon(int x, int y) {
 
-            char[][] dungeon = new char[x][];
+            Map dungeon = new Map(x, y);
             Player player = new Player(0, 0);
             Random random = new Random();
 
             List<Room> rooms = new List<Room>();
             
-
-            for (int i = 0; i < x; i++) {
-                
-                dungeon[i] = new char[y];
-
-                for (int j = 0; j < y; j++) {
-                    dungeon[i][j] = '#';
-                }
-            }
 
             for (int i = 0; i < 15; i++) {
 
@@ -158,7 +149,10 @@ namespace roguelike_spbu {
 
                 for (int a = x0; a < x1; a++) {
                     for (int b = y0; b < y1; b++) {
-                        dungeon[a][b] = '.';
+                        Tile tmp = new Border();
+                        tmp.X = a;
+                        tmp.Y = b;
+                        dungeon.Tiles[a][b] = tmp;
                     }
                 }
             }
