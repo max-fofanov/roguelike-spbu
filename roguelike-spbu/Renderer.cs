@@ -7,27 +7,7 @@ namespace roguelike_spbu
 {
     class Renderer
     {
-        public Map map;
-
-        public Player player;
-
-        public Renderer(Map map, Player player)
-        {
-            this.map = map;
-            this.player = player;
-        }
-
-        public void SetMap(Map map)
-        {
-            this.map = map;
-        }
-
-        public void SetPlayer(Player player)
-        {
-            this.player = player;
-        }
-
-        public StringBuilder Render(int x, int y, int height, int width) // camera is fixed on coordinates
+        public static StringBuilder Render(Map map, Player player, int x, int y, int height, int width) // camera is fixed on coordinates
         {
             string[,] buffer = new string[height, width];
 

@@ -11,21 +11,14 @@ namespace roguelike_spbu
         {
             Console.Clear();
             Console.CursorVisible = false;
-
-            Map board = Generation.GenerateCave(45, 180, (22, 0), (22, 179));
             Player player = new Player(22, 0);
-            Renderer renderer = new Renderer(board, player);
-            // Console.WriteLine(renderer.Render(0, 0, 45, 180));
 
             for (int a = 0; a < 1000; a++)
             {
                 Map board1 = Generation.GenerateCave(45, 180, (22, 0), (22, 179));
-                renderer.SetMap(board1);
-                Console.WriteLine(renderer.Render(0, 0, 45, 180));
+                Console.WriteLine(Renderer.Render(board1, player, 0, 0, 45, 180));
                 Console.SetCursorPosition(0, 0);
-
             }
-
         }
     }
 }
