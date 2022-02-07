@@ -1,7 +1,4 @@
 ﻿﻿using System;
-using System.Drawing;
-using System.Threading;
-using Pastel;
 
 namespace roguelike_spbu
 {
@@ -11,13 +8,31 @@ namespace roguelike_spbu
         {
             Console.Clear();
             Console.CursorVisible = false;
-            Player player = new Player(22, 0);
+            Random rdn = new Random();
+            var chars = "$%#@!*abcdefghijklmnopqrstuvwxyz1234567890?;:ABCDEFGHIJKLMNOPQRSTUVWXYZ^&";
 
-            for (int a = 0; a < 1000; a++)
+            Player player = new Player(22, 0);
+            Entity[] entities = new Entity[5];
+            Renderer renderer = new Renderer(40, 150, 10, 10);
+
+
+            for (int i = 0; i < entities.Length; i++)
             {
-                Map board1 = Generation.GenerateCave(45, 180, (22, 0), (22, 179));
-                Console.WriteLine(Renderer.Render(board1, player, 0, 0, 45, 180));
-                Console.SetCursorPosition(0, 0);
+                Entity tmp = new Entity();
+                tmp.X = rdn.Next(45);
+                tmp.Y = rdn.Next(180);
+                tmp.Symbol = chars[rdn.Next(chars.Length)].ToString();
+                tmp.PrimaryForegroundColor = System.Drawing.Color.White;
+                entities[i] = tmp;
+            }
+
+            Map board1 = Generation.GenerateCave(45, 180, (22, 0), (22, 179));
+            Console.WriteLine(Renderer.Render(board1, entities, player, 0, 0));
+
+            for (int i = 0; i < entities.Length; i++)
+            {
+                Entity tmp = entities[i];
+                Console.WriteLine("{0} {1} {2}", tmp.Symbol, tmp.X, tmp.Y);
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace roguelike_spbu
 {
-    enum Trait
+    public enum Trait
     {
         Saber,
         Archer,

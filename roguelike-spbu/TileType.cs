@@ -9,6 +9,7 @@ namespace roguelike_spbu
         {
             Symbol = "#";
             PrimaryForegroundColor = Color.DimGray;
+            PrimaryBackgroundColor = Color.Gray;
         }
     }
     public class Tree : Tile
