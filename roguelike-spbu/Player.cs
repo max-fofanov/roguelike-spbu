@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace roguelike_spbu
 {
-    class Player : Entity
+    public class Player : Entity
     {
         private int x;
         private int y;

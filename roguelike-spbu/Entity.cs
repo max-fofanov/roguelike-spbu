@@ -98,6 +98,11 @@ namespace roguelike_spbu
             get;
             set;
         }
+        public void SetCoordinates(int x, int y)
+        {
+            X = x;
+            Y = y;
+        }
         public void moveUp() { }
         public void moveDown() { }
         public void moveRight() { }
