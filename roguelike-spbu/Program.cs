@@ -1,5 +1,4 @@
-﻿﻿using System;
-
+﻿﻿using System.Text;
 namespace roguelike_spbu
 {
     class Program
@@ -9,9 +8,9 @@ namespace roguelike_spbu
             Console.Clear();
             Console.CursorVisible = false;
             Random rdn = new Random();
-            var chars = "$%#@!*abcdefghijklmnopqrstuvwxyz1234567890?;:ABCDEFGHIJKLMNOPQRSTUVWXYZ^&";
+            var chars = "$%!*abcdefghijklmnopqrstuvwxyz1234567890?;:ABCDEFGHIJKLMNOPQRSTUVWXYZ^&";
 
-            Player player = new Player(22, 0);
+            Player player = new Player(0, 0);
             Entity[] entities = new Entity[5];
             Renderer renderer = new Renderer(40, 150, 10, 10);
 
@@ -26,13 +25,24 @@ namespace roguelike_spbu
                 entities[i] = tmp;
             }
 
-            Map board1 = Generation.GenerateCave(45, 180, (22, 0), (22, 179));
-            Console.WriteLine(Renderer.Render(board1, entities, player, 0, 0));
-
-            for (int i = 0; i < entities.Length; i++)
+            Map board = Generation.GenerateCave(45, 180, (22, 0), (22, 179));
+            for (int i = 0; i < 180; i++)
             {
-                Entity tmp = entities[i];
-                Console.WriteLine("{0} {1} {2}", tmp.Symbol, tmp.X, tmp.Y);
+                player.X = i % 45;
+                player.Y = i % 180;
+                Console.WriteLine("@ {0} {1}", player.X, player.Y);
+                StringBuilder bf = Renderer.Render(board, entities, player);
+                Console.SetCursorPosition(0, 11);
+                Console.WriteLine(bf);
+
+                /*for (int j = 0; j < entities.Length; j++)
+                {
+                    Entity tmp = entities[j];
+                    Console.WriteLine("{0} {1} {2}", tmp.Symbol, tmp.X, tmp.Y);
+                }*/
+                Console.ReadLine();
+                Console.SetCursorPosition(0, 0);
+                Console.Clear();
             }
         }
     }

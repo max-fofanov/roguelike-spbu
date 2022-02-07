@@ -7,14 +7,15 @@ namespace roguelike_spbu
 {
     public class Renderer
     {
-        static int PrevX;
-        static int PrevY;
+        static int? PrevX;
+        static int? PrevY;
         static int Height;
         static int Width;
         static int InnerX;
         static int InnerY;
         static int InnerHeight;
         static int InnerWidth;
+        static bool StatinInnerBox = false;
         public Renderer(int height, int width)
         {
             Height = height;
@@ -26,6 +27,7 @@ namespace roguelike_spbu
             Width = width;
             InnerHeight = ih;
             InnerWidth = iw;
+            StatinInnerBox = false;
             AutomaticallySetInnerBoxPosition();
         }
         public Renderer(int height, int width, int ih, int iw, int ix, int iy)
@@ -36,6 +38,7 @@ namespace roguelike_spbu
             InnerWidth = iw;
             InnerX = ix;
             InnerY = iy;
+            StatinInnerBox = true;
         }
         static void SetLastRenderCoordinates(int x, int y){
             PrevX = x;
@@ -43,8 +46,8 @@ namespace roguelike_spbu
         }
         static void AutomaticallySetInnerBoxPosition()
         {
-            InnerX = PrevX + ((Height - InnerHeight) / 2);
-            InnerY = PrevY + ((Width - InnerWidth) / 2);
+            InnerX = ((Height - InnerHeight) / 2);
+            InnerY = ((Width - InnerWidth) / 2);
         }
         static bool IsInsideBorders(int posx, int posy, int x, int y, int height, int width)
         {
@@ -107,9 +110,74 @@ namespace roguelike_spbu
             return screenBuffer;
         }
 
-        public StringBuilder Render() // camera is fixed on player
+        public static StringBuilder Render(Map map, Entity[] entities, Player player) // camera is fixed on player
         {
-            return new StringBuilder();
+            Console.WriteLine("MAP {0} {1}", map.Height, map.Width);
+            int newX = PrevX ?? 0;
+            int newY = PrevY ?? 0;
+            Console.WriteLine("SCREEN1 {0} {1} {2} {3}", newX, newY, newX + Height, newY + Width);
+
+            if (PrevX == null || PrevY == null) // first frame
+            {
+                newX = player.X - Height / 2;
+                newY = player.Y - Width / 2;
+                Console.WriteLine("SCREEN2 {0} {1} {2} {3}", newX, newY, newX + Height, newY + Width);
+            }
+
+            int InnerAbsoluteX = InnerX + newX;
+            int InnerAbsoluteY = InnerY + newY;
+            Console.WriteLine("INNERBOX {0} {1} {2} {3} {4} {5}", InnerX, InnerY, InnerAbsoluteX, InnerAbsoluteY, InnerHeight, InnerWidth);
+
+            if (!IsInsideBorders(player.X, player.Y, InnerAbsoluteX, InnerAbsoluteY, InnerHeight, InnerWidth))
+            {
+                if (player.X < InnerAbsoluteX)
+                {
+                    newX -= InnerAbsoluteX - player.X + 1;
+                    Console.WriteLine("player above box");
+                }
+                if (player.Y < InnerAbsoluteY)
+                {
+                    newY -= InnerAbsoluteY - player.Y + 1;
+                    Console.WriteLine("player to the left of the box");
+                }
+                if (player.X >= (InnerAbsoluteX + InnerHeight))
+                {
+                    newX += player.X - (InnerAbsoluteX + InnerHeight) + 1;
+                    Console.WriteLine("player below box");
+                }
+                if (player.Y >= (InnerAbsoluteY + InnerWidth))
+                {
+                    newY += player.Y - (InnerAbsoluteY + InnerWidth) + 1;
+                    Console.WriteLine("player to the right of the box");
+                }
+                Console.WriteLine("SCREEN3 {0} {1} {2} {3}", newX, newY, newX + Height, newY + Width);
+            }
+
+            // correcting screen if it is off map
+            if ((newX + Height) >= map.Height)
+            {
+                newX = map.Height - Height; // bottom is off map
+                Console.WriteLine("bottom is off map");
+            }
+            if ((newY + Width) >= map.Width)
+            {
+                newY = map.Width - Width; // right is off map
+                Console.WriteLine("right is off map");
+            }
+            if (newX < 0)
+            {
+                newX = 0; // top is off map
+                Console.WriteLine("top is off map");
+            }
+            if (newY < 0)
+            {
+                newY = 0; // left is off map
+                Console.WriteLine("left is off map");
+            }
+
+            Console.WriteLine("SCREEN4 {0} {1} {2} {3}", newX, newY, newX + Height, newY + Width);
+            Console.WriteLine("PLAYER {0} {1}", player.X - newX, player.Y - newY);
+            return Render(map, entities, player, newX, newY);
         }
     }
 }
