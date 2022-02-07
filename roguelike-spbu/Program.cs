@@ -6,7 +6,7 @@ namespace roguelike_spbu
     {
         static void Main(string[] args)
         {
-            /*Console.Clear();
+            Console.Clear();
             Console.CursorVisible = false;
             Random rdn = new Random();
             var chars = "$%#@!*abcdefghijklmnopqrstuvwxyz1234567890?;:ABCDEFGHIJKLMNOPQRSTUVWXYZ^&";
@@ -34,20 +34,6 @@ namespace roguelike_spbu
                 Entity tmp = entities[i];
                 Console.WriteLine("{0} {1} {2}", tmp.Symbol, tmp.X, tmp.Y);
             }
-<<<<<<< HEAD
-            */
-            float [] prob = {0.5F, 1, 1};
-            int [] res = new int[prob.Length];
-            for (int i = 0; i < 10000; i++)
-            {
-                res[Walker.Alias(prob)] ++;
-            }
-
-            foreach (int n in res)
-                Console.WriteLine(n);
-
-=======
->>>>>>> 85519d0a295996c56ed35229807532fb80af56cf
         }
     }
 }
