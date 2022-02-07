@@ -28,6 +28,16 @@ namespace roguelike_spbu
             Map board = Generation.GenerateCave(45, 180, (22, 0), (22, 179));
             for (int i = 0; i < 180; i++)
             {
+                board.Tiles[0][i].PrimaryBackgroundColor = System.Drawing.Color.DarkRed;
+                board.Tiles[44][i].PrimaryBackgroundColor = System.Drawing.Color.DarkRed;
+            }
+            for (int i = 0; i < 45; i++)
+            {
+                board.Tiles[i][0].PrimaryBackgroundColor = System.Drawing.Color.DarkRed;
+                board.Tiles[i][179].PrimaryBackgroundColor = System.Drawing.Color.DarkRed;
+            }
+            for (int i = 0; i < 180; i++)
+            {
                 player.X = i % 45;
                 player.Y = i % 180;
                 Console.WriteLine("@ {0} {1}", player.X, player.Y);
