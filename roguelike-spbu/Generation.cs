@@ -67,7 +67,7 @@ namespace roguelike_spbu {
 
         }
 
-        public static Map GenerateDungeon(int x, int y) {
+        public static Map GenerateDungeon(int x, int y, int minsize = 10, int maxsize = 20) {
 
             Map dungeon = new Map(x, y);
             Player player = new Player(0, 0);
@@ -75,18 +75,17 @@ namespace roguelike_spbu {
 
             List<Room> rooms = new List<Room>();
 
-            for (int i = 0; i < 6; i++) {
-                for (int j = 0; j < 5; j++) {
-                    int res = Walker.Alias(new float[] { 20, 5 } );
+            for (int i = 0; i < x / 20; i++) {
+                for (int j = 0; j < y / 30; j++) {
                     
-                    int x0 = random.Next(25 * i + 1, 25 * (i + 1) - 10);
-                    int y0 = random.Next(30 * j + 1, 30 * (j + 1) - 10);
+                    int x0 = random.Next(20 * i + 1, 20 * (i + 1) - minsize);
+                    int y0 = random.Next(30 * j + 1, 30 * (j + 1) - minsize);
 
                     int x1 = 0;
                     int y1 = 0;
 
-                    while (x1 - x0 < 10 || y1 - y0 < 10 || x1 - x0 > 20 || y1 - y0 > 20) {
-                        x1 = random.Next(x0 + 1, 25 * (i + 1));
+                    while (x1 - x0 < minsize || y1 - y0 < minsize || x1 - x0 > maxsize || y1 - y0 > maxsize) {
+                        x1 = random.Next(x0 + 1, 20 * (i + 1));
                         y1 = random.Next(y0 + 1, 30 * (j + 1));
                     }
                     
@@ -106,9 +105,9 @@ namespace roguelike_spbu {
                 }
             }
 
-            for (int i = 0; i < rooms.Count; i++) 
+            for (int i = 0; i < rooms.Count - 1; i++) 
             {
-                if ((i + 1) % 5 != 0 && Math.Max(rooms[i].X0, rooms[i + 1].X0) < Math.Min(rooms[i].X1, rooms[i + 1].X1)) {
+                if ((i + 1) % (y / 30) != 0 && Math.Max(rooms[i].X0, rooms[i + 1].X0) < Math.Min(rooms[i].X1, rooms[i + 1].X1)) {
                     
                     int coordinate = random.Next(Math.Max(rooms[i].X0, rooms[i + 1].X0), Math.Min(rooms[i].X1, rooms[i + 1].X1));
 
@@ -121,10 +120,10 @@ namespace roguelike_spbu {
                         
                     }
                 }
-                if (i < 24 && Math.Max(rooms[i].Y0, rooms[i + 5].Y0) < Math.Min(rooms[i].Y1, rooms[i + 5].Y1)) {
-                    int coordinate = new Random().Next(Math.Max(rooms[i].Y0, rooms[i + 5].Y0), Math.Min(rooms[i].Y1, rooms[i + 5].Y1));
+                if (i < (x / 20) * (y / 30) -(y / 30) && Math.Max(rooms[i].Y0, rooms[i + (y / 30)].Y0) < Math.Min(rooms[i].Y1, rooms[i + (y / 30)].Y1)) {
+                    int coordinate = new Random().Next(Math.Max(rooms[i].Y0, rooms[i + (y / 30)].Y0), Math.Min(rooms[i].Y1, rooms[i + (y / 30)].Y1));
 
-                    for (int a = rooms[i].X1; a < rooms[i + 5].X0 + 1; a++) {
+                    for (int a = rooms[i].X1; a < rooms[i + (y / 30)].X0 + 1; a++) {
 
                         Tile tmp = new Field();
                         tmp.X = a;

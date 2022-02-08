@@ -18,6 +18,13 @@ namespace roguelike_spbu
     
     public struct ActionInfo {
         
+        public ActionInfo(Action action, Entity entity, int power) {
+            Action = action;
+            Entity = entity;
+            Power = power;
+        }
+
+        
         public Action Action {
             get;
             set;
@@ -144,6 +151,6 @@ namespace roguelike_spbu
         public void GiveEffect(EntityEffect effect, int time) { }
         public void UseItem(int number) { }
         public void GetDamage(int damage) { }
-        public ActionInfo GetNextMove(Map map, Entity[] entities, Player player) { return new ActionInfo(); }
+        public virtual ActionInfo GetNextMove(Map map, Entity[] entities, Player player) { return new ActionInfo(); }
     }
 }

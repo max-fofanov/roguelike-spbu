@@ -25,7 +25,7 @@ namespace roguelike_spbu
                 entities[i] = tmp;
             }
 
-            Map board = Generation.GenerateCave(45, 180, (22, 0), (22, 179));
+            Map board = Generation.GenerateDungeon(45, 180);
             for (int i = 0; i < 180; i++)
             {
                 board.Tiles[0][i].PrimaryBackgroundColor = System.Drawing.Color.DarkRed;

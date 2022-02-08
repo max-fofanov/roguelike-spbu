@@ -21,7 +21,27 @@ namespace roguelike_spbu
             PrimaryForegroundColor = color;
         }
 
-        
+        public override ActionInfo GetNextMove(Map map, Entity[] entities, Player player) {
+
+            ConsoleKeyInfo keyInfo = Console.ReadKey();
+
+            switch (keyInfo.Key) {
+                case ConsoleKey.LeftArrow:
+                    return new ActionInfo(Action.Left, player, 1);
+
+                case ConsoleKey.RightArrow:
+                    return new ActionInfo(Action.Right, player, 1);
+
+                case ConsoleKey.UpArrow:
+                    return new ActionInfo(Action.Up, player, 1);
+
+                case ConsoleKey.DownArrow:
+                    return new ActionInfo(Action.Down, player, 1);        
+
+            }
+
+            throw new KeyNotFoundException("not yet implemented");
+        }
 
     }
 }
