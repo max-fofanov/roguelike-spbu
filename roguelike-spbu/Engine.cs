@@ -7,6 +7,7 @@ namespace roguelike_spbu
         Entity[] entities;
         public void Turn()
         {
+            
 
         }
 

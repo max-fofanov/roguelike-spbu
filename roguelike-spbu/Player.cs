@@ -3,6 +3,7 @@ using System.Drawing;
 
 namespace roguelike_spbu
 {
+    
     public class Player : Entity
     {
         private int x;
@@ -20,7 +21,7 @@ namespace roguelike_spbu
             PrimaryForegroundColor = color;
         }
 
-
+        
 
     }
 }
