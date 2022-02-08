@@ -111,6 +111,6 @@ namespace roguelike_spbu
         public void ChangeColor(Color TempColor) { }
         public void GiveEffect(EntityEffect effect, int time) { }
         public void UseItem(int number) { }
-        public void Attack(int id, int numer) { }
+        public void GetDamage(int damage) { }
     }
 }
