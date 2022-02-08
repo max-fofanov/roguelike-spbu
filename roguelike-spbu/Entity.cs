@@ -3,6 +3,38 @@ using System.Drawing;
 
 namespace roguelike_spbu
 {
+    
+    public enum Action {
+        Up,
+        Down,
+        Left,
+        Right,
+        Pass,
+        ChangeColor,
+        GiveEffect,
+        UseItem,
+        Attack
+    }
+    
+    public struct ActionInfo {
+        
+        public Action Action {
+            get;
+            set;
+        }
+
+        public Entity Entity {
+            get;
+            set;
+        }
+
+        public int Power {
+            get;
+            set;
+        }
+
+    }
+    
     public enum EntityStatus
     {
 
