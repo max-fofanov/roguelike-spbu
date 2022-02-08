@@ -38,8 +38,8 @@ namespace roguelike_spbu
         public Field()
         {
             Symbol = ".";
-            PrimaryForegroundColor = Color.Green;
-            PrimaryBackgroundColor = Color.DarkGreen;
+            PrimaryForegroundColor = Color.DarkGreen;
+            PrimaryBackgroundColor = Color.Green;
         }
 
     }
@@ -49,7 +49,8 @@ namespace roguelike_spbu
         public Water()
         {
             Symbol = "W";
-            PrimaryForegroundColor = Color.Blue;
+            PrimaryForegroundColor = Color.Gray;
+            PrimaryBackgroundColor = Color.Blue;
         }
 
     }

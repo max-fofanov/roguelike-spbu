@@ -12,8 +12,7 @@ namespace roguelike_spbu
 
             Player player = new Player(0, 0);
             Entity[] entities = new Entity[5];
-            Renderer renderer = new Renderer(40, 150, 10, 10);
-
+            Renderer renderer = new Renderer(40, 150, 20, 20);
 
             for (int i = 0; i < entities.Length; i++)
             {
@@ -25,8 +24,20 @@ namespace roguelike_spbu
                 entities[i] = tmp;
             }
 
-            Map board = Generation.GenerateDungeon(45, 180);
-            for (int i = 0; i < 180; i++)
+            //Map board = Generation.GenerateDungeon(45, 180);
+            Map board = Generation.GenerateCave(45, 180, (0, 0), (22, 179));
+            //Map board = new Map(45, 180);
+            Engine engine = new Engine(board, entities, player);
+            Console.SetCursorPosition(0, 0);
+            Console.WriteLine(Renderer.Render(board, entities, player));
+
+            while (true)
+            {
+                Console.SetCursorPosition(0, 0);
+                engine.Turn();
+            }
+
+            /*for (int i = 0; i < 180; i++)
             {
                 board.Tiles[0][i].PrimaryBackgroundColor = System.Drawing.Color.DarkRed;
                 board.Tiles[44][i].PrimaryBackgroundColor = System.Drawing.Color.DarkRed;
@@ -35,8 +46,9 @@ namespace roguelike_spbu
             {
                 board.Tiles[i][0].PrimaryBackgroundColor = System.Drawing.Color.DarkRed;
                 board.Tiles[i][179].PrimaryBackgroundColor = System.Drawing.Color.DarkRed;
-            }
-            for (int i = 0; i < 180; i++)
+            }*/
+
+            /*for (int i = 0; i < 180; i++)
             {
                 player.X = i % 45;
                 player.Y = i % 180;
@@ -45,15 +57,16 @@ namespace roguelike_spbu
                 Console.SetCursorPosition(0, 11);
                 Console.WriteLine(bf);
 
-                /*for (int j = 0; j < entities.Length; j++)
-                {
-                    Entity tmp = entities[j];
-                    Console.WriteLine("{0} {1} {2}", tmp.Symbol, tmp.X, tmp.Y);
-                }*/
+                // for (int j = 0; j < entities.Length; j++)
+                // {
+                //     Entity tmp = entities[j];
+                //     Console.WriteLine("{0} {1} {2}", tmp.Symbol, tmp.X, tmp.Y);
+                // }
                 Console.ReadLine();
                 Console.SetCursorPosition(0, 0);
                 Console.Clear();
-            }
+            }*/
+
         }
     }
 }

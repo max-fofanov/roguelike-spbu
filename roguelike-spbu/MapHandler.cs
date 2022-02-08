@@ -35,7 +35,15 @@ namespace roguelike_spbu
 
                 for (int j = 0; j < width; j++)
                 {
+                    //Random todetele = new Random();
+
                     Tile genericTile = new Border();
+
+                    /*if (todetele.Next(2) == 0)
+                        genericTile = new Field();
+                    else
+                        genericTile = new Water();*/
+                    
                     genericTile.X = i;
                     genericTile.Y = j;
                     Tiles[i][j] = genericTile;

@@ -5,7 +5,6 @@ namespace roguelike_spbu
         Map map;
         Player player;
         Entity[] entities;
-        Renderer Renderer = new Renderer(40, 150, 20, 20);
         public Engine(Map map, Entity[] entities, Player player)
         {
             this.map = map;
@@ -14,7 +13,7 @@ namespace roguelike_spbu
         }
         bool IsNewPlaceOK(int x, int y)
         {
-            if (x < 0 || y < 0 || x > map.Height || y > map.Width)
+            if (x < 0 || y < 0 || x >= map.Height || y >= map.Width)
                 return false;
 
             if (map.Tiles[x][y].Impassable)
@@ -28,7 +27,6 @@ namespace roguelike_spbu
         public void Turn()
         {
             ElementaryTurn(player);
-            Console.SetCursorPosition(0, 0);
             Console.WriteLine(Renderer.Render(map, entities, player));
         }
         void ElementaryTurn(Entity entity)
