@@ -109,7 +109,6 @@ namespace roguelike_spbu
 
             return screenBuffer;
         }
-
         public static StringBuilder Render(Map map, Entity[] entities, Player player) // camera is fixed on player
         {
             Console.WriteLine("MAP {0} {1}", map.Height, map.Width);

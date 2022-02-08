@@ -135,14 +135,15 @@ namespace roguelike_spbu
             X = x;
             Y = y;
         }
-        public void moveUp() { }
-        public void moveDown() { }
-        public void moveRight() { }
-        public void moveLeft() { }
+        public void moveUp() { X--; }
+        public void moveDown() { X++; }
+        public void moveLeft() { Y--; }
+        public void moveRight() { Y++; }
         public void PassTurn() { }
         public void ChangeColor(Color TempColor) { }
         public void GiveEffect(EntityEffect effect, int time) { }
         public void UseItem(int number) { }
         public void GetDamage(int damage) { }
+        public ActionInfo GetNextMove(Map map, Entity[] entities, Player player) { return new ActionInfo(); }
     }
 }

@@ -8,6 +8,7 @@ namespace roguelike_spbu
         public Border()
         {
             Symbol = "#";
+            Impassable = true;
             PrimaryForegroundColor = Color.DimGray;
             PrimaryBackgroundColor = Color.Gray;
         }

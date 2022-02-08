@@ -5,7 +5,6 @@ namespace roguelike_spbu
 {
     public class Tile
     {
-        
         public int X {
             get;
             set;
@@ -55,13 +54,11 @@ namespace roguelike_spbu
             get;
             set;
         }
-
         public bool Impassable 
         {
             get;
             set;
         }
-
         public Tile(int x = 0, int y = 0, string symbol = " ", Color? PFC = null, Color? PBC = null, VisualStatus status = VisualStatus.isVisible, bool impassable = false)
         {
             X = x;
@@ -71,9 +68,6 @@ namespace roguelike_spbu
             PrimaryBackgroundColor = PBC ?? Color.Black;
             Status = status;
             Impassable = impassable; // изменить на соответствующее для разных типов
-        
         }
-
-        
     }
 }
