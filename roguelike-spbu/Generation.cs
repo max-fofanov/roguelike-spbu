@@ -96,8 +96,6 @@ namespace roguelike_spbu {
                         for (int b = y0; b < y1; b++) 
                         {
                             Tile tmp = new Field();
-                            tmp.X = a;
-                            tmp.Y = b;
                             dungeon.Tiles[a][b] = tmp;
                         }
                     }
@@ -114,8 +112,6 @@ namespace roguelike_spbu {
                     for (int a = rooms[i].Y1; a < rooms[i + 1].Y0 + 1; a++) {
 
                         Tile tmp = new Field();
-                        tmp.X = coordinate;
-                        tmp.Y = a;
                         dungeon.Tiles[coordinate][a] = tmp;
                         
                     }
@@ -126,8 +122,6 @@ namespace roguelike_spbu {
                     for (int a = rooms[i].X1; a < rooms[i + (y / 30)].X0 + 1; a++) {
 
                         Tile tmp = new Field();
-                        tmp.X = a;
-                        tmp.Y = coordinate;
                         dungeon.Tiles[a][coordinate] = tmp;
                         
                     }

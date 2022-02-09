@@ -5,6 +5,7 @@ namespace roguelike_spbu
 {
     public class Tile
     {
+        /*
         public int X {
             get;
             set;
@@ -13,6 +14,7 @@ namespace roguelike_spbu
             get;
             set;
         }
+        */
         private string _symbol = "";
         public string Symbol
         {
@@ -59,10 +61,10 @@ namespace roguelike_spbu
             get;
             set;
         }
-        public Tile(int x = 0, int y = 0, string symbol = " ", Color? PFC = null, Color? PBC = null, VisualStatus status = VisualStatus.isVisible, bool impassable = false)
+        public Tile(/*int x = 0, int y = 0, */string symbol = " ", Color? PFC = null, Color? PBC = null, VisualStatus status = VisualStatus.isVisible, bool impassable = false)
         {
-            X = x;
-            Y = y;
+            // X = x;
+            // Y = y;
             Symbol = symbol;
             PrimaryForegroundColor = PFC ?? Color.White;
             PrimaryBackgroundColor = PBC ?? Color.Black;

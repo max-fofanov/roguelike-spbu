@@ -43,9 +43,6 @@ namespace roguelike_spbu
                         genericTile = new Field();
                     else
                         genericTile = new Water();*/
-                    
-                    genericTile.X = i;
-                    genericTile.Y = j;
                     Tiles[i][j] = genericTile;
                 }
             }
