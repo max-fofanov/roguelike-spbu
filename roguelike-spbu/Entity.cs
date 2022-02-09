@@ -127,6 +127,12 @@ namespace roguelike_spbu
             get;
             set;
         }
+
+        public List<Tile> UsedTiles 
+        {
+            get;
+            set;
+        }
         private Item[] _inventory = Array.Empty<Item>();
         public Item[] Inventory
         {

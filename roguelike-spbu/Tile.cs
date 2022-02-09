@@ -61,6 +61,12 @@ namespace roguelike_spbu
             get;
             set;
         }
+
+        public int Weight 
+        {
+            get;
+            set;
+        }
         public Tile(/*int x = 0, int y = 0, */string symbol = " ", Color? PFC = null, Color? PBC = null, VisualStatus status = VisualStatus.isVisible, bool impassable = false)
         {
             // X = x;

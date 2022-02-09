@@ -27,6 +27,35 @@ namespace roguelike_spbu
         public void Turn()
         {
             ElementaryTurn(player);
+            foreach (Entity entity in entities) {
+                Random random = new Random();
+                int i = random.Next(4);
+                
+                switch (i) {
+                    case 0:
+                        if (IsNewPlaceOK(entity.X - 1, entity.Y))
+                            entity.SetCoordinates(entity.X - 1, entity.Y);
+
+                        break;
+                    case 1:
+                        if (IsNewPlaceOK(entity.X + 1, entity.Y))
+                            entity.SetCoordinates(entity.X + 1, entity.Y);
+
+                        break;
+                    case 2:
+                        if (IsNewPlaceOK(entity.X, entity.Y - 1))
+                            entity.SetCoordinates(entity.X, entity.Y - 1);
+
+                        break;
+                    case 3:
+                        if (IsNewPlaceOK(entity.X, entity.Y + 1))
+                            entity.SetCoordinates(entity.X, entity.Y + 1);
+
+                        break;        
+                }
+
+
+            }
             Console.WriteLine(Renderer.Render(map, entities, player));
         }
         void ElementaryTurn(Entity entity)
