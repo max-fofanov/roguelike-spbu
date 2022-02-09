@@ -22,6 +22,9 @@ namespace roguelike_spbu
             if (entities.Where(e => e.X == x && e.Y == y).Count() > 0)
                 return false;
 
+            if (player.X == x && player.Y == y)
+                return false;
+
             return true;
         }
         public void Turn()
