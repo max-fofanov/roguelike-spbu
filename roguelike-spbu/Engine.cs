@@ -51,6 +51,9 @@ namespace roguelike_spbu
                     if (IsNewPlaceOK(entity.X, entity.Y + 1))
                         entity.moveRight();
                     break;
+                case Action.Quit:
+                    Program.NormilizeConsole();
+                    break;    
                 case Action.Pass:
                     break;
                 case Action.ChangeColor:

@@ -6,8 +6,6 @@ namespace roguelike_spbu
     
     public class Player : Entity
     {
-        private int x;
-        private int y;
         private Trait trait;
         private string symbol = "@";
         private Color color = Color.Red;
@@ -36,7 +34,10 @@ namespace roguelike_spbu
                     return new ActionInfo(Action.Up, player, 1);
 
                 case ConsoleKey.DownArrow:
-                    return new ActionInfo(Action.Down, player, 1);        
+                    return new ActionInfo(Action.Down, player, 1);
+
+                case ConsoleKey.Q:
+                    return new ActionInfo(Action.Quit, player, 1);
 
             }
 

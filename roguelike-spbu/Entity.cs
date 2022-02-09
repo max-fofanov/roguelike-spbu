@@ -13,7 +13,8 @@ namespace roguelike_spbu
         ChangeColor,
         GiveEffect,
         UseItem,
-        Attack
+        Attack,
+        Quit
     }
     
     public struct ActionInfo {

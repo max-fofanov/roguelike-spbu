@@ -1,13 +1,33 @@
 ﻿﻿using System.Text;
 namespace roguelike_spbu
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
-        {
+        static ConsoleColor backgroundColor;
+        static ConsoleColor foregroundColor;
+
+
+        public static void MakeConsoleReady() {
             Console.Clear();
             Console.CursorVisible = false;
-            Random rdn = new Random();
+            backgroundColor = Console.BackgroundColor;
+            foregroundColor = Console.ForegroundColor;
+        }
+
+        public static void NormilizeConsole() {
+            Console.Clear();
+            Console.CursorVisible = true;
+            
+            Console.BackgroundColor = backgroundColor;
+            Console.ForegroundColor = foregroundColor;
+            Environment.Exit(0);
+        }
+        
+        static void Main(string[] args)
+        {
+            MakeConsoleReady();
+
+            Random rnd = new Random();
             var chars = "$%!*abcdefghijklmnopqrstuvwxyz1234567890?;:ABCDEFGHIJKLMNOPQRSTUVWXYZ^&";
 
             Player player = new Player(0, 0);
@@ -17,9 +37,9 @@ namespace roguelike_spbu
             for (int i = 0; i < entities.Length; i++)
             {
                 Entity tmp = new Entity();
-                tmp.X = rdn.Next(45);
-                tmp.Y = rdn.Next(180);
-                tmp.Symbol = chars[rdn.Next(chars.Length)].ToString();
+                tmp.X = rnd.Next(45);
+                tmp.Y = rnd.Next(180);
+                tmp.Symbol = chars[rnd.Next(chars.Length)].ToString();
                 tmp.PrimaryForegroundColor = System.Drawing.Color.White;
                 entities[i] = tmp;
             }
