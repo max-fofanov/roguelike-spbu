@@ -5,7 +5,7 @@ namespace roguelike_spbu
 {
     class Border : Tile
     {
-        public Border()
+        public Border(string inode) : base(inode)
         {
             Symbol = "#";
             Impassable = true;
@@ -15,7 +15,7 @@ namespace roguelike_spbu
     }
     public class Tree : Tile
     {
-        public Tree()
+        public Tree(string inode) : base(inode)
         {
             Symbol = "T";
             PrimaryForegroundColor = Color.Green;
@@ -25,7 +25,7 @@ namespace roguelike_spbu
 
     public class Rock : Tile
     {
-        public Rock()
+        public Rock(string inode) : base(inode)
         {
             Symbol = "R";
             PrimaryForegroundColor = Color.Yellow;
@@ -35,7 +35,7 @@ namespace roguelike_spbu
 
     public class Field : Tile
     {
-        public Field()
+        public Field(string inode) : base(inode)
         {
             Symbol = ".";
             PrimaryForegroundColor = Color.DarkGreen;
@@ -46,7 +46,7 @@ namespace roguelike_spbu
 
     public class Water : Tile
     {
-        public Water()
+        public Water(string inode) : base(inode)
         {
             Symbol = "W";
             PrimaryForegroundColor = Color.Gray;

@@ -67,6 +67,22 @@ namespace roguelike_spbu
             get;
             set;
         }
+
+        public string Inode
+        {
+            get;
+            set;
+        }
+
+        public Tile From {
+            get;
+            set;
+        }
+
+        public int Path {
+            get;
+            set;
+        }
         public Tile(/*int x = 0, int y = 0, */string symbol = " ", Color? PFC = null, Color? PBC = null, VisualStatus status = VisualStatus.isVisible, bool impassable = false)
         {
             // X = x;
@@ -75,7 +91,23 @@ namespace roguelike_spbu
             PrimaryForegroundColor = PFC ?? Color.White;
             PrimaryBackgroundColor = PBC ?? Color.Black;
             Status = status;
-            Impassable = impassable; // изменить на соответствующее для разных типов
+            Impassable = impassable;
+        }
+
+        public Tile(string inode) {
+            Inode = inode;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj != null && obj is Tile) {
+                return this.Inode.Equals((obj as Tile).Inode);
+            }
+            else
+            {
+                return false;
+            }
+            
         }
     }
 }

@@ -23,7 +23,7 @@ namespace roguelike_spbu {
                 {
                     freeSpace += 1;
                 }
-                dungeon.Tiles[player.X][player.Y] = new Field();
+                dungeon.Tiles[player.X][player.Y] = new Field(player.X.ToString() + "/" + player.Y.ToString());
 
                 int i = random.Next(x + y);
 
@@ -54,7 +54,7 @@ namespace roguelike_spbu {
 
             }
 
-            dungeon.Tiles[player.X][player.Y] = new Field();
+            dungeon.Tiles[player.X][player.Y] = new Field(player.X.ToString() + "/" + player.Y.ToString());
 
             if (freeSpace * 2 > x * y)
             {
@@ -95,7 +95,7 @@ namespace roguelike_spbu {
                     {
                         for (int b = y0; b < y1; b++) 
                         {
-                            Tile tmp = new Field();
+                            Tile tmp = new Field(a.ToString() + "/" + b.ToString());
                             dungeon.Tiles[a][b] = tmp;
                         }
                     }
@@ -111,9 +111,8 @@ namespace roguelike_spbu {
 
                     for (int a = rooms[i].Y1; a < rooms[i + 1].Y0 + 1; a++) {
 
-                        Tile tmp = new Field();
+                        Tile tmp = new Field(coordinate.ToString() + "/" + a.ToString());
                         dungeon.Tiles[coordinate][a] = tmp;
-                        
                     }
                 }
                 if (i < (x / 20) * (y / 30) -(y / 30) && Math.Max(rooms[i].Y0, rooms[i + (y / 30)].Y0) < Math.Min(rooms[i].Y1, rooms[i + (y / 30)].Y1)) {
@@ -121,7 +120,7 @@ namespace roguelike_spbu {
 
                     for (int a = rooms[i].X1; a < rooms[i + (y / 30)].X0 + 1; a++) {
 
-                        Tile tmp = new Field();
+                        Tile tmp = new Field(a.ToString() + "/" + coordinate.ToString());
                         dungeon.Tiles[a][coordinate] = tmp;
                         
                     }
