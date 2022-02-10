@@ -5,7 +5,7 @@ namespace roguelike_spbu
 {
     public class Tile
     {
-        /*
+        
         public int X {
             get;
             set;
@@ -14,7 +14,7 @@ namespace roguelike_spbu
             get;
             set;
         }
-        */
+        
         private string _symbol = "";
         public string Symbol
         {
@@ -70,11 +70,17 @@ namespace roguelike_spbu
 
         public string Inode
         {
+            get {
+                return X.ToString() + "/" + Y.ToString();
+            }
+        }
+
+        public Tile From {
             get;
             set;
         }
 
-        public Tile From {
+        public Tile Where {
             get;
             set;
         }
@@ -94,8 +100,9 @@ namespace roguelike_spbu
             Impassable = impassable;
         }
 
-        public Tile(string inode) {
-            Inode = inode;
+        public Tile(int x, int y) {
+            X = x;
+            Y = y;
         }
 
         public override bool Equals(object? obj)
