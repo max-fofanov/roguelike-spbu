@@ -40,6 +40,41 @@ namespace roguelike_spbu
             InnerY = iy;
             StatinInnerBox = true;
         }
+        static Color ChangeColorBrightness(Color color, double factor)
+        {
+            if (factor < 0)
+                return Color.Black;
+
+            int Red = (int)(color.R * factor);
+            int Green = (int)(color.G * factor);
+            int Blue = (int)(color.B * factor);
+
+            if (Red > 255) Red = 255;
+            if (Green > 255) Green = 255;
+            if (Blue > 255) Blue = 255;
+
+            return Color.FromArgb(Red, Green, Blue);
+        }
+        static string GetAppropriateSymbol(VisualStatus status, string symbol, Color PFC, Color? PBC, Color? MBC = null)
+        {
+            switch (status)
+            {
+                case VisualStatus.isVisible:
+                    return symbol.
+                        Pastel(PFC).
+                        PastelBg(PBC ?? (MBC ?? Color.Black));
+                case VisualStatus.wasSeen:
+                    return symbol.
+                        Pastel(ChangeColorBrightness(PFC, 0.5)).
+                        PastelBg(ChangeColorBrightness(PBC ?? (MBC ?? Color.Black), 0.5));
+                case VisualStatus.isHidden:
+                    return " ".
+                        Pastel(Color.Black).
+                        PastelBg(Color.Black);
+            }
+
+            throw new NotImplementedException("Strange Visual Status");
+        }
         static void SetLastRenderCoordinates(int x, int y){
             PrevX = x;
             PrevY = y;
@@ -68,13 +103,11 @@ namespace roguelike_spbu
                 {
                     if ((x + i) >= map.Height || (y + j) >= map.Width ||
                         (x + i) < 0 || (y + j) < 0)
-                        buffer[i, j] = " ".Pastel(Color.White).PastelBg(Color.Black);
+                        buffer[i, j] = " ".Pastel(Color.Black).PastelBg(Color.Black);
                     else
                     {
                         Tile tmp = map.Tiles[x + i][y + j];
-                        buffer[i, j] = tmp.Symbol.
-                            Pastel(tmp.PrimaryForegroundColor).
-                            PastelBg(tmp.PrimaryBackgroundColor);
+                        buffer[i, j] = GetAppropriateSymbol(tmp.Status, tmp.Symbol, tmp.PrimaryForegroundColor, tmp.PrimaryBackgroundColor);
                     }
                 }
             }
@@ -83,17 +116,19 @@ namespace roguelike_spbu
             {
                 if (entity != null && IsInsideBorders(entity.X, entity.Y, x, y, Height, Width))
                 {
-                    buffer[entity.X - x, entity.Y - y] = entity.Symbol
-                        .Pastel(entity.PrimaryForegroundColor)
-                        .PastelBg(entity.PrimaryBackgroundColor ?? map.Tiles[entity.X][entity.Y].PrimaryBackgroundColor);
+                    buffer[entity.X - x, entity.Y - y] = GetAppropriateSymbol(entity.VStatus, entity.Symbol,
+                        entity.PrimaryForegroundColor,
+                        entity.PrimaryBackgroundColor,
+                        map.Tiles[entity.X][entity.Y].PrimaryBackgroundColor);
                 }
             }
 
             if (IsInsideBorders(player.X, player.Y, x, y, Height, Width)) // place player on buffer
             {
-                buffer[player.X - x, player.Y - y] = player.Symbol
-                    .Pastel(player.PrimaryForegroundColor)
-                    .PastelBg(player.PrimaryBackgroundColor ?? map.Tiles[player.X][player.Y].PrimaryBackgroundColor);
+                buffer[player.X - x, player.Y - y] = GetAppropriateSymbol(player.VStatus, player.Symbol,
+                    player.PrimaryForegroundColor,
+                    player.PrimaryBackgroundColor,
+                    map.Tiles[player.X][player.Y].PrimaryBackgroundColor);
             }
 
             StringBuilder screenBuffer = new StringBuilder();
