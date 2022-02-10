@@ -37,7 +37,7 @@ namespace roguelike_spbu
             Random rnd = new Random();
             var chars = "$%!*abcdefghijklmnopqrstuvwxyz1234567890?;:ABCDEFGHIJKLMNOPQRSTUVWXYZ^&";
 
-            Player player = new Player(41, 41);
+            Player player = new Player(0, 0);
             Entity[] entities = new Entity[5];
             Renderer renderer = new Renderer(40, 150, 20, 20);
 
@@ -54,21 +54,14 @@ namespace roguelike_spbu
             }
 
             // Map board = Generation.GenerateDungeon(45, 180);
-            // Map board = Generation.GenerateCave(45, 180, (0, 0), (22, 179));
-            Map board = new Map(100, 180);
+            Map board = Generation.GenerateCave(45, 180, (0, 0), (22, 179));
+            //Map board = new Map(100, 180);
 
-            List<List<(int, int)>> Rays = FOV.GetRaysInEllipse((int)(16 * 1.5), (int)(9 * 1.5));
-            foreach (List<(int, int)> ray in Rays)
-            {
-                foreach ((int, int) point in ray)
-                {
-                    board.Tiles[point.Item1 + 41][point.Item2 + 41] = new Rock();
-                }
-            }
-
+            //List<List<(int, int)>> Rays = FOV.GetRaysInEllipse((int)(16 * 1.5), (int)(9 * 1.5));\
 
             Engine engine = new Engine(board, entities, player);
-            Console.WriteLine(Renderer.Render(board, entities, player));
+            Console.SetCursorPosition(0, 0);
+            engine.Turn(true);
 
             while (true)
             {

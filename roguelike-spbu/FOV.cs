@@ -6,7 +6,6 @@ namespace roguelike_spbu
         static int A;
         static int B;
         static bool filled = false;
-
         static int F(int x, int y, int a, int b){
             return b * b * x * x + a * a * y * y - a * a * b * b;
         }
@@ -47,6 +46,28 @@ namespace roguelike_spbu
 
             return Rays;
         }
-        
+        public static List<(int, int)> GetVisibleTiles(Map map, Player player, int Ra, int Rb)
+        {
+            List<(int, int)> visiblePoints = new List<(int, int)>();
+            List<List<(int, int)>> Rays = GetRaysInEllipse(Ra, Rb);
+            foreach (List<(int, int)> ray in Rays)
+            {
+                foreach ((int, int) point in ray)
+                {
+                    int x = point.Item1 + player.X;
+                    int y = point.Item2 + player.Y;
+                    if (x >= 0 && y >= 0 && x < map.Height && y < map.Width/* && !map.Tiles[x][y].Impassable*/)
+                    {
+                        visiblePoints.Add((x, y));
+                        if (map.Tiles[x][y].Impassable)
+                            break;
+                    }
+                    else
+                        break;
+                    
+                }
+            }
+            return visiblePoints;
+        }
     }
 }

@@ -55,18 +55,23 @@ namespace roguelike_spbu
 
             return Color.FromArgb(Red, Green, Blue);
         }
-        static string GetAppropriateSymbol(VisualStatus status, string symbol, Color PFC, Color? PBC, Color? MBC = null)
+        static string GetAppropriateSymbol(VisualStatus status, Tile tile, Entity? entity = null)
         {
             switch (status)
             {
                 case VisualStatus.isVisible:
-                    return symbol.
-                        Pastel(PFC).
-                        PastelBg(PBC ?? (MBC ?? Color.Black));
+                    return entity != null ?
+                        entity.Symbol.
+                        Pastel(entity.PrimaryForegroundColor).
+                        PastelBg(entity.PrimaryBackgroundColor ?? tile.PrimaryBackgroundColor)
+                        :
+                        tile.Symbol.
+                        Pastel(tile.PrimaryForegroundColor).
+                        PastelBg(tile.PrimaryBackgroundColor);
                 case VisualStatus.wasSeen:
-                    return symbol.
-                        Pastel(ChangeColorBrightness(PFC, 0.5)).
-                        PastelBg(ChangeColorBrightness(PBC ?? (MBC ?? Color.Black), 0.5));
+                    return tile.Symbol.
+                        Pastel(ChangeColorBrightness(tile.PrimaryForegroundColor, 0.5)).
+                        PastelBg(ChangeColorBrightness(tile.PrimaryBackgroundColor, 0.5));
                 case VisualStatus.isHidden:
                     return " ".
                         Pastel(Color.Black).
@@ -107,7 +112,7 @@ namespace roguelike_spbu
                     else
                     {
                         Tile tmp = map.Tiles[x + i][y + j];
-                        buffer[i, j] = GetAppropriateSymbol(tmp.Status, tmp.Symbol, tmp.PrimaryForegroundColor, tmp.PrimaryBackgroundColor);
+                        buffer[i, j] = GetAppropriateSymbol(tmp.Status, tmp);
                     }
                 }
             }
@@ -116,19 +121,13 @@ namespace roguelike_spbu
             {
                 if (entity != null && IsInsideBorders(entity.X, entity.Y, x, y, Height, Width))
                 {
-                    buffer[entity.X - x, entity.Y - y] = GetAppropriateSymbol(entity.VStatus, entity.Symbol,
-                        entity.PrimaryForegroundColor,
-                        entity.PrimaryBackgroundColor,
-                        map.Tiles[entity.X][entity.Y].PrimaryBackgroundColor);
+                    buffer[entity.X - x, entity.Y - y] = GetAppropriateSymbol(map.Tiles[entity.X][entity.Y].Status, map.Tiles[entity.X][entity.Y], entity);
                 }
             }
 
             if (IsInsideBorders(player.X, player.Y, x, y, Height, Width)) // place player on buffer
             {
-                buffer[player.X - x, player.Y - y] = GetAppropriateSymbol(player.VStatus, player.Symbol,
-                    player.PrimaryForegroundColor,
-                    player.PrimaryBackgroundColor,
-                    map.Tiles[player.X][player.Y].PrimaryBackgroundColor);
+                buffer[player.X - x, player.Y - y] = GetAppropriateSymbol(player.VStatus, map.Tiles[player.X][player.Y], player);
             }
 
             StringBuilder screenBuffer = new StringBuilder();

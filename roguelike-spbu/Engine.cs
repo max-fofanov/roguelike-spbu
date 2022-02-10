@@ -5,6 +5,7 @@ namespace roguelike_spbu
         Map map;
         Player player;
         Entity[] entities;
+        List<(int, int)> visiblePoints = new List<(int, int)>();
         public Engine(Map map, Entity[] entities, Player player)
         {
             this.map = map;
@@ -24,34 +25,49 @@ namespace roguelike_spbu
 
             return true;
         }
-        public void Turn()
+        public void Turn(bool renderOnly = false)
         {
-            ElementaryTurn(player);
-
-            
-            foreach (Entity entity in entities)
+            if (!renderOnly)
             {
-                Random random = new Random();
-                int i = random.Next(4);
-                
-                switch (i) {
-                    case 0:
-                        if (IsNewPlaceOK(entity.X - 1, entity.Y))
-                            entity.SetCoordinates(entity.X - 1, entity.Y);
-                        break;
-                    case 1:
-                        if (IsNewPlaceOK(entity.X + 1, entity.Y))
-                            entity.SetCoordinates(entity.X + 1, entity.Y);
-                        break;
-                    case 2:
-                        if (IsNewPlaceOK(entity.X, entity.Y - 1))
-                            entity.SetCoordinates(entity.X, entity.Y - 1);
-                        break;
-                    case 3:
-                        if (IsNewPlaceOK(entity.X, entity.Y + 1))
-                            entity.SetCoordinates(entity.X, entity.Y + 1);
-                        break;
+                ElementaryTurn(player);
+
+                foreach (Entity entity in entities)
+                {
+                    Random random = new Random();
+                    int i = random.Next(4);
+
+                    switch (i)
+                    {
+                        case 0:
+                            if (IsNewPlaceOK(entity.X - 1, entity.Y))
+                                entity.SetCoordinates(entity.X - 1, entity.Y);
+                            break;
+                        case 1:
+                            if (IsNewPlaceOK(entity.X + 1, entity.Y))
+                                entity.SetCoordinates(entity.X + 1, entity.Y);
+                            break;
+                        case 2:
+                            if (IsNewPlaceOK(entity.X, entity.Y - 1))
+                                entity.SetCoordinates(entity.X, entity.Y - 1);
+                            break;
+                        case 3:
+                            if (IsNewPlaceOK(entity.X, entity.Y + 1))
+                                entity.SetCoordinates(entity.X, entity.Y + 1);
+                            break;
+                    }
                 }
+            }
+
+            foreach ((int, int) point in visiblePoints)
+            {
+                map.Tiles[point.Item1][point.Item2].Status = VisualStatus.wasSeen;
+            }
+
+            visiblePoints = FOV.GetVisibleTiles(map, player, (int)(16 * 1.5), (int)(9 * 1.5));
+            
+            foreach ((int, int) point in visiblePoints)
+            {
+                map.Tiles[point.Item1][point.Item2].Status = VisualStatus.isVisible;
             }
             Console.WriteLine(Renderer.Render(map, entities, player));
         }
