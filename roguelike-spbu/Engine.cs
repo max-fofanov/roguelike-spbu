@@ -89,7 +89,6 @@ namespace roguelike_spbu
                         }
 
                     }
-                    PrintPath(map.Tiles[entity.X][entity.Y]);
                 }
             }
 
@@ -106,7 +105,7 @@ namespace roguelike_spbu
             }
 
             Console.WriteLine(Renderer.Render(map, entities, player));
-            entities = Array.Empty<Entity>(); // REMOVE
+            // entities = Array.Empty<Entity>(); // REMOVE
         }
 
         void PrintPath(Tile tile)
