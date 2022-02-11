@@ -13,43 +13,46 @@ namespace roguelike_spbu
             this.Symbol = "%";
             this.PrimaryForegroundColor = Color.Yellow;
         }
-        static bool IsNewPlaceOK(Map map, Entity[] entities, Player player, int x, int y)
+        static int? WeightOfPlace(Map map, Entity[] entities, Player player, int x, int y)
         {
             if (x < 0 || y < 0 || x >= map.Height || y >= map.Width)
-                return false;
+                return null;
 
             if (map.Tiles[x][y].Impassable)
-                return false;
+                return null;
 
             if (entities.Where(e => e.X == x && e.Y == y).Count() > 0)
-                return false;
-
+                return 3;
+            
             if (player.X == x && player.Y == y)
-                return false;
+                return 1;
 
-            return true;
+            return 1;
         }
-        static List<(int, int)> GetNeighbors(Map map, Entity[] entities, Player player, (int, int) point, (int, int) goal)
+        static List<(int, int, int)> GetNeighbors(Map map, Entity[] entities, Player player, (int, int) point)
         {
-            List<(int, int)> neighbors = new List<(int, int)>();
+            List<(int, int, int)> neighbors = new List<(int, int, int)>();
 
             int x = point.Item1;
             int y = point.Item2;
 
-            if (IsNewPlaceOK(map, entities, player, x + 1, y) || (x + 1, y) == goal)
-                neighbors.Add((x + 1, y));
-            if (IsNewPlaceOK(map, entities, player, x - 1, y) || (x - 1, y) == goal)
-                neighbors.Add((x - 1, y));
-            if (IsNewPlaceOK(map, entities, player, x, y + 1) || (x, y + 1) == goal)
-                neighbors.Add((x, y + 1));
-            if (IsNewPlaceOK(map, entities, player, x, y - 1) || (x, y - 1) == goal)
-                neighbors.Add((x, y - 1));
+            (int, int)[] possibleNeightbors = { (x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1) };
+
+            foreach ((int px, int py) in possibleNeightbors)
+            {
+                int? weight = WeightOfPlace(map, entities, player, px, py);
+                if (weight != null)
+                {
+                    neighbors.Add((px, py, weight ?? 0));
+                }
+            }
 
             return neighbors;
         }
         static int GetDistanseToGoal((int, int) start, (int, int) goal)
         {
-            return Math.Abs(start.Item1 - goal.Item1) + Math.Abs(start.Item2 - goal.Item2);
+            // return Math.Abs(start.Item1 - goal.Item1) + Math.Abs(start.Item2 - goal.Item2);
+            return (int)(Math.Pow(start.Item1 - goal.Item1, 2) + Math.Pow(start.Item2 - goal.Item2, 2));
         }
         public static List<(int, int)> AStarSearch(Map map, Entity[] entities, Player player, (int, int) start, (int, int) goal)
         {
@@ -74,9 +77,10 @@ namespace roguelike_spbu
                     break;
                 }
                 
-                foreach ((int, int) next in GetNeighbors(map, entities, player, current, goal))
+                foreach ((int nx, int ny, int weight) in GetNeighbors(map, entities, player, current))
                 {
-                    int newCost = cost[current] + 1;
+                    (int, int) next = (nx, ny);
+                    int newCost = cost[current] + weight;
                     if (!cost.TryGetValue(next, out int oldCost) || newCost < oldCost){
                         cost[next] = newCost;
                         int priority = newCost + GetDistanseToGoal(next, goal);
@@ -92,6 +96,8 @@ namespace roguelike_spbu
                     pathPoint = came_from[pathPoint] ?? start;
                     path.Add(pathPoint);
                 }
+
+                path.Reverse();
             }
 
             return path;
@@ -100,26 +106,22 @@ namespace roguelike_spbu
         {
             if ((this.X - player.X) * (this.X - player.X) + (this.Y - player.Y) * (this.Y - player.Y) <= RangeOfView * RangeOfView)
             {
-                ConsoleKeyInfo keyInfo = Console.ReadKey();
+                List<(int, int)> path = Enemy.AStarSearch(map, entities, player, (X, Y), (player.X, player.Y));
 
-                switch (keyInfo.Key)
+                if (path.Count > 0)
                 {
-                    case ConsoleKey.LeftArrow:
-                        return new ActionInfo(Action.Left, player, 1);
-
-                    case ConsoleKey.RightArrow:
-                        return new ActionInfo(Action.Right, player, 1);
-
-                    case ConsoleKey.UpArrow:
-                        return new ActionInfo(Action.Up, player, 1);
-
-                    case ConsoleKey.DownArrow:
+                    (int x, int y) = path[1];
+                    if (x > X)
                         return new ActionInfo(Action.Down, player, 1);
-
-                    case ConsoleKey.Q:
-                        return new ActionInfo(Action.Quit, player, 1);
-
+                    if (x < X)
+                        return new ActionInfo(Action.Up, player, 1);
+                    if (y > Y)
+                        return new ActionInfo(Action.Right, player, 1);
+                    if (y < Y)
+                        return new ActionInfo(Action.Left, player, 1);
                 }
+                
+                return new ActionInfo(Action.Pass, player, 1);
             }
 
             throw new KeyNotFoundException("not yet implemented");

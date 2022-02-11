@@ -34,9 +34,9 @@ namespace roguelike_spbu
             {
                 ElementaryTurn(player);
                 
-                /*foreach (Entity entity in entities){
+                foreach (Entity entity in entities){
                     ElementaryTurn(entity);
-                }*/
+                }
                 #region entity a*
                 /*
                 foreach (Entity entity in entities)

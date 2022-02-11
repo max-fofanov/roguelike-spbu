@@ -37,7 +37,7 @@
             var chars = "$%!*abcdefghijklmnopqrstuvwxyz1234567890?;:ABCDEFGHIJKLMNOPQRSTUVWXYZ^&";
 
             Player player = new Player(0, 0);
-            Entity[] entities = new Entity[1];
+            Entity[] entities = new Entity[5];
             Renderer renderer = new Renderer(40, 150, 20, 20);
             Map board = Generation.GenerateDungeon(45, 180);
 
@@ -70,13 +70,13 @@
                 entities[i] = tmp;
             }
 
-            List<(int, int)> path = Enemy.AStarSearch(board, entities, player, (entities[0].X, entities[0].Y), (player.X, player.Y));
+            // List<(int, int)> path = Enemy.AStarSearch(board, entities, player, (entities[0].X, entities[0].Y), (player.X, player.Y));
             //Console.WriteLine(path.Count);
             //Console.WriteLine("S {0} {1} G {2} {3}", entities[0].X, entities[0].Y, player.X, player.Y);
-            foreach ((int x, int y) in path)
+            /*foreach ((int x, int y) in path)
             {
                 board.Tiles[x][y] = new Rock(x, y);
-            }
+            }*/
 
 
 
