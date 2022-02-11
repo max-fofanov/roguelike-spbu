@@ -36,7 +36,17 @@ namespace roguelike_spbu
 
                 foreach (Entity entity in entities)
                 {
+                    
+                    foreach (Tile[] tiles1 in map.Tiles) {
+                        foreach (Tile tile in tiles1) {
+                            tile.From = null;
+                        }
+
+                    }
+                    
                     entity.UsedTiles = new List<Tile>();
+                    int startX = entity.X;
+                    int startY = entity.Y;
 
                     while (Math.Abs(entity.X - player.X) > 1 || Math.Abs(entity.Y - player.Y) > 1)
                     {
@@ -89,6 +99,12 @@ namespace roguelike_spbu
                         }
 
                     }
+
+                    while (map.Tiles[entity.X][entity.Y].From != null && (map.Tiles[entity.X][entity.Y].From.X != startX || map.Tiles[entity.X][entity.Y].From.Y != startY)) {
+                        entity.X = map.Tiles[entity.X][entity.Y].From.X;
+                        entity.Y = map.Tiles[entity.X][entity.Y].From.Y;
+                    }
+
                 }
             }
 

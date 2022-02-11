@@ -38,7 +38,7 @@ namespace roguelike_spbu
             var chars = "$%!*abcdefghijklmnopqrstuvwxyz1234567890?;:ABCDEFGHIJKLMNOPQRSTUVWXYZ^&";
 
             Player player = new Player(0, 0);
-            Entity[] entities = new Entity[1];
+            Entity[] entities = new Entity[10];
             Renderer renderer = new Renderer(40, 150, 20, 20);
 
 
