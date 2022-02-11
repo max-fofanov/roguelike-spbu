@@ -38,7 +38,7 @@ namespace roguelike_spbu
             var chars = "$%!*abcdefghijklmnopqrstuvwxyz1234567890?;:ABCDEFGHIJKLMNOPQRSTUVWXYZ^&";
 
             Player player = new Player(0, 0);
-            Entity[] entities = new Entity[1];
+            Entity[] entities = new Entity[10];
             Renderer renderer = new Renderer(40, 150, 20, 20);
 
 
@@ -57,7 +57,7 @@ namespace roguelike_spbu
             Map board = Generation.GenerateDungeon(45, 180);
             for (int i = 0; i < 45 && !finished; i++){
                 for (int j = 0; j < 180 && !finished; j++){
-                    if (!board.Tiles[i][j].Impassable)
+                    if (!board.Tiles[i][j].Impassable && board.Tiles[i][j].GetType() != typeof(Void))
                     {
                         player = new Player(i, j);
                         finished = true;
