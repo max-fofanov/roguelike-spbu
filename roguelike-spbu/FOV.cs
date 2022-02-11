@@ -56,7 +56,7 @@ namespace roguelike_spbu
                 {
                     int x = point.Item1 + player.X;
                     int y = point.Item2 + player.Y;
-                    if (x >= 0 && y >= 0 && x < map.Height && y < map.Width/* && !map.Tiles[x][y].Impassable*/)
+                    if (x >= 0 && y >= 0 && x < map.Height && y < map.Width)
                     {
                         visiblePoints.Add((x, y));
                         if (map.Tiles[x][y].Impassable)
@@ -64,7 +64,6 @@ namespace roguelike_spbu
                     }
                     else
                         break;
-                    
                 }
             }
             return visiblePoints;
