@@ -44,7 +44,7 @@ namespace roguelike_spbu
                 entities[i] = tmp;
             }
 
-            //Map board = Generation.GenerateDungeon(90, 180);
+            // Map board = Generation.GenerateDungeon(90, 180);
             Map board = Generation.GenerateCave(45, 180, (0, 0), (22, 179));
             //Map board = new Map(45, 180);
             Engine engine = new Engine(board, entities, player);

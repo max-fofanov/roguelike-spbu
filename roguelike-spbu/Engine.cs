@@ -34,41 +34,38 @@ namespace roguelike_spbu
             foreach (Entity entity in entities) {
                 entity.UsedTiles = new List<Tile>();
 
-                while (true) {
+                while (Math.Abs(entity.X - player.X) > 1 || Math.Abs(entity.Y - player.Y) > 1) {
+
                     List<Tile> tiles = new List<Tile>();
                     entity.UsedTiles.Add(map.Tiles[entity.X][entity.Y]);
-                    int startX = entity.X;
-                    int startY = entity.Y;
-                    
 
                     if (IsNewPlaceOK(entity.X - 1, entity.Y) && ! map.Tiles[entity.X - 1][entity.Y].Impassable 
                     && ! entity.UsedTiles.Contains<Tile>(map.Tiles[entity.X - 1][entity.Y])) {
                         tiles.Add(map.Tiles[entity.X - 1][entity.Y]);
-                        //map.Tiles[entity.X - 1][entity.Y].From = map.Tiles[entity.X][entity.Y];
-                        //map.Tiles[entity.X][entity.Y].Where = map.Tiles[entity.X - 1][entity.Y].From;
+                        map.Tiles[entity.X - 1][entity.Y].From = map.Tiles[entity.X][entity.Y];
+                        map.Tiles[entity.X - 1][entity.Y].Path = map.Tiles[entity.X][entity.Y].Path + 1;
+                        map.Tiles[entity.X - 1][entity.Y].Weight = Math.Abs(entity.X - 1 - player.X) + Math.Abs(entity.Y - player.Y) + map.Tiles[entity.X - 1][entity.Y].Path;
                     }
                     if (IsNewPlaceOK(entity.X + 1, entity.Y) && ! map.Tiles[entity.X + 1][entity.Y].Impassable 
                     && ! entity.UsedTiles.Contains<Tile>(map.Tiles[entity.X + 1][entity.Y])) {
                         tiles.Add(map.Tiles[entity.X + 1][entity.Y]);
-                        //map.Tiles[entity.X + 1][entity.Y].From = map.Tiles[entity.X][entity.Y];
-                        //map.Tiles[entity.X][entity.Y].Where = map.Tiles[entity.X + 1][entity.Y].From;
+                        map.Tiles[entity.X + 1][entity.Y].From = map.Tiles[entity.X][entity.Y];
+                        map.Tiles[entity.X + 1][entity.Y].Path = map.Tiles[entity.X][entity.Y].Path + 1;
+                        map.Tiles[entity.X + 1][entity.Y].Weight = Math.Abs(entity.X + 1 - player.X) + Math.Abs(entity.Y - player.Y) + map.Tiles[entity.X + 1][entity.Y].Path;
                     }
                     if (IsNewPlaceOK(entity.X, entity.Y - 1) && ! map.Tiles[entity.X][entity.Y - 1].Impassable 
                     && ! entity.UsedTiles.Contains<Tile>(map.Tiles[entity.X][entity.Y - 1])) {
                         tiles.Add(map.Tiles[entity.X][entity.Y - 1]);
-                        //map.Tiles[entity.X][entity.Y - 1].From = map.Tiles[entity.X][entity.Y];
-                        //map.Tiles[entity.X][entity.Y].Where = map.Tiles[entity.X][entity.Y - 1].From;
+                        map.Tiles[entity.X][entity.Y - 1].From = map.Tiles[entity.X][entity.Y];
+                        map.Tiles[entity.X][entity.Y - 1].Path = map.Tiles[entity.X][entity.Y].Path + 1;
+                        map.Tiles[entity.X][entity.Y - 1].Weight = Math.Abs(entity.X - player.X) + Math.Abs(entity.Y - 1 - player.Y) + map.Tiles[entity.X][entity.Y - 1].Path;
                     }
                     if (IsNewPlaceOK(entity.X, entity.Y + 1) && ! map.Tiles[entity.X][entity.Y + 1].Impassable 
                     && ! entity.UsedTiles.Contains<Tile>(map.Tiles[entity.X][entity.Y + 1])) {
                         tiles.Add(map.Tiles[entity.X][entity.Y + 1]);
-                        //map.Tiles[entity.X][entity.Y + 1].From = map.Tiles[entity.X][entity.Y];
-                        //map.Tiles[entity.X][entity.Y].Where = map.Tiles[entity.X][entity.Y + 1].From;
-                    }
-
-                    foreach (Tile tile in tiles) {
-                        tile.Path = map.Tiles[entity.X][entity.Y].Path + 1;
-                        tile.Weight = Math.Abs(entity.X - player.X) + Math.Abs(entity.Y - player.Y) + tile.Path;
+                        map.Tiles[entity.X][entity.Y + 1].From = map.Tiles[entity.X][entity.Y];
+                        map.Tiles[entity.X][entity.Y + 1].Path = map.Tiles[entity.X][entity.Y].Path + 1;
+                        map.Tiles[entity.X][entity.Y + 1].Weight = Math.Abs(entity.X - player.X) + Math.Abs(entity.Y + 1 - player.Y) + map.Tiles[entity.X][entity.Y + 1].Path;
                     }
 
                     if (tiles.Count == 0) {
@@ -78,26 +75,23 @@ namespace roguelike_spbu
                     else {
                         entity.X = tiles.MinBy((tile) => tile.Weight).X;
                         entity.Y = tiles.MinBy((tile) => tile.Weight).Y;
-
-                        map.Tiles[entity.X][entity.Y].Where = map.Tiles[tiles.MinBy((tile) => tile.Weight).X][tiles.MinBy((tile) => tile.Weight).Y].From;
-                        map.Tiles[tiles.MinBy((tile) => tile.Weight).X][tiles.MinBy((tile) => tile.Weight).Y].From = map.Tiles[entity.X][entity.Y];
                     }
 
-                    PrintPath(map.Tiles[startX][startY]);
-
                 }
+                PrintPath(map.Tiles[entity.X][entity.Y]);
             }
             
             Console.WriteLine(Renderer.Render(map, entities, player));
+            entities = Array.Empty<Entity>(); // REMOVE
         }
 
         void PrintPath(Tile tile) {
-            if (tile.Where == null) {
+            if (tile.From == null) {
                 return;
             }
             else {
                 tile.PrimaryBackgroundColor = System.Drawing.Color.OrangeRed;
-                PrintPath(tile.Where);
+                PrintPath(tile.From);
             }
         }
         void ElementaryTurn(Entity entity)
