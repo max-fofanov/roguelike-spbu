@@ -37,7 +37,8 @@
             var chars = "$%!*abcdefghijklmnopqrstuvwxyz1234567890?;:ABCDEFGHIJKLMNOPQRSTUVWXYZ^&";
 
             Player player = new Player(0, 0);
-            Entity[] entities = new Entity[5];
+            int entityCount = 5;
+            List<Entity> entities = new List<Entity>();
             Renderer renderer = new Renderer(40, 150, 20, 20);
             Map board = Generation.GenerateDungeon(45, 180);
 
@@ -54,7 +55,7 @@
                 }
             }
 
-            for (int i = 0; i < entities.Length; i++)
+            for (int i = 0; i < entityCount; i++)
             {
                 Entity tmp = new Enemy(rnd.Next(45), rnd.Next(180));
 
@@ -67,7 +68,7 @@
                 // tmp.VStatus = VisualStatus.wasSeen;
                 // tmp.Symbol = chars[rnd.Next(chars.Length)].ToString();
                 // tmp.PrimaryForegroundColor = System.Drawing.Color.White;
-                entities[i] = tmp;
+                entities.Add(tmp);
             }
 
             // List<(int, int)> path = Enemy.AStarSearch(board, entities, player, (entities[0].X, entities[0].Y), (player.X, player.Y));

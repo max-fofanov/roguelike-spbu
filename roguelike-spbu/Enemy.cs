@@ -13,7 +13,7 @@ namespace roguelike_spbu
             this.Symbol = "%";
             this.PrimaryForegroundColor = Color.Yellow;
         }
-        static int? WeightOfPlace(Map map, Entity[] entities, Player player, int x, int y)
+        static int? WeightOfPlace(Map map, List<Entity> entities, Player player, int x, int y)
         {
             if (x < 0 || y < 0 || x >= map.Height || y >= map.Width)
                 return null;
@@ -29,7 +29,7 @@ namespace roguelike_spbu
 
             return 1;
         }
-        static List<(int, int, int)> GetNeighbors(Map map, Entity[] entities, Player player, (int, int) point)
+        static List<(int, int, int)> GetNeighbors(Map map, List<Entity> entities, Player player, (int, int) point)
         {
             List<(int, int, int)> neighbors = new List<(int, int, int)>();
 
@@ -54,7 +54,7 @@ namespace roguelike_spbu
             // return Math.Abs(start.Item1 - goal.Item1) + Math.Abs(start.Item2 - goal.Item2);
             return (int)(Math.Pow(start.Item1 - goal.Item1, 2) + Math.Pow(start.Item2 - goal.Item2, 2));
         }
-        public static List<(int, int)> AStarSearch(Map map, Entity[] entities, Player player, (int, int) start, (int, int) goal)
+        public static List<(int, int)> AStarSearch(Map map, List<Entity> entities, Player player, (int, int) start, (int, int) goal)
         {
             List<(int, int)> path = new List<(int, int)>();
             PriorityQueue<(int, int), int> queue = new PriorityQueue<(int, int), int>();
@@ -102,7 +102,7 @@ namespace roguelike_spbu
 
             return path;
         }
-        public override ActionInfo GetNextMove(Map map, Entity[] entities, Player player)
+        public override ActionInfo GetNextMove(Map map, List<Entity> entities, Player player)
         {
             if ((this.X - player.X) * (this.X - player.X) + (this.Y - player.Y) * (this.Y - player.Y) <= RangeOfView * RangeOfView)
             {
