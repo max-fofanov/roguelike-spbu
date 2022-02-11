@@ -3,6 +3,15 @@ using System.Drawing;
 
 namespace roguelike_spbu
 {
+    class Void : Tile
+    {
+        public Void(){
+            Symbol = " ";
+            Impassable = false;
+            PrimaryForegroundColor = Color.Black;
+            PrimaryBackgroundColor = Color.Black;
+        }
+    }
     class Border : Tile
     {
         public Border()

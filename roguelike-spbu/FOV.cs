@@ -52,15 +52,25 @@ namespace roguelike_spbu
             List<List<(int, int)>> Rays = GetRaysInEllipse(Ra, Rb);
             foreach (List<(int, int)> ray in Rays)
             {
+                int lastX = 0;
+                int lastY = 0;
+                bool onlyImpassable = false;
                 foreach ((int, int) point in ray)
                 {
                     int x = point.Item1 + player.X;
                     int y = point.Item2 + player.Y;
                     if (x >= 0 && y >= 0 && x < map.Height && y < map.Width)
                     {
-                        visiblePoints.Add((x, y));
-                        if (map.Tiles[x][y].Impassable)
+                        if (onlyImpassable && !map.Tiles[x][y].Impassable)
                             break;
+
+                        visiblePoints.Add((x, y));
+                        
+                        if (map.Tiles[x][y].Impassable)
+                            if (lastX != x && lastY != y)
+                                onlyImpassable = true;
+                            else
+                                break;
                     }
                     else
                         break;

@@ -53,8 +53,18 @@ namespace roguelike_spbu
                 entities[i] = tmp;
             }
 
-            // Map board = Generation.GenerateDungeon(45, 180);
-            Map board = Generation.GenerateCave(45, 180, (0, 0), (22, 179));
+            bool finished = false;
+            Map board = Generation.GenerateDungeon(45, 180);
+            for (int i = 0; i < 45 && !finished; i++){
+                for (int j = 0; j < 180 && !finished; j++){
+                    if (!board.Tiles[i][j].Impassable)
+                    {
+                        player = new Player(i, j);
+                        finished = true;
+                    }
+                }
+            }
+            //Map board = Generation.GenerateCave(45, 180, (0, 0), (22, 179));
             //Map board = new Map(100, 180);
 
             //List<List<(int, int)>> Rays = FOV.GetRaysInEllipse((int)(16 * 1.5), (int)(9 * 1.5));\

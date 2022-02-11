@@ -37,7 +37,7 @@ namespace roguelike_spbu
                 {
                     //Random todetele = new Random();
 
-                    Tile genericTile = new Border();
+                    Tile genericTile = new Void();
 
                     /*if (todetele.Next(2) == 0)
                         genericTile = new Field();
