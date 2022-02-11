@@ -7,8 +7,6 @@ namespace roguelike_spbu
     {
         static ConsoleColor backgroundColor;
         static ConsoleColor foregroundColor;
-
-
         public static void MakeConsoleReady() {
             Console.Clear();
             Console.CursorVisible = false;
