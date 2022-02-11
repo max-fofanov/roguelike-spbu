@@ -9,7 +9,7 @@ namespace roguelike_spbu
             Symbol = " ";
             Impassable = false;
             PrimaryForegroundColor = Color.Black;
-            PrimaryBackgroundColor = Color.Black;
+            PrimaryBackgroundColor = Color.Red;
         }
     }
     class Border : Tile
@@ -20,6 +20,11 @@ namespace roguelike_spbu
             Impassable = true;
             PrimaryForegroundColor = Color.DimGray;
             PrimaryBackgroundColor = Color.Gray;
+
+
+
+
+            
         }
     }
     public class Tree : Tile

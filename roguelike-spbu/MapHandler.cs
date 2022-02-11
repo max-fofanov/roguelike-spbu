@@ -30,20 +30,11 @@ namespace roguelike_spbu
 
             for (int i = 0; i < Height; i++)
             {
-
                 Tiles[i] = new Tile[width];
 
                 for (int j = 0; j < width; j++)
                 {
-                    //Random todetele = new Random();
-
-                    Tile genericTile = new Void(i, j);
-
-                    /*if (todetele.Next(2) == 0)
-                        genericTile = new Field();
-                    else
-                        genericTile = new Water();*/
-                    Tiles[i][j] = genericTile;
+                    Tiles[i][j] = new Void(i, j);
                 }
             }
         }

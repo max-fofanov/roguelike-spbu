@@ -84,7 +84,7 @@ namespace roguelike_spbu
             get;
             set;
         }
-        public Tile(int x = 0, int y = 0, string symbol = " ", Color? PFC = null, Color? PBC = null, VisualStatus status = VisualStatus.isHidden, bool impassable = false)
+        public Tile(int x = 0, int y = 0, string symbol = " ", Color? PFC = null, Color? PBC = null, VisualStatus status = VisualStatus.isVisible, bool impassable = false)
         {
             X = x;
             Y = y;
@@ -93,11 +93,6 @@ namespace roguelike_spbu
             PrimaryBackgroundColor = PBC ?? Color.Black;
             Status = status;
             Impassable = impassable;
-        }
-
-        public Tile(int x, int y) {
-            X = x;
-            Y = y;
         }
 
         public override bool Equals(object? obj)
