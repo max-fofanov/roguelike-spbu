@@ -36,19 +36,22 @@ namespace roguelike_spbu
 
                 foreach (Entity entity in entities)
                 {
-                    
-                    foreach (Tile[] tiles1 in map.Tiles) {
-                        foreach (Tile tile in tiles1) {
+
+                    foreach (Tile[] tiles1 in map.Tiles)
+                    {
+                        foreach (Tile tile in tiles1)
+                        {
                             tile.From = null;
                         }
 
                     }
-                    
+
                     entity.UsedTiles = new List<Tile>();
                     int startX = entity.X;
                     int startY = entity.Y;
+                    int count = 0;
 
-                    while (Math.Abs(entity.X - player.X) > 1 || Math.Abs(entity.Y - player.Y) > 1)
+                    while (Math.Abs(entity.X - player.X) > 1 || Math.Abs(entity.Y - player.Y) > 1 || count++ < 50)
                     {
 
                         List<Tile> tiles = new List<Tile>();
@@ -87,7 +90,8 @@ namespace roguelike_spbu
                             map.Tiles[entity.X][entity.Y + 1].Weight = Math.Abs(entity.X - player.X) + Math.Abs(entity.Y + 1 - player.Y) + map.Tiles[entity.X][entity.Y + 1].Path;
                         }
 
-                        if (tiles.Count == 0)
+
+                        if (tiles.Count == 0 && map.Tiles[entity.X][entity.Y].From != null)
                         {
                             entity.X = map.Tiles[entity.X][entity.Y].From.X;
                             entity.Y = map.Tiles[entity.X][entity.Y].From.Y;
@@ -100,7 +104,8 @@ namespace roguelike_spbu
 
                     }
 
-                    while (map.Tiles[entity.X][entity.Y].From != null && (map.Tiles[entity.X][entity.Y].From.X != startX || map.Tiles[entity.X][entity.Y].From.Y != startY)) {
+                    while (map.Tiles[entity.X][entity.Y].From != null && (map.Tiles[entity.X][entity.Y].From.X != startX || map.Tiles[entity.X][entity.Y].From.Y != startY))
+                    {
                         entity.X = map.Tiles[entity.X][entity.Y].From.X;
                         entity.Y = map.Tiles[entity.X][entity.Y].From.Y;
                     }
@@ -108,10 +113,10 @@ namespace roguelike_spbu
                 }
             }
 
-            foreach ((int, int) point in visiblePoints)
+            /*foreach ((int, int) point in visiblePoints)
             {
                 map.Tiles[point.Item1][point.Item2].Status = VisualStatus.wasSeen;
-            }
+            }*/
 
             visiblePoints = FOV.GetVisibleTiles(map, player, (int)(16 * 1.5), (int)(9 * 1.5));
 

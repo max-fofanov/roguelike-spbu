@@ -95,8 +95,15 @@ namespace roguelike_spbu {
                     {
                         for (int b = y0; b < y1; b++) 
                         {
-                            Tile tmp = new Field(a, b);
+                            if (a == x0 || b == y0 || a == x1 - 1 || b == y1 - 1) {
+                                Tile tmp = new Border(a, b);
+                                dungeon.Tiles[a][b] = tmp;
+                            }
+                            else {
+                                Tile tmp = new Field(a, b);
                             dungeon.Tiles[a][b] = tmp;
+                            }
+                            
                         }
                     }
 
@@ -107,21 +114,34 @@ namespace roguelike_spbu {
             {
                 if ((i + 1) % (y / 30) != 0 && Math.Max(rooms[i].X0, rooms[i + 1].X0) < Math.Min(rooms[i].X1, rooms[i + 1].X1)) {
                     
-                    int coordinate = random.Next(Math.Max(rooms[i].X0, rooms[i + 1].X0), Math.Min(rooms[i].X1, rooms[i + 1].X1));
+                    int coordinate = random.Next(Math.Max(rooms[i].X0, rooms[i + 1].X0 + 1), Math.Min(rooms[i].X1, rooms[i + 1].X1));
 
-                    for (int a = rooms[i].Y1; a < rooms[i + 1].Y0 + 1; a++) {
+                    for (int a = rooms[i].Y1 - 1; a < rooms[i + 1].Y0 + 1; a++) {
 
                         Tile tmp = new Field(coordinate, a);
                         dungeon.Tiles[coordinate][a] = tmp;
+
+                        Tile tmp1 = new Border(coordinate - 1, a);
+                        dungeon.Tiles[coordinate - 1][a] = tmp1;
+
+                        Tile tmp2 = new Border(coordinate + 1, a);
+                        dungeon.Tiles[coordinate + 1][a] = tmp2;
                     }
                 }
                 if (i < (x / 20) * (y / 30) -(y / 30) && Math.Max(rooms[i].Y0, rooms[i + (y / 30)].Y0) < Math.Min(rooms[i].Y1, rooms[i + (y / 30)].Y1)) {
-                    int coordinate = new Random().Next(Math.Max(rooms[i].Y0, rooms[i + (y / 30)].Y0), Math.Min(rooms[i].Y1, rooms[i + (y / 30)].Y1));
+                    int coordinate = new Random().Next(Math.Max(rooms[i].Y0, rooms[i + (y / 30)].Y0 + 1), Math.Min(rooms[i].Y1, rooms[i + (y / 30)].Y1));
 
-                    for (int a = rooms[i].X1; a < rooms[i + (y / 30)].X0 + 1; a++) {
+                    for (int a = rooms[i].X1 - 1; a < rooms[i + (y / 30)].X0 + 1; a++) {
 
                         Tile tmp = new Field(a, coordinate);
                         dungeon.Tiles[a][coordinate] = tmp;
+                        
+                        Tile tmp1 = new Border(a, coordinate - 1);
+                        dungeon.Tiles[a][coordinate - 1] = tmp1;
+
+                        Tile tmp2 = new Border(a, coordinate + 1);
+                        dungeon.Tiles[a][coordinate + 1] = tmp2;
+
                         
                     }
                 }
