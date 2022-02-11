@@ -15,6 +15,7 @@ namespace roguelike_spbu
             X = x;
             Y = y;
             this.trait = trait;
+            VStatus = VisualStatus.isVisible;
             Symbol = symbol;
             PrimaryForegroundColor = color;
         }

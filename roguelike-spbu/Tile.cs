@@ -80,19 +80,14 @@ namespace roguelike_spbu
             set;
         }
 
-        public Tile Where {
-            get;
-            set;
-        }
-
         public int Path {
             get;
             set;
         }
-        public Tile(/*int x = 0, int y = 0, */string symbol = " ", Color? PFC = null, Color? PBC = null, VisualStatus status = VisualStatus.isVisible, bool impassable = false)
+        public Tile(int x = 0, int y = 0, string symbol = " ", Color? PFC = null, Color? PBC = null, VisualStatus status = VisualStatus.isHidden, bool impassable = false)
         {
-            // X = x;
-            // Y = y;
+            X = x;
+            Y = y;
             Symbol = symbol;
             PrimaryForegroundColor = PFC ?? Color.White;
             PrimaryBackgroundColor = PBC ?? Color.Black;
