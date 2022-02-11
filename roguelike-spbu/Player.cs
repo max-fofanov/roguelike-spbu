@@ -39,6 +39,8 @@ namespace roguelike_spbu
 
                 case ConsoleKey.Q:
                     return new ActionInfo(Action.Quit, player, 1);
+                default:
+                    return new ActionInfo(Action.Pass, player, 1);
 
             }
 

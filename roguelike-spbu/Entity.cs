@@ -24,8 +24,6 @@ namespace roguelike_spbu
             Entity = entity;
             Power = power;
         }
-
-        
         public Action Action {
             get;
             set;

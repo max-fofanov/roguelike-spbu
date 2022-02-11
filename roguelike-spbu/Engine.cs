@@ -33,7 +33,12 @@ namespace roguelike_spbu
             if (!renderOnly)
             {
                 ElementaryTurn(player);
-
+                
+                /*foreach (Entity entity in entities){
+                    ElementaryTurn(entity);
+                }*/
+                #region entity a*
+                /*
                 foreach (Entity entity in entities)
                 {
 
@@ -111,7 +116,9 @@ namespace roguelike_spbu
                     }
 
                 }
+                */
             }
+            #endregion
 
             /*foreach ((int, int) point in visiblePoints)
             {
@@ -175,6 +182,8 @@ namespace roguelike_spbu
                 case Action.UseItem:
                     break;
                 case Action.Attack:
+                    break;
+                default:
                     break;
             }
         }
