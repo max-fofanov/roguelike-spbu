@@ -32,10 +32,10 @@ namespace roguelike_spbu
                         return new ActionInfo(Action.Left, player, 1);
                 }
                 
-                return new ActionInfo(Action.Pass, player, 1);
+                return new ActionInfo(Action.StayInPlace, player, 1);
             }
 
-            return new ActionInfo(Action.Pass, player, 1);
+            return new ActionInfo(Action.StayInPlace, player, 1);
 
             throw new KeyNotFoundException("not yet implemented");
         }

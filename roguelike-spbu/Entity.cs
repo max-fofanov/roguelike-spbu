@@ -10,6 +10,7 @@ namespace roguelike_spbu
         Left,
         Right,
         Pass,
+        StayInPlace,
         ChangeColor,
         GiveEffect,
         UseItem,
@@ -53,7 +54,7 @@ namespace roguelike_spbu
     }
     public class Entity
     {
-        public int id
+        public Guid id
         {
             set;
             get;

@@ -77,7 +77,7 @@ namespace roguelike_spbu
                 case Action.Quit:
                     Program.NormilizeConsole();
                     break;
-                case Action.Pass:
+                case Action.StayInPlace:
                     break;
                 case Action.ChangeColor:
                     break;
