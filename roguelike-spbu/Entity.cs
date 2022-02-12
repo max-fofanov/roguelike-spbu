@@ -154,7 +154,7 @@ namespace roguelike_spbu
         public void moveRight() { Y++; }
         public void PassTurn() { }
         public void ChangeColor(Color TempColor) { }
-        public void GiveEffect(EntityEffect effect, int time) { }
+        public void GetEffect(EntityEffect effect, int time) { }
         public void UseItem(int number) { }
         public void GetDamage(int damage) { }
         public virtual ActionInfo GetNextMove(Map map, List<Entity> entities, Player player) { return new ActionInfo(); }

@@ -51,8 +51,6 @@ namespace roguelike_spbu
             {
                 map.Tiles[point.Item1][point.Item2].Status = VisualStatus.isVisible;
             }
-
-            Console.WriteLine(Renderer.Render(map, entities, player));
         }
         void ElementaryTurn(Entity entity)
         {
@@ -95,90 +93,3 @@ namespace roguelike_spbu
         }
     }
 }
-
-/*
-            foreach (Entity entity in entities) 
-            {
-                entity.UsedTiles = new List<Tile>();
-                List<Tile> tiles;
-                int startX = entity.X;
-                int startY = entity.Y;
-
-                while (Math.Abs(entity.X - player.X) > 1 || Math.Abs(entity.Y - player.Y) > 1) {
-                    
-                    entity.UsedTiles.Add(map.Tiles[entity.X][entity.Y]);
-                    tiles = new List<Tile>();
-
-                    if (IsNewPlaceOK(entity.X - 1, entity.Y) && ! map.Tiles[entity.X - 1][entity.Y].Impassable 
-                    && ! entity.UsedTiles.Contains<Tile>(map.Tiles[entity.X - 1][entity.Y])) {
-                        tiles.Add(map.Tiles[entity.X - 1][entity.Y]);
-                        map.Tiles[entity.X - 1][entity.Y].From = map.Tiles[entity.X][entity.Y];
-                    }
-                    if (IsNewPlaceOK(entity.X + 1, entity.Y) && ! map.Tiles[entity.X + 1][entity.Y].Impassable 
-                    && ! entity.UsedTiles.Contains<Tile>(map.Tiles[entity.X + 1][entity.Y])) {
-                        tiles.Add(map.Tiles[entity.X + 1][entity.Y]);
-                        map.Tiles[entity.X + 1][entity.Y].From = map.Tiles[entity.X][entity.Y];
-                    }
-                    if (IsNewPlaceOK(entity.X, entity.Y - 1) && ! map.Tiles[entity.X][entity.Y - 1].Impassable 
-                    && ! entity.UsedTiles.Contains<Tile>(map.Tiles[entity.X][entity.Y - 1])) {
-                        tiles.Add(map.Tiles[entity.X][entity.Y - 1]);
-                        map.Tiles[entity.X][entity.Y - 1].From = map.Tiles[entity.X][entity.Y];
-                    }
-                    if (IsNewPlaceOK(entity.X, entity.Y + 1) && ! map.Tiles[entity.X][entity.Y + 1].Impassable 
-                    && ! entity.UsedTiles.Contains<Tile>(map.Tiles[entity.X][entity.Y + 1])) {
-                        tiles.Add(map.Tiles[entity.X][entity.Y + 1]);
-                        map.Tiles[entity.X][entity.Y + 1].From = map.Tiles[entity.X][entity.Y];
-                    }
-
-                    foreach (Tile tile in tiles) {
-                        tile.Path = tile.From.Path + 1;
-                        tile.Weight = Math.Abs(entity.X - player.X) + Math.Abs(entity.Y - player.Y) + tile.Path;
-                    }
-
-                    if (tiles.Count > 0) {
-                        entity.X = tiles.MinBy((o1) => o1.Weight).X;
-                        entity.Y = tiles.MinBy((o1) => o1.Weight).Y;
-                    }
-                    else {
-                        entity.X = map.Tiles[entity.X][entity.Y].From.X;
-                        entity.Y = map.Tiles[entity.X][entity.Y].From.Y;
-                    }
-                }
-
-                while (entity.X != startX || entity.Y != startY) {
-                    map.Tiles[entity.X][entity.Y].PrimaryBackgroundColor = System.Drawing.Color.Blue;
-                    entity.X = map.Tiles[entity.X][entity.Y].From.X;
-                    entity.Y = map.Tiles[entity.X][entity.Y].From.Y; 
-                }
-
-            }
-            */
-
-/*
-                Random random = new Random();
-                int i = random.Next(4);
-                
-                switch (i) {
-                    case 0:
-                        if (IsNewPlaceOK(entity.X - 1, entity.Y))
-                            entity.SetCoordinates(entity.X - 1, entity.Y);
-
-                        break;
-                    case 1:
-                        if (IsNewPlaceOK(entity.X + 1, entity.Y))
-                            entity.SetCoordinates(entity.X + 1, entity.Y);
-
-                        break;
-                    case 2:
-                        if (IsNewPlaceOK(entity.X, entity.Y - 1))
-                            entity.SetCoordinates(entity.X, entity.Y - 1);
-
-                        break;
-                    case 3:
-                        if (IsNewPlaceOK(entity.X, entity.Y + 1))
-                            entity.SetCoordinates(entity.X, entity.Y + 1);
-
-                        break;        
-                }
-
-                */

@@ -9,7 +9,7 @@ namespace roguelike_spbu
         {
             this.X = x;
             this.Y = y;
-            this.RangeOfView = 1000;
+            this.RangeOfView = 10;
             this.Symbol = "%";
             this.PrimaryForegroundColor = Color.Yellow;
         }
@@ -108,7 +108,7 @@ namespace roguelike_spbu
             {
                 List<(int, int)> path = Enemy.AStarSearch(map, entities, player, (X, Y), (player.X, player.Y));
 
-                if (path.Count > 0)
+                if (path.Count > 1)
                 {
                     (int x, int y) = path[1];
                     if (x > X)
@@ -123,6 +123,8 @@ namespace roguelike_spbu
                 
                 return new ActionInfo(Action.Pass, player, 1);
             }
+
+            return new ActionInfo(Action.Pass, player, 1);
 
             throw new KeyNotFoundException("not yet implemented");
         }

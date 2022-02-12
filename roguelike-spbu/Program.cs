@@ -87,13 +87,15 @@
             //List<List<(int, int)>> Rays = FOV.GetRaysInEllipse((int)(16 * 1.5), (int)(9 * 1.5));\
 
             Engine engine = new Engine(board, entities, player);
-            // Console.SetCursorPosition(0, 0);
+            Console.SetCursorPosition(0, 0);
             engine.Turn(true);
+            Console.WriteLine(Renderer.Render(board, entities, player));
 
             while (true)
             {
                 Console.SetCursorPosition(0, 0);
                 engine.Turn();
+                Console.WriteLine(Renderer.Render(board, entities, player));
             }
         }
     }
