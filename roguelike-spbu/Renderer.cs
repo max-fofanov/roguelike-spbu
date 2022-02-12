@@ -7,6 +7,11 @@ namespace roguelike_spbu
 {
     public class Renderer
     {
+        static string[,] buffer = {{}};
+        static GUI Gui = new GUI();
+        static bool GuiIsSet = false;
+        static int MapXPosition;
+        static int MapYPosition;
         static int? PrevX;
         static int? PrevY;
         static int Height;
@@ -18,27 +23,47 @@ namespace roguelike_spbu
         static bool StatinInnerBox = false;
         public Renderer(int height, int width)
         {
+            buffer = new string[Height, Width];
             Height = height;
             Width = width;
         }
-        public Renderer(int height, int width, int ih, int iw)
+        public Renderer(int height, int width, int ih, int iw) : this(height, width)
         {
-            Height = height;
-            Width = width;
             InnerHeight = ih;
             InnerWidth = iw;
             StatinInnerBox = false;
             AutomaticallySetInnerBoxPosition();
         }
-        public Renderer(int height, int width, int ih, int iw, int ix, int iy)
+        public Renderer(int height, int width, int ih, int iw, int ix, int iy) : this(height, width, ih, iw)
         {
-            Height = height;
-            Width = width;
-            InnerHeight = ih;
-            InnerWidth = iw;
             InnerX = ix;
             InnerY = iy;
             StatinInnerBox = true;
+        }
+        public static void SetGui(string path, int MXP, int MYP)
+        {
+            Gui = new GUI(path);
+            MapXPosition = MXP;
+            MapYPosition = MYP;
+            if (Gui.Height < Height || Gui.Width < Width)
+                throw new Exception("Invalid size of the gui");
+            if ((Height + MapXPosition) >= Gui.Height || (Width + MapYPosition) >= Gui.Width)
+                throw new Exception("Invalid map position in gui");
+            
+            buffer = new string[Gui.Height, Gui.Width];
+
+            // Console.WriteLine("{0} {1}", Gui.Height, Gui.Width);
+            // Console.ReadLine();
+            for (int i = 0; i < Gui.Height; i++) // fill buffer with Gui
+            {
+                for (int j = 0; j < Gui.Width; j++)
+                {
+                    // Gui.Gui[i * (Gui.Width + 1) + j].ToString()
+                    buffer[i, j] = Gui.Gui[i * (Gui.Width + 2) + j].ToString().PastelBg("ff8000");
+                }
+            }
+
+            GuiIsSet = true;
         }
         static Color ChangeColorBrightness(Color color, double factor)
         {
@@ -95,9 +120,8 @@ namespace roguelike_spbu
         }
         public static StringBuilder Render(Map map, List<Entity> entities, Player player, int x, int y) // camera is fixed on coordinates
         {
-            SetLastRenderCoordinates(x, y);
 
-            string[,] buffer = new string[Height, Width];
+            SetLastRenderCoordinates(x, y);
 
             if (Height <= 0 || Width <= 0)
                 throw new ArgumentOutOfRangeException("Invalid arguments");
@@ -108,11 +132,11 @@ namespace roguelike_spbu
                 {
                     if ((x + i) >= map.Height || (y + j) >= map.Width ||
                         (x + i) < 0 || (y + j) < 0)
-                        buffer[i, j] = " ".Pastel(Color.Black).PastelBg(Color.Black);
+                        buffer[i + MapXPosition, j + MapYPosition] = " ".Pastel(Color.Black).PastelBg(Color.Black);
                     else
                     {
                         Tile tmp = map.Tiles[x + i][y + j];
-                        buffer[i, j] = GetAppropriateSymbol(tmp.Status, tmp);
+                        buffer[i + MapXPosition, j + MapYPosition] = GetAppropriateSymbol(tmp.Status, tmp);
                     }
                 }
             }
@@ -121,20 +145,21 @@ namespace roguelike_spbu
             {
                 if (entity != null && IsInsideBorders(entity.X, entity.Y, x, y, Height, Width))
                 {
-                    buffer[entity.X - x, entity.Y - y] = GetAppropriateSymbol(map.Tiles[entity.X][entity.Y].Status, map.Tiles[entity.X][entity.Y], entity);
+                    buffer[entity.X - x + MapXPosition, entity.Y - y + MapYPosition] = GetAppropriateSymbol(map.Tiles[entity.X][entity.Y].Status, map.Tiles[entity.X][entity.Y], entity);
                 }
             }
 
             if (IsInsideBorders(player.X, player.Y, x, y, Height, Width)) // place player on buffer
             {
-                buffer[player.X - x, player.Y - y] = GetAppropriateSymbol(player.VStatus, map.Tiles[player.X][player.Y], player);
+                buffer[player.X - x + MapXPosition, player.Y - y + MapYPosition] = GetAppropriateSymbol(player.VStatus, map.Tiles[player.X][player.Y], player);
             }
 
             StringBuilder screenBuffer = new StringBuilder();
 
-            for (int i = 0; i < Height; i++) // fill screen buffer 
+
+            for (int i = 0; i < (GuiIsSet ? Gui.Height : Height); i++) // fill screen buffer 
             {
-                for (int j = 0; j < Width; j++)
+                for (int j = 0; j < (GuiIsSet ? Gui.Width : Width); j++)
                 {
                     screenBuffer.Append(buffer[i, j]);
                 }

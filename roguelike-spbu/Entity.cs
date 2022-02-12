@@ -179,13 +179,6 @@ namespace roguelike_spbu
             get;
             set;
         }
-
-        private List<Tile> _usedTiles = new List<Tile>();
-        public List<Tile> UsedTiles 
-        {
-            get { return _usedTiles; }
-            set { _usedTiles = value; }
-        }
         private Item[] _inventory = Array.Empty<Item>();
         public Item[] Inventory
         {

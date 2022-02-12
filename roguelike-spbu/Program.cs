@@ -39,7 +39,8 @@
             Player player = new Player(0, 0);
             int entityCount = 5;
             List<Entity> entities = new List<Entity>();
-            Renderer renderer = new Renderer(40, 150, 20, 20);
+            new Renderer(40, 150, 20, 20);
+            Renderer.SetGui("./GUI gold.txt", 1, 1);
             Map board = Generation.GenerateDungeon(45, 180);
 
             bool finished = false;
@@ -87,16 +88,13 @@
             //List<List<(int, int)>> Rays = FOV.GetRaysInEllipse((int)(16 * 1.5), (int)(9 * 1.5));\
 
             Engine engine = new Engine(board, entities, player);
-            GUI gui = new GUI("GUI gold.txt");
             Console.SetCursorPosition(0, 0);
-            Console.WriteLine(gui.Gui);
-            Console.SetCursorPosition(1, 1);
             engine.Turn(true);
             Console.Write(Renderer.Render(board, entities, player));
 
             while (true)
             {
-                Console.SetCursorPosition(1, 1);
+                Console.SetCursorPosition(0, 0);
                 engine.Turn();
                 Console.Write(Renderer.Render(board, entities, player));
             }
