@@ -27,20 +27,18 @@ namespace roguelike_spbu
             switch (keyInfo.Key) {
                 case ConsoleKey.LeftArrow:
                     return new ActionInfo(Action.Left, player, 1);
-
                 case ConsoleKey.RightArrow:
                     return new ActionInfo(Action.Right, player, 1);
-
                 case ConsoleKey.UpArrow:
                     return new ActionInfo(Action.Up, player, 1);
-
                 case ConsoleKey.DownArrow:
                     return new ActionInfo(Action.Down, player, 1);
-
+                case ConsoleKey.Spacebar:
+                    return new ActionInfo(Action.Pass, player, 1);
                 case ConsoleKey.Q:
                     return new ActionInfo(Action.Quit, player, 1);
                 default:
-                    return new ActionInfo(Action.Pass, player, 1);
+                    return new ActionInfo(Action.StayInPlace, player, 1);
 
             }
 
