@@ -18,11 +18,39 @@ namespace roguelike_spbu
         Quit
     }
     
-    public struct ActionInfo {
+    public class ActionInfo {
         
+
+        public ActionInfo() {}
+
+        public ActionInfo(Action action) {
+            Action = action;
+        }
+
+        public ActionInfo(Action action, Color color) {
+            Action = action;
+            Color = color;
+        }
+
+        public ActionInfo(Action action, EntityEffect effect, int time) {
+            Action = action;
+            Effect = effect;
+            Time = time;
+        }
         public ActionInfo(Action action, Entity entity, int power) {
             Action = action;
             Entity = entity;
+            Power = power;
+        }
+
+        public ActionInfo(Action action, int number) {
+            Action = action;
+            Number = number;
+        }
+
+        public ActionInfo(Action action, Guid target, int power) {
+            Action = action;
+            Target = target;
             Power = power;
         }
         public Action Action {
@@ -30,12 +58,37 @@ namespace roguelike_spbu
             set;
         }
 
-        public Entity Entity {
+        public Entity? Entity {
             get;
             set;
         }
 
         public int Power {
+            get;
+            set;
+        }
+
+        public Color Color {
+            get;
+            set;
+        }
+
+        public int Time {
+            get;
+            set;
+        }
+
+        public EntityEffect? Effect {
+            get;
+            set;
+        }
+
+        public int Number {
+            get;
+            set;
+        }
+
+        public Guid? Target {
             get;
             set;
         }
