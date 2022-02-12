@@ -87,15 +87,18 @@
             //List<List<(int, int)>> Rays = FOV.GetRaysInEllipse((int)(16 * 1.5), (int)(9 * 1.5));\
 
             Engine engine = new Engine(board, entities, player);
+            GUI gui = new GUI("/home/max/Downloads/Telegram Desktop/GUI gold.txt");
             Console.SetCursorPosition(0, 0);
+            Console.WriteLine(gui.Gui);
+            Console.SetCursorPosition(1, 1);
             engine.Turn(true);
-            Console.WriteLine(Renderer.Render(board, entities, player));
+            Console.Write(Renderer.Render(board, entities, player));
 
             while (true)
             {
-                Console.SetCursorPosition(0, 0);
+                Console.SetCursorPosition(1, 1);
                 engine.Turn();
-                Console.WriteLine(Renderer.Render(board, entities, player));
+                Console.Write(Renderer.Render(board, entities, player));
             }
         }
     }
