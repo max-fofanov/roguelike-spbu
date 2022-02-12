@@ -22,7 +22,7 @@ namespace roguelike_spbu
 
         public override ActionInfo GetNextMove(Map map, List<Entity> entities, Player player) {
 
-            ConsoleKeyInfo keyInfo = Console.ReadKey();
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
             switch (keyInfo.Key) {
                 case ConsoleKey.LeftArrow:
