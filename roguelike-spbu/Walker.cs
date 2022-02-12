@@ -43,7 +43,6 @@ namespace roguelike_spbu
                     }
 
                 }
-
                 bord[i].border = i * cell + lokmin;
                 bord[i].LeftEvent = minindex;
                 bord[i].RightEvent = maxindex;
@@ -66,9 +65,6 @@ namespace roguelike_spbu
 
             int cellnumb = (int) (r * quantity / fullchance);
             return r < bord[cellnumb].border ?  bord[cellnumb].LeftEvent : bord[cellnumb].RightEvent;
-
         }
-
-
     }
 }
