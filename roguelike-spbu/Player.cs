@@ -20,7 +20,7 @@ namespace roguelike_spbu
             PrimaryForegroundColor = color;
         }
 
-        public override ActionInfo GetNextMove(Map map, Entity[] entities, Player player) {
+        public override ActionInfo GetNextMove(Map map, List<Entity> entities, Player player) {
 
             ConsoleKeyInfo keyInfo = Console.ReadKey();
 
@@ -39,6 +39,8 @@ namespace roguelike_spbu
 
                 case ConsoleKey.Q:
                     return new ActionInfo(Action.Quit, player, 1);
+                default:
+                    return new ActionInfo(Action.Pass, player, 1);
 
             }
 

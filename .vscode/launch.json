@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Launch (console)",
+            "name": "Launch Debugger",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/roguelike-spbu/bin/Debug/net5.0/roguelike-spbu.dll",
+            "program": "${workspaceFolder}/roguelike-spbu/bin/Debug/net6.0/roguelike-spbu.dll",
             "args": [],
             "cwd": "${workspaceFolder}/roguelike-spbu",
-            "console": "internalConsole",
-            "stopAtEntry": false
+            "stopAtEntry": false,
+            "console": "externalTerminal"
         },
         {
-            "name": ".NET Core Attach",
+            "name": "Attach Debugger",
             "type": "coreclr",
             "request": "attach"
         }

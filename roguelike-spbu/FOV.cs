@@ -65,7 +65,7 @@ namespace roguelike_spbu
                             break;
 
                         visiblePoints.Add((x, y));
-                        
+
                         if (map.Tiles[x][y].Impassable)
                             if (lastX != x && lastY != y)
                                 onlyImpassable = true;

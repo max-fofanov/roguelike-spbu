@@ -24,8 +24,6 @@ namespace roguelike_spbu
             Entity = entity;
             Power = power;
         }
-
-        
         public Action Action {
             get;
             set;
@@ -159,6 +157,6 @@ namespace roguelike_spbu
         public void GiveEffect(EntityEffect effect, int time) { }
         public void UseItem(int number) { }
         public void GetDamage(int damage) { }
-        public virtual ActionInfo GetNextMove(Map map, Entity[] entities, Player player) { return new ActionInfo(); }
+        public virtual ActionInfo GetNextMove(Map map, List<Entity> entities, Player player) { return new ActionInfo(); }
     }
 }
