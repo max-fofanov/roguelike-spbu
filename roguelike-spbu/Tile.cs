@@ -75,7 +75,7 @@ namespace roguelike_spbu
             }
         }
 
-        public Tile From {
+        public Tile? From {
             get;
             set;
         }
