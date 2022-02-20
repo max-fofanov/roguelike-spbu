@@ -37,9 +37,9 @@ namespace roguelike_spbu
                 List<(int, int)> ray = new List<(int, int)>();
                 foreach ((int, int) linePoint in linePoints)
                 {
-                    if (F(linePoint.Item1, linePoint.Item2, b, a) < 0){
+                    // if (F(linePoint.Item1, linePoint.Item2, b, a) < 0){
                         ray.Add(linePoint);
-                    }
+                    // }
                 }
                 Rays.Add(ray);
             }
