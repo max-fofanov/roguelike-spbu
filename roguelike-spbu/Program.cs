@@ -58,7 +58,7 @@
 
             for (int i = 0; i < entityCount; i++)
             {
-                Entity tmp = new Enemy(rnd.Next(45), rnd.Next(180));
+                Entity tmp = new Devil(rnd.Next(45), rnd.Next(180));
 
                 while (board.Tiles[tmp.X][tmp.Y].Impassable || board.Tiles[tmp.X][tmp.Y].GetType() == typeof(Void)) //TODO
                 {

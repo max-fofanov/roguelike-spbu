@@ -134,6 +134,7 @@ namespace roguelike_spbu
             CreatureType = "heavy";
             RangeOfHit = 1.5f;
         }
+    }
     
     class Devil : Enemy
     {
@@ -185,8 +186,8 @@ namespace roguelike_spbu
             RangeOfHit = 2;
         }
     }
-    }
 }
+
 
 
     

@@ -33,7 +33,7 @@ namespace roguelike_spbu
             if (!renderOnly)
             {
                 ElementaryTurn(player);
-                entities.RemoveAll(e => Math.Abs(e.X - player.X) <= 1 && Math.Abs(e.Y - player.Y) <= 1);
+                //entities.RemoveAll(e => Math.Abs(e.X - player.X) <= 1 && Math.Abs(e.Y - player.Y) <= 1);
 
                 foreach (Entity entity in entities){
                     ElementaryTurn(entity);
@@ -86,6 +86,10 @@ namespace roguelike_spbu
                 case Action.UseItem:
                     break;
                 case Action.Attack:
+                    player.HealthPoints -= entity.Damage;
+                    if (player.HealthPoints <= 0) {
+                        Program.NormilizeConsole();
+                    }
                     break;
                 default:
                     break;
