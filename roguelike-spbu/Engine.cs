@@ -94,6 +94,8 @@ namespace roguelike_spbu
                     else entity.Attack(player);
 
                     if (player.HealthPoints <= 0) {
+                        Walkman.CurrentTrack = "./Waves.wav";
+                        Walkman.Play();
                         Program.NormilizeConsole();
                     }
                     break;
