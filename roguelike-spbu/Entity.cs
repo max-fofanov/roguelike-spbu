@@ -246,6 +246,10 @@ namespace roguelike_spbu
         public void ChangeColor(Color TempColor) { }
         public void GetEffect(EntityEffect effect, int time) { }
         public void UseItem(int number) { }
+
+        public virtual void Attack(Player player) {
+            player.HealthPoints -= this.Damage;        
+        }
         public void GetDamage(int damage) { }
         public virtual ActionInfo GetNextMove(Map map, List<Entity> entities, Player player) { return new ActionInfo(); }
     }
