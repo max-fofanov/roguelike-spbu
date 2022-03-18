@@ -132,6 +132,43 @@ namespace roguelike_spbu
             get;
             set;
         }
+        public string Name
+        {
+            get;
+            set;
+        }
+        public string Discription
+        {
+            get;
+            set;
+        }
+        public string CreatureType
+        {
+            get;
+            set;
+        }
+        public string ForceType
+        {
+            get;
+            set;
+        }
+        public int Damage
+        {
+            get;
+            set;
+        }
+        public int HealthPoints
+        {
+            get;
+            set;
+        }
+        public float RangeOfHit
+        {
+            get;
+            set;
+        }
+
+
         private string _symbol = "";
         public string Symbol
         {
