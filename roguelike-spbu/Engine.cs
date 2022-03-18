@@ -89,7 +89,7 @@ namespace roguelike_spbu
 
                     if (entity is Player) { 
                         Entity? target = entities.MinBy(e => Math.Sqrt(Math.Pow(player.X - e.X, 2) + Math.Pow(player.Y - e.Y, 2)));
-                        if (target != null && Math.Pow(target.X - player.X, 2) + Math.Pow(target.Y - player.Y, 2) <= player.RangeOfHit) target.HealthPoints -= player.Damage;
+                        if (target != null && Math.Pow(target.X - player.X, 2) + Math.Pow(target.Y - player.Y, 2) <= Math.Pow(player.RangeOfHit, 2)) target.HealthPoints -= player.Damage;
                     }
                     else entity.Attack(player);
 

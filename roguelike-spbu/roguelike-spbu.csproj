@@ -9,7 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NetCoreAudio" Version="1.6.3" />
     <PackageReference Include="pastel" Version="3.0.0" />
+    <PackageReference Include="System.Windows.Extensions" Version="6.0.0" />
   </ItemGroup>
 
 </Project>

@@ -22,7 +22,7 @@ namespace roguelike_spbu
         }
         public override ActionInfo GetNextMove(Map map, List<Entity> entities, Player player)
         {
-            if (Math.Pow(this.X - player.X, 2) + Math.Pow(this.Y - player.Y, 2) <= this.RangeOfHit) { return new ActionInfo(Action.Attack); }
+            if (Math.Pow(this.X - player.X, 2) + Math.Pow(this.Y - player.Y, 2) <= Math.Pow(this.RangeOfHit, 2)) { return new ActionInfo(Action.Attack); }
             
             
             if ((this.X - player.X) * (this.X - player.X) + (this.Y - player.Y) * (this.Y - player.Y) <= RangeOfView * RangeOfView)

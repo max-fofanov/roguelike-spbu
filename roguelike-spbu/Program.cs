@@ -1,9 +1,13 @@
-﻿﻿namespace roguelike_spbu
+﻿﻿using System;
+using NetCoreAudio;
+
+namespace roguelike_spbu
 {
     public class Program
     {
         static ConsoleColor backgroundColor;
         static ConsoleColor foregroundColor;
+        static NetCoreAudio.Player walkman = new NetCoreAudio.Player();
 
 
         public static void MakeConsoleReady()
@@ -21,12 +25,18 @@
 
             Console.BackgroundColor = backgroundColor;
             Console.ForegroundColor = foregroundColor;
+
+            walkman.Pause();
             Environment.Exit(0);
         }
 
         static bool IsEqual(double x, double y, double exp = 0.1)
         {
             return Math.Abs(x - y) < exp;
+        }
+
+        public static void PlayTrack() {
+            walkman.Play("./Traffic.wav");
         }
 
         static void Main(string[] args)
@@ -92,6 +102,10 @@
             engine.Turn(true);
             Console.Write(Renderer.Render(board, entities, player));
 
+            Thread thread = new Thread(PlayTrack); //Включение музыки
+            thread.IsBackground = true;
+            thread.Start();
+         
             while (true)
             {
                 Console.SetCursorPosition(0, 0);
