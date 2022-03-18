@@ -3,8 +3,8 @@ namespace roguelike_spbu
     public class Engine
     {
         Map map;
-        Player player;
-        List<Entity> entities;
+        public Player player;
+        public List<Entity> entities;
         List<(int, int)> visiblePoints = new List<(int, int)>();
         public Engine(Map map, List<Entity> entities, Player player)
         {
@@ -77,6 +77,9 @@ namespace roguelike_spbu
                 case Action.Quit:
                     Program.NormilizeConsole();
                     break;
+                case Action.Cheat:
+                    CheatConsole.Cheat(this);
+                    break;    
                 case Action.StayInPlace:
                     break;
                 case Action.ChangeColor:

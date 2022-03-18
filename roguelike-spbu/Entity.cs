@@ -15,7 +15,8 @@ namespace roguelike_spbu
         GiveEffect,
         UseItem,
         Attack,
-        Quit
+        Quit,
+        Cheat
     }
     
     public class ActionInfo {

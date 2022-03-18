@@ -10,6 +10,10 @@ namespace roguelike_spbu
         private string symbol = "@";
         private Color color = Color.Red;
 
+        public Color Color {
+            get;
+            set;
+        }
         public Player(int x, int y, Trait trait = Trait.Saber)
         {
             X = x;
@@ -42,6 +46,8 @@ namespace roguelike_spbu
                     return new ActionInfo(Action.Quit, player, 1);
                 case ConsoleKey.A:
                     return new ActionInfo(Action.Attack, player, 1);
+                case ConsoleKey.C:
+                    return new ActionInfo(Action.Cheat, player, 1);
                 default:
                     return new ActionInfo(Action.StayInPlace, player, 1);
 
