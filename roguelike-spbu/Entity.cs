@@ -179,6 +179,12 @@ namespace roguelike_spbu
             get;
             set;
         }
+
+        public int  Range {
+            get;
+            set;
+        }
+        
         private Item[] _inventory = Array.Empty<Item>();
         public Item[] Inventory
         {
