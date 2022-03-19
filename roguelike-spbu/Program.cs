@@ -38,6 +38,22 @@ namespace roguelike_spbu
         {
             MakeConsoleReady();
 
+            List<Window> windows = new List<Window>();
+
+            windows.Add(new Window(0, 0, 4, 4));
+            windows.Add(new Window(3, 3, 4, 4));
+
+            GUI g = new GUI(windows);
+
+            g.CalculateSize();
+            Console.WriteLine("size {0} {1}", g.Height, g.Width);
+            g.Print();
+        }
+
+        static void Main1(string[] args)
+        {
+            MakeConsoleReady();
+
             Random rnd = new Random();
             var chars = "$%!*abcdefghijklmnopqrstuvwxyz1234567890?;:ABCDEFGHIJKLMNOPQRSTUVWXYZ^&";
 
@@ -45,7 +61,7 @@ namespace roguelike_spbu
             int entityCount = 5;
             List<Entity> entities = new List<Entity>();
             new Renderer(40, 150, 20, 20);
-            Renderer.SetGui("./GUI gold.txt", 1, 1);
+            //Renderer.SetGui("./GUI gold.txt", 1, 1);
             Map board = Generation.GenerateDungeon(45, 180);
 
             bool finished = false;

@@ -8,7 +8,7 @@ namespace roguelike_spbu
     public class Renderer
     {
         static string[,] buffer = {{}};
-        static GUI Gui = new GUI();
+        static GUI Gui = new GUI(new List<Window>());
         static bool GuiIsSet = false;
         static int MapXPosition;
         static int MapYPosition;
@@ -40,7 +40,7 @@ namespace roguelike_spbu
             InnerY = iy;
             StatinInnerBox = true;
         }
-        public static void SetGui(string path, int MXP, int MYP)
+        /*public static void SetGui(string path, int MXP, int MYP)
         {
             Gui = new GUI(path);
             MapXPosition = MXP;
@@ -64,7 +64,7 @@ namespace roguelike_spbu
             }
 
             GuiIsSet = true;
-        }
+        }*/
         static Color ChangeColorBrightness(Color color, double factor)
         {
             if (factor < 0)
