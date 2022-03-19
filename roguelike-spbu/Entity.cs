@@ -217,6 +217,12 @@ namespace roguelike_spbu
             get;
             set;
         }
+
+        public int  Range {
+            get;
+            set;
+        }
+        
         private Item[] _inventory = Array.Empty<Item>();
         public Item[] Inventory
         {
@@ -241,6 +247,10 @@ namespace roguelike_spbu
         public void ChangeColor(Color TempColor) { }
         public void GetEffect(EntityEffect effect, int time) { }
         public void UseItem(int number) { }
+
+        public virtual void Attack(Player player) {
+            player.HealthPoints -= this.Damage;        
+        }
         public void GetDamage(int damage) { }
         public virtual ActionInfo GetNextMove(Map map, List<Entity> entities, Player player) { return new ActionInfo(); }
     }

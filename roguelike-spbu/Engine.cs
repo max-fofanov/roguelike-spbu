@@ -33,7 +33,7 @@ namespace roguelike_spbu
             if (!renderOnly)
             {
                 ElementaryTurn(player);
-                entities.RemoveAll(e => Math.Abs(e.X - player.X) <= 1 && Math.Abs(e.Y - player.Y) <= 1);
+                entities.RemoveAll(e => e.HealthPoints <= 0);
 
                 foreach (Entity entity in entities){
                     ElementaryTurn(entity);
@@ -86,6 +86,18 @@ namespace roguelike_spbu
                 case Action.UseItem:
                     break;
                 case Action.Attack:
+
+                    if (entity is Player) { 
+                        Entity? target = entities.MinBy(e => Math.Sqrt(Math.Pow(player.X - e.X, 2) + Math.Pow(player.Y - e.Y, 2)));
+                        if (target != null && Math.Pow(target.X - player.X, 2) + Math.Pow(target.Y - player.Y, 2) <= Math.Pow(player.RangeOfHit, 2)) target.HealthPoints -= player.Damage;
+                    }
+                    else entity.Attack(player);
+
+                    if (player.HealthPoints <= 0) {
+                        Walkman.CurrentTrack = "./Waves.wav";
+                        Walkman.Play();
+                        Program.NormilizeConsole();
+                    }
                     break;
                 default:
                     break;

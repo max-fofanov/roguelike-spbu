@@ -1,10 +1,13 @@
-﻿﻿namespace roguelike_spbu
+﻿﻿using System;
+using NetCoreAudio;
+
+namespace roguelike_spbu
 {
     public class Program
     {
         static ConsoleColor backgroundColor;
         static ConsoleColor foregroundColor;
-
+        
 
         public static void MakeConsoleReady()
         {
@@ -21,6 +24,8 @@
 
             Console.BackgroundColor = backgroundColor;
             Console.ForegroundColor = foregroundColor;
+
+            Walkman.Stop();
             Environment.Exit(0);
         }
 
@@ -58,7 +63,7 @@
 
             for (int i = 0; i < entityCount; i++)
             {
-                Entity tmp = new Enemy(rnd.Next(45), rnd.Next(180));
+                Entity tmp = new Devil(rnd.Next(45), rnd.Next(180));
 
                 while (board.Tiles[tmp.X][tmp.Y].Impassable || board.Tiles[tmp.X][tmp.Y].GetType() == typeof(Void)) //TODO
                 {
@@ -92,6 +97,12 @@
             engine.Turn(true);
             Console.Write(Renderer.Render(board, entities, player));
 
+            //Thread thread = new Thread(Walkman.Play); //Включение музыки
+            //thread.IsBackground = true;
+            //thread.Start();
+
+            Walkman.Play("./sounds/Waves.wav");
+         
             while (true)
             {
                 Console.SetCursorPosition(0, 0);

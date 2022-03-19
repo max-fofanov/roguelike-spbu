@@ -15,6 +15,9 @@ namespace roguelike_spbu
             X = x;
             Y = y;
             this.trait = trait;
+            HealthPoints = 100;
+            Damage = 1000;
+            RangeOfHit = 2;
             VStatus = VisualStatus.isVisible;
             Symbol = symbol;
             PrimaryForegroundColor = color;
@@ -37,6 +40,8 @@ namespace roguelike_spbu
                     return new ActionInfo(Action.Pass, player, 1);
                 case ConsoleKey.Q:
                     return new ActionInfo(Action.Quit, player, 1);
+                case ConsoleKey.A:
+                    return new ActionInfo(Action.Attack, player, 1);
                 default:
                     return new ActionInfo(Action.StayInPlace, player, 1);
 
