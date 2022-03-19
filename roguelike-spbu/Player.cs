@@ -8,7 +8,7 @@ namespace roguelike_spbu
     {
         private Trait trait;
         private string symbol = "@";
-        private Color color = Color.Red;
+        private Color color = Color.White;
 
         public Color Color {
             get;
@@ -30,6 +30,10 @@ namespace roguelike_spbu
         public override ActionInfo GetNextMove(Map map, List<Entity> entities, Player player) {
 
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+            while (Console.KeyAvailable) {
+                Console.ReadKey(true);
+            }
 
             switch (keyInfo.Key) {
                 case ConsoleKey.LeftArrow:

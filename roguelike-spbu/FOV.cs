@@ -11,7 +11,7 @@ namespace roguelike_spbu
         }
         public static List<List<(int, int)>> GetRaysInEllipse(int a, int b)
         {
-            if (A == b && B == b && filled){
+            if (A == a && B == b && filled){
                 return Rays;
             }
             A = a;

@@ -80,8 +80,10 @@ namespace roguelike_spbu
 
             return Color.FromArgb(Red, Green, Blue);
         }
-        static string GetAppropriateSymbol(VisualStatus status, Tile tile, Entity? entity = null)
+        static string GetAppropriateSymbol(VisualStatus status, Tile tile, Entity? entity = null, bool allVisible = false)
         {
+            if (allVisible) status = VisualStatus.isVisible;
+
             switch (status)
             {
                 case VisualStatus.isVisible:
@@ -118,7 +120,7 @@ namespace roguelike_spbu
         {
             return (posx >= x && posy >= y && posx < (x + height) && posy < (y + width));
         }
-        public static StringBuilder Render(Map map, List<Entity> entities, Player player, int x, int y) // camera is fixed on coordinates
+        public static StringBuilder Render(Map map, List<Entity> entities, Player player, int x, int y, bool allVisible = false) // camera is fixed on coordinates
         {
 
             SetLastRenderCoordinates(x, y);
@@ -136,7 +138,7 @@ namespace roguelike_spbu
                     else
                     {
                         Tile tmp = map.Tiles[x + i][y + j];
-                        buffer[i + MapXPosition, j + MapYPosition] = GetAppropriateSymbol(tmp.Status, tmp);
+                        buffer[i + MapXPosition, j + MapYPosition] = GetAppropriateSymbol(tmp.Status, tmp, null, allVisible);
                     }
                 }
             }
@@ -145,13 +147,13 @@ namespace roguelike_spbu
             {
                 if (entity != null && IsInsideBorders(entity.X, entity.Y, x, y, Height, Width))
                 {
-                    buffer[entity.X - x + MapXPosition, entity.Y - y + MapYPosition] = GetAppropriateSymbol(map.Tiles[entity.X][entity.Y].Status, map.Tiles[entity.X][entity.Y], entity);
+                    buffer[entity.X - x + MapXPosition, entity.Y - y + MapYPosition] = GetAppropriateSymbol(map.Tiles[entity.X][entity.Y].Status, map.Tiles[entity.X][entity.Y], entity, allVisible);
                 }
             }
 
             if (IsInsideBorders(player.X, player.Y, x, y, Height, Width)) // place player on buffer
             {
-                buffer[player.X - x + MapXPosition, player.Y - y + MapYPosition] = GetAppropriateSymbol(player.VStatus, map.Tiles[player.X][player.Y], player);
+                buffer[player.X - x + MapXPosition, player.Y - y + MapYPosition] = GetAppropriateSymbol(player.VStatus, map.Tiles[player.X][player.Y], player, allVisible);
             }
 
             StringBuilder screenBuffer = new StringBuilder();
@@ -168,7 +170,7 @@ namespace roguelike_spbu
 
             return screenBuffer;
         }
-        public static StringBuilder Render(Map map, List<Entity> entities, Player player) // camera is fixed on player
+        public static StringBuilder Render(Map map, List<Entity> entities, Player player, bool allVisible = false) // camera is fixed on player
         {
             int newX = PrevX ?? 0;
             int newY = PrevY ?? 0;
@@ -220,7 +222,7 @@ namespace roguelike_spbu
                 newY = 0; // left is off map
             }
             
-            return Render(map, entities, player, newX, newY);
+            return Render(map, entities, player, newX, newY, allVisible);
         }
     }
 }

@@ -95,19 +95,16 @@ namespace roguelike_spbu
             Engine engine = new Engine(board, entities, player);
             Console.SetCursorPosition(0, 0);
             engine.Turn(true);
-            Console.Write(Renderer.Render(board, entities, player));
-
-            //Thread thread = new Thread(Walkman.Play); //Включение музыки
-            //thread.IsBackground = true;
-            //thread.Start();
+            Console.Write(Renderer.Render(board, entities, player, engine.allVisible));
+            
 
             Walkman.Play("./sounds/Waves.wav");
          
             while (true)
             {
                 Console.SetCursorPosition(0, 0);
-                engine.Turn();
-                Console.Write(Renderer.Render(board, entities, player));
+                (Map, List<Entity>) t = engine.Turn();
+                Console.Write(Renderer.Render(t.Item1, t.Item2, player, engine.allVisible));
             }
         }
     }

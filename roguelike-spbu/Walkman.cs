@@ -17,6 +17,9 @@ namespace roguelike_spbu {
             }
         }
 
+        public static bool IsPlaying {
+            get {return walkman.Playing; }
+        }
         public static void Play() {
             if (walkman.Playing) walkman.Stop();
             walkman.Play(CurrentTrack);
@@ -29,7 +32,17 @@ namespace roguelike_spbu {
 
         public static void Stop() {
             if (walkman.Playing) walkman.Stop();
+            
         }
+
+        public static void Pause() {
+            if (walkman.Playing) walkman.Pause();
+        }
+
+        public static void Resume() {
+            if (walkman.Paused) walkman.Resume();
+        }
+        
 
 
     }

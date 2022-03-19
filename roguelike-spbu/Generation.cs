@@ -162,8 +162,46 @@ namespace roguelike_spbu {
                             
                         }
                     }
+
                 }
 
+            }
+            
+            int rand1 = random.Next(rooms.Count / 2);
+            int rand2 = random.Next(rooms.Count / 2, rooms.Count);
+
+            Room entrance = rooms[rand1];
+            Room exit = rooms[rand2];
+
+            int coord = random.Next(entrance.Y0 + 1, entrance.Y1 - 1);
+
+            for (int i = 0; i <= entrance.X0; i++) {
+                
+
+                Tile tmp = new Field(i, coord);
+                dungeon.Tiles[i][coord] = tmp;
+                                
+                Tile tmp1 = new Border(i, coord - 1);
+                dungeon.Tiles[i][coord - 1] = tmp1;
+
+                Tile tmp2 = new Border(i, coord + 1);
+                dungeon.Tiles[i][coord + 1] = tmp2;
+
+            }
+
+             coord = random.Next(exit.Y0 + 1, exit.Y1 - 1);
+
+            for (int i = exit.X1 - 1; i < x; i++) {
+                
+
+                Tile tmp = new Field(i, coord);
+                dungeon.Tiles[i][coord] = tmp;
+                                
+                Tile tmp1 = new Border(i, coord - 1);
+                dungeon.Tiles[i][coord - 1] = tmp1;
+
+                Tile tmp2 = new Border(i, coord + 1);
+                dungeon.Tiles[i][coord + 1] = tmp2;
 
             }
 
@@ -176,28 +214,4 @@ namespace roguelike_spbu {
 
     }
 
-    class RoomSorter : IComparer<Room> {
-        
-        public int Compare(Room? room1, Room? room2) {
-
-            if (room1.Y0 > room2.Y0) 
-            {
-                return 1;
-            }
-            else if (room1.Y0 < room2.Y0) 
-            {
-                return -1;
-            }
-            else if (room1.X0 < room2.X0) 
-            {
-                return 1;
-            }
-            else 
-            {
-                return -1;
-            }
-
-        }
-        
-    }
 }

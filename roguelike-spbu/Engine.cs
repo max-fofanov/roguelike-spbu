@@ -6,6 +6,7 @@ namespace roguelike_spbu
         public Player player;
         public List<Entity> entities;
         List<(int, int)> visiblePoints = new List<(int, int)>();
+        public bool allVisible = false; 
         public Engine(Map map, List<Entity> entities, Player player)
         {
             this.map = map;
@@ -28,7 +29,43 @@ namespace roguelike_spbu
 
             return true;
         }
-        public void Turn(bool renderOnly = false)
+
+        void PlacePlayer(bool fromBehind = false) {
+
+
+            for (int i = 0; i < 45; i++)
+            {
+                for (int j = 0; j < 180; j++)
+                {
+                    if (!this.map.Tiles[i][j].Impassable && this.map.Tiles[i][j].GetType() != typeof(Void) && IsNewPlaceOK(i, j))
+                    {
+                        player.X = i;
+                        player.Y = j;
+                        if (fromBehind) return;
+                    }
+                }
+            }
+        }
+
+        List<Entity> PlaceEntities(int entityCount) {
+
+            Random rnd = new Random();
+            List<Entity> entities = new List<Entity>();
+            for (int i = 0; i < entityCount; i++)
+            {
+                Entity tmp = new Devil(rnd.Next(45), rnd.Next(180));
+
+                while (this.map.Tiles[tmp.X][tmp.Y].Impassable || this.map.Tiles[tmp.X][tmp.Y].GetType() == typeof(Void)) //TODO
+                {
+                    tmp.X = rnd.Next(45);
+                    tmp.Y = rnd.Next(180);
+                }
+                entities.Add(tmp);
+            }
+
+            return entities;
+        }
+        public (Map, List<Entity>) Turn(bool renderOnly = false)
         {
             if (!renderOnly)
             {
@@ -51,6 +88,8 @@ namespace roguelike_spbu
             {
                 map.Tiles[point.Item1][point.Item2].Status = VisualStatus.isVisible;
             }
+
+            return (map, entities);
         }
         void ElementaryTurn(Entity entity)
         {
@@ -61,10 +100,22 @@ namespace roguelike_spbu
                 case Action.Up:
                     if (IsNewPlaceOK(entity.X - 1, entity.Y))
                         entity.moveUp();
+                    if (entity.X - 1 < 0) {
+                        this.map = Generation.GenerateDungeon(45, 180);
+                        this.entities = PlaceEntities(5);
+                        PlacePlayer();
+                        visiblePoints = new List<(int, int)>();
+                    }    
                     break;
                 case Action.Down:
                     if (IsNewPlaceOK(entity.X + 1, entity.Y))
                         entity.moveDown();
+                    if (entity.X + 1 == 45) {
+                        this.map = Generation.GenerateDungeon(45, 180);
+                        this.entities = PlaceEntities(5);
+                        PlacePlayer(true);
+                        visiblePoints = new List<(int, int)>();
+                    }
                     break;
                 case Action.Left:
                     if (IsNewPlaceOK(entity.X, entity.Y - 1))

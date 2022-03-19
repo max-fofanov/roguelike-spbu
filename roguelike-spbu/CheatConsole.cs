@@ -20,10 +20,17 @@ namespace roguelike_spbu {
                 case ConsoleKey.P:
                     engine.entities.ForEach(e => e.Damage = 0);
                     break;
+                case ConsoleKey.V:
+                    engine.allVisible = ! engine.allVisible;
+                    break;
+                case ConsoleKey.M:
+                    if (Walkman.IsPlaying) Walkman.Stop();
+                    else Walkman.Play();
+                    break;
                 default:
-                    
-                    engine.player.PrimaryForegroundColor = new System.Drawing.Color[] { System.Drawing.Color.AliceBlue, 
-                    System.Drawing.Color.Yellow, System.Drawing.Color.Brown, System.Drawing.Color.Violet, System.Drawing.Color.LightPink}[new Random().Next(5)];
+
+                    engine.player.PrimaryForegroundColor = new System.Drawing.Color[] { System.Drawing.Color.Blue, 
+                    System.Drawing.Color.Yellow, System.Drawing.Color.Green, System.Drawing.Color.Red }[new Random().Next(4)];
                     break;
 
             }
