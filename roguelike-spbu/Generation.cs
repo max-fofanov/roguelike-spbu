@@ -67,7 +67,10 @@ namespace roguelike_spbu {
 
         }
 
-        public static Map GenerateDungeon(int x, int y, int minsize = 10, int maxsize = 20) {
+        public enum From {
+            Left, Right, Up, Down
+        }
+        public static Map GenerateDungeon(int x, int y, From from = From.Down, int minsize = 10, int maxsize = 20) {
 
             Map dungeon = new Map(x, y);
             Player player = new Player(0, 0);
@@ -166,7 +169,7 @@ namespace roguelike_spbu {
                 }
 
             }
-            
+            /*
             int rand1 = random.Next(rooms.Count / 2);
             int rand2 = random.Next(rooms.Count / 2, rooms.Count);
 
@@ -189,7 +192,7 @@ namespace roguelike_spbu {
 
             }
 
-             coord = random.Next(exit.Y0 + 1, exit.Y1 - 1);
+            coord = random.Next(exit.Y0 + 1, exit.Y1 - 1);
 
             for (int i = exit.X1 - 1; i < x; i++) {
                 
@@ -204,11 +207,154 @@ namespace roguelike_spbu {
                 dungeon.Tiles[i][coord + 1] = tmp2;
 
             }
+            */
+
+            int r = 0, coord;
+            Room entrance;
+
+            switch (from) {
+                case From.Down:
+                    r = random.Next(y / 30);
+
+                    entrance = rooms[r];
+
+                    coord = random.Next(entrance.Y0 + 1, entrance.Y1 - 1);
+
+                    for (int i = 0; i <= entrance.X0; i++) {    
+
+                        dungeon.Tiles[i][coord] = new Field(i, coord);
+                                        
+                        dungeon.Tiles[i][coord - 1] = new Border(i, coord - 1);
+
+                        dungeon.Tiles[i][coord + 1] = new Border(i, coord + 1);
+                    }
+                    break;
+                case From.Up:
+                    r = random.Next((y / 30) * (x / 20) - (y / 30), (y / 30) * (x / 20));
+
+                    entrance = rooms[r];
+
+                    coord = random.Next(entrance.Y0 + 1, entrance.Y1 - 1);
+
+                    for (int i = entrance.X1 - 1; i < x; i++) {
+                        
+                        dungeon.Tiles[i][coord] = new Field(i, coord);
+                                        
+                        dungeon.Tiles[i][coord - 1] = new Border(i, coord - 1);
+
+                        dungeon.Tiles[i][coord + 1] = new Border(i, coord + 1);
+
+                    }
+                    break;
+                case From.Left:
+                    r = random.Next(x / 20);
+
+                    entrance = rooms[((y / 30) - 1) + r * (y / 30)];
+
+                    coord = random.Next(entrance.X0 + 1, entrance.X1 - 1);
+
+                    for (int i = entrance.Y1 - 1; i < y; i++) {
+                        
+
+                        dungeon.Tiles[coord][i] = new Field(coord, i);
+                                        
+                        dungeon.Tiles[coord - 1][i] = new Border(coord - 1, i);
+
+                        dungeon.Tiles[coord + 1][i] = new Border(coord + 1, i);
+
+                    }
+                    break;
+                case From.Right:
+
+                    r = random.Next(x / 20);
+
+                    entrance = rooms[r * (y / 30)];
+
+                    coord = random.Next(entrance.X0 + 1, entrance.X1 - 1);
+
+                    for (int i = 0; i <= entrance.Y0; i++) {
+                        
+
+                        dungeon.Tiles[coord][i] = new Field(coord, i);
+                                        
+                        dungeon.Tiles[coord - 1][i] = new Border(coord - 1, i);
+
+                        dungeon.Tiles[coord + 1][i] = new Border(coord + 1, i);
+
+                    }
+                    break;
+            }
+
+            int r1 = random.Next(rooms.Count);
+            while (r1 == r) { r1 = random.Next(rooms.Count); }
+            Room exit = rooms[r1];
+
+            if ((r1 + 1) % (y/ 30) == 0 && random.Next(2) == 0) {
+
+                coord = random.Next(exit.X0 + 1, exit.X1 - 1);
+
+                for (int i = exit.Y1 - 1; i < y; i++) {
+                        
+
+                    dungeon.Tiles[coord][i] = new Field(coord, i);
+                                        
+                    dungeon.Tiles[coord - 1][i] = new Border(coord - 1, i);
+
+                    dungeon.Tiles[coord + 1][i] = new Border(coord + 1, i);
+                }
+            }
+            else if (r1 % (y / 30) == 0 && random.Next(2) == 0) {
+
+                coord = random.Next(exit.X0 + 1, exit.X1 - 1);
+
+                for (int i = 0; i <= exit.Y0; i++) {                
+
+                    dungeon.Tiles[coord][i] = new Field(coord, i);
+                                        
+                    dungeon.Tiles[coord - 1][i] = new Border(coord - 1, i);
+
+                    dungeon.Tiles[coord + 1][i] = new Border(coord + 1, i);
+                }
+            }
+            else if (r1 < y / 30) {
+                
+                coord = random.Next(exit.Y0 + 1, exit.Y1 - 1);
+
+                for (int i = 0; i <= exit.X0; i++) {    
+
+                    dungeon.Tiles[i][coord] = new Field(i, coord);
+                                        
+                    dungeon.Tiles[i][coord - 1] = new Border(i, coord - 1);
+
+                    dungeon.Tiles[i][coord + 1] = new Border(i, coord + 1);
+                }
+
+            }
+            else if (r1 >= (y / 30) * (x / 20) - (y / 30)) {
+
+                coord = random.Next(exit.Y0 + 1, exit.Y1 - 1);
+
+                for (int i = exit.X1 - 1; i < x; i++) {
+                        
+                    dungeon.Tiles[i][coord] = new Field(i, coord);
+                                        
+                    dungeon.Tiles[i][coord - 1] = new Border(i, coord - 1);
+
+                    dungeon.Tiles[i][coord + 1] = new Border(i, coord + 1);
+                }
+            }
+
+
 
             if (Primitives.AStarSearch(dungeon, new List<Entity>(), new Player(0, 0), (rooms[0].X0 + 2, rooms[0].Y0 + 2), (rooms[rooms.Count - 1].X1 - 2, rooms[rooms.Count - 1].Y1 - 2)).Count == 0)
-                return GenerateDungeon(x, y, minsize, maxsize);
+                return GenerateDungeon(x, y, from, minsize, maxsize);
             
             return dungeon;
+
+            
+
+
+    
         }
 
 

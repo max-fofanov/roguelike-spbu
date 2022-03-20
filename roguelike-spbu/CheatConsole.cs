@@ -28,7 +28,6 @@ namespace roguelike_spbu {
                     else Walkman.Play();
                     break;
                 default:
-
                     engine.player.PrimaryForegroundColor = new System.Drawing.Color[] { System.Drawing.Color.Blue, 
                     System.Drawing.Color.Yellow, System.Drawing.Color.Green, System.Drawing.Color.Red }[new Random().Next(4)];
                     break;

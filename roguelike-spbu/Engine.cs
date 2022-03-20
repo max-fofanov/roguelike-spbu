@@ -5,6 +5,8 @@ namespace roguelike_spbu
         Map map;
         public Player player;
         public List<Entity> entities;
+
+        public List<Map> history;
         List<(int, int)> visiblePoints = new List<(int, int)>();
         public bool allVisible = false; 
         public Engine(Map map, List<Entity> entities, Player player)
@@ -30,18 +32,34 @@ namespace roguelike_spbu
             return true;
         }
 
-        void PlacePlayer(bool fromBehind = false) {
+        void PlacePlayer(Generation.From from = Generation.From.Left) {
 
 
-            for (int i = 0; i < 45; i++)
-            {
-                for (int j = 0; j < 180; j++)
+            if (from == Generation.From.Down || from == Generation.From.Up) {
+                for (int i = 0; i < 45; i++)
                 {
-                    if (!this.map.Tiles[i][j].Impassable && this.map.Tiles[i][j].GetType() != typeof(Void) && IsNewPlaceOK(i, j))
+                    for (int j = 0; j < 180; j++)
                     {
-                        player.X = i;
-                        player.Y = j;
-                        if (fromBehind) return;
+                        if (!this.map.Tiles[i][j].Impassable && this.map.Tiles[i][j].GetType() != typeof(Void) && IsNewPlaceOK(i, j))
+                        {
+                            player.X = i;
+                            player.Y = j;
+                            if (from == Generation.From.Down) return;
+                        }
+                    }
+                }
+            }
+            else {
+                for (int i = 0; i < 180; i++)
+                {
+                    for (int j = 0; j < 45; j++)
+                    {
+                        if (!this.map.Tiles[j][i].Impassable && this.map.Tiles[j][i].GetType() != typeof(Void) && IsNewPlaceOK(j, i))
+                        {
+                            player.X = j;
+                            player.Y = i;
+                            if (from == Generation.From.Right) return;
+                        }
                     }
                 }
             }
@@ -100,10 +118,11 @@ namespace roguelike_spbu
                 case Action.Up:
                     if (IsNewPlaceOK(entity.X - 1, entity.Y))
                         entity.moveUp();
-                    if (entity.X - 1 < 0) {
-                        this.map = Generation.GenerateDungeon(45, 180);
+                    if (entity.X - 1 < 0 && player.Position != 0) {
+                        if (player.Position )
+                        this.map = Generation.GenerateDungeon(45, 180, Generation.From.Up);
                         this.entities = PlaceEntities(5);
-                        PlacePlayer();
+                        PlacePlayer(Generation.From.Up);
                         visiblePoints = new List<(int, int)>();
                     }    
                     break;
@@ -111,19 +130,31 @@ namespace roguelike_spbu
                     if (IsNewPlaceOK(entity.X + 1, entity.Y))
                         entity.moveDown();
                     if (entity.X + 1 == 45) {
-                        this.map = Generation.GenerateDungeon(45, 180);
+                        this.map = Generation.GenerateDungeon(45, 180, Generation.From.Down);
                         this.entities = PlaceEntities(5);
-                        PlacePlayer(true);
+                        PlacePlayer(Generation.From.Down);
                         visiblePoints = new List<(int, int)>();
                     }
                     break;
                 case Action.Left:
                     if (IsNewPlaceOK(entity.X, entity.Y - 1))
                         entity.moveLeft();
+                    if (entity.Y - 1 < 0) {
+                        this.map = Generation.GenerateDungeon(45, 180, Generation.From.Left);
+                        this.entities = PlaceEntities(5);
+                        PlacePlayer(Generation.From.Left);
+                        visiblePoints = new List<(int, int)>();
+                    }
                     break;
                 case Action.Right:
                     if (IsNewPlaceOK(entity.X, entity.Y + 1))
                         entity.moveRight();
+                    if (entity.Y + 1 == 180) {
+                        this.map = Generation.GenerateDungeon(45, 180, Generation.From.Right);
+                        this.entities = PlaceEntities(5);
+                        PlacePlayer(Generation.From.Right);
+                        visiblePoints = new List<(int, int)>();
+                    }
                     break;
                 case Action.Quit:
                     Program.NormilizeConsole();

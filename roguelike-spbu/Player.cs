@@ -14,6 +14,11 @@ namespace roguelike_spbu
             get;
             set;
         }
+
+        public int Position {
+            get;
+            set;
+        }
         public Player(int x, int y, Trait trait = Trait.Saber)
         {
             X = x;
