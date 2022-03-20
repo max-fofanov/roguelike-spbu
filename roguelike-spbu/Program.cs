@@ -36,18 +36,23 @@ namespace roguelike_spbu
 
         static void Main(string[] args)
         {
-            MakeConsoleReady();
+            TextBox tb = new TextBox(0, 5, 8, 20, "ДНК123", "Гомологичная рекомбинация — тип генетической рекомбинации, во время которой происходит обмен нуклеотидными последовательностями между двумя похожими или идентичными хромосомами. Это наиболее широко используемый клетками способ устранения двух- или однонитевых повреждений ДНК.");
 
-            List<Window> windows = new List<Window>();
+            while (true)
+            {
+                MakeConsoleReady();
+                List<Window> windows = new List<Window>();
+                windows.Add(new Window(0, 0, 5, 6));
+                windows.Add(tb);
 
-            windows.Add(new Window(0, 0, 4, 4));
-            windows.Add(new Window(3, 3, 4, 4));
+                GUI g = new GUI(windows);
 
-            GUI g = new GUI(windows);
-
-            g.CalculateSize();
-            Console.WriteLine("size {0} {1}", g.Height, g.Width);
-            g.Print();
+                g.CalculateSize();
+                //Console.WriteLine("size {0} {1}", g.Height, g.Width);
+                g.Print();
+                tb.ScroolDown();
+                Console.ReadLine();
+            }
         }
 
         static void Main1(string[] args)

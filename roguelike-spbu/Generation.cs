@@ -181,7 +181,8 @@ namespace roguelike_spbu {
         public int Compare(Room? room1, Room? room2) {
 
             if (room1.Y0 > room2.Y0) 
-            {
+            { 
+                
                 return 1;
             }
             else if (room1.Y0 < room2.Y0) 
