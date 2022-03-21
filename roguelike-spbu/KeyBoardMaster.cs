@@ -9,10 +9,10 @@ namespace roguelike_spbu
     delegate void KeyboardDelegate();
     class KeyBoardMaster
     {
-        public event KeyboardDelegate downPressedEvent = null;
-        public event KeyboardDelegate upPressedEvent = null;
-        public event KeyboardDelegate leftPressedEvent = null;
-        public event KeyboardDelegate rightPressedEvent = null;
+        public event KeyboardDelegate? downPressedEvent = null;
+        public event KeyboardDelegate? upPressedEvent = null;
+        public event KeyboardDelegate? leftPressedEvent = null;
+        public event KeyboardDelegate? rightPressedEvent = null;
 
         public void UpPressedEvent()
         {

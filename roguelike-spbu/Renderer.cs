@@ -118,7 +118,7 @@ namespace roguelike_spbu
         {
             return (posx >= x && posy >= y && posx < (x + height) && posy < (y + width));
         }
-        public static StringBuilder Render(Map map, List<Entity> entities, Player player, int x, int y) // camera is fixed on coordinates
+        public static string[,] Render(Map map, List<Entity> entities, Player player, int x, int y) // camera is fixed on coordinates
         {
 
             SetLastRenderCoordinates(x, y);
@@ -154,7 +154,9 @@ namespace roguelike_spbu
                 buffer[player.X - x + MapXPosition, player.Y - y + MapYPosition] = GetAppropriateSymbol(player.VStatus, map.Tiles[player.X][player.Y], player);
             }
 
-            StringBuilder screenBuffer = new StringBuilder();
+            return buffer;
+
+            /*StringBuilder screenBuffer = new StringBuilder();
 
 
             for (int i = 0; i < (GuiIsSet ? Gui.Height : Height); i++) // fill screen buffer 
@@ -166,9 +168,9 @@ namespace roguelike_spbu
                 screenBuffer.AppendLine();
             }
 
-            return screenBuffer;
+            return screenBuffer;*/
         }
-        public static StringBuilder Render(Map map, List<Entity> entities, Player player) // camera is fixed on player
+        public static string[,] Render(Map map, List<Entity> entities, Player player) // camera is fixed on player
         {
             int newX = PrevX ?? 0;
             int newY = PrevY ?? 0;
