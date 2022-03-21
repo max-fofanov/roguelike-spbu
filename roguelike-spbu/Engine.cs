@@ -69,8 +69,9 @@ namespace roguelike_spbu
                     tmp.X = rnd.Next(45);
                     tmp.Y = rnd.Next(180);
                 }
-                entities.Add(tmp);
+                
             }
+            entities.Add(new Skeleton(rnd.Next(45), rnd.Next(180)));
 
             return entities;
         }
