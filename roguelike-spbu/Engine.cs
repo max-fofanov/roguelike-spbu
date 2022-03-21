@@ -33,7 +33,6 @@ namespace roguelike_spbu
         }
 
         void PlacePlayer(int num) {
-
             for (int i = 0; i < map.Tiles.Length; i++) {
                 for (int j = 0; j < map.Tiles[i].Length; j++) {
                     if (map.Tiles[i][j] is Exit && (map.Tiles[i][j] as Exit).Room == num) { 
