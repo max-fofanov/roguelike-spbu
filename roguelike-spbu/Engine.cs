@@ -119,7 +119,6 @@ namespace roguelike_spbu
                     if (IsNewPlaceOK(entity.X - 1, entity.Y))
                         entity.moveUp();
                     if (entity.X - 1 < 0 && player.Position != 0) {
-                        if (player.Position )
                         this.map = Generation.GenerateDungeon(45, 180, Generation.From.Up);
                         this.entities = PlaceEntities(5);
                         PlacePlayer(Generation.From.Up);

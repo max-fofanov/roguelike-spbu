@@ -9,6 +9,11 @@ namespace roguelike_spbu
         private Trait trait;
         private string symbol = "@";
         private Color color = Color.White;
+        
+        public static uint LVL {
+            get;
+            set;
+        }
 
         public Color Color {
             get;
