@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace roguelike_spbu
 {
@@ -20,6 +21,7 @@ namespace roguelike_spbu
             this.CreatureType ="";
             this.RangeOfHit = 0;
         }
+
         public override ActionInfo GetNextMove(Map map, List<Entity> entities, Player player)
         {
             if (Math.Pow(this.X - player.X, 2) + Math.Pow(this.Y - player.Y, 2) <= Math.Pow(this.RangeOfHit, 2)) { return new ActionInfo(Action.Attack); }
