@@ -206,6 +206,10 @@ namespace roguelike_spbu {
                 Tile tmp2 = new Border(i, coord + 1);
                 dungeon.Tiles[i][coord + 1] = tmp2;
 
+            if (room1.Y0 > room2.Y0) 
+            { 
+                
+                return 1;
             }
             */
 
