@@ -62,10 +62,11 @@ namespace roguelike_spbu
         }
         public Exit(int x, int y, int num) : base(x, y)
         {
-            Symbol = "/";
+            
             PrimaryForegroundColor = Color.DarkGreen;
             PrimaryBackgroundColor = Color.Green;
             Room = num;
+            Symbol = Room.ToString(); //"/";
         }
 
     }

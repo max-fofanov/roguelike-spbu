@@ -2,19 +2,55 @@ namespace roguelike_spbu
 {
     public class Engine
     {
-        Map map;
-        public Player player;
-        public List<Entity> entities;
-        public List<Map> history = new List<Map>();
-        List<(int, int)> visiblePoints = new List<(int, int)>();
-        public bool allVisible = false; 
-        public Engine(Map map, List<Entity> entities, Player player)
-        {
-            this.map = map;
-            this.entities = entities;
-            this.player = player;
-            history.Add(map);
+
+        public Map map {
+            get {
+                if (GameInfo.history.Count() == 0) return new Map(0, 0, 0);
+                return GameInfo.history[GameInfo.currentMap];
+            }
+            set {
+                GameInfo.history[GameInfo.currentMap] = value;
+            }
         }
+        public Player player {
+            get {
+                return GameInfo.player;
+            }
+
+            set {
+                GameInfo.player = value;
+            }
+        }
+        public List<Entity> entities {
+            get {
+                return GameInfo.entities;
+            }
+
+            set {
+                GameInfo.entities = value;
+            }
+        }
+
+        public List<Map> history {
+            get {
+                return GameInfo.history;
+            }
+
+            set {
+                GameInfo.history = value;
+            }
+        }
+        List<(int, int)> visiblePoints = new List<(int, int)>();
+        public bool allVisible {
+            get {
+                return GameInfo.allVisible;
+            }
+
+            set {
+                GameInfo.allVisible = value;
+            }
+        }
+        public Engine() { }
         bool IsNewPlaceOK(int x, int y)
         {
             if (x < 0 || y < 0 || x >= map.Height || y >= map.Width)
@@ -31,11 +67,13 @@ namespace roguelike_spbu
 
             return true;
         }
-
         void PlacePlayer(int num) {
             for (int i = 0; i < map.Tiles.Length; i++) {
                 for (int j = 0; j < map.Tiles[i].Length; j++) {
                     if (map.Tiles[i][j] is Exit && (map.Tiles[i][j] as Exit).Room == num) { 
+            /*for (int i = 0; i < this.map.Tiles.Length; i++) {
+                for (int j = 0; j < this.map.Tiles[i].Length; j++) {
+                    if (this.map.Tiles[i][j] is Exit && (this.map.Tiles[i][j] as Exit).Room == num) { */
                         player.X = i;
                         player.Y = j;
                     }
@@ -43,26 +81,55 @@ namespace roguelike_spbu
             }
             
         }
-
         List<Entity> PlaceEntities(int entityCount) {
 
             Random rnd = new Random();
             List<Entity> entities = new List<Entity>();
             for (int i = 0; i < entityCount; i++)
             {
-                Entity tmp = new Devil(rnd.Next(45), rnd.Next(180));
+                Entity tmp = new Devil(rnd.Next(GameInfo.mapHeight), rnd.Next(GameInfo.mapWidth));
 
                 while (this.map.Tiles[tmp.X][tmp.Y].Impassable || this.map.Tiles[tmp.X][tmp.Y].GetType() == typeof(Void)) //TODO
                 {
-                    tmp.X = rnd.Next(45);
-                    tmp.Y = rnd.Next(180);
+                    tmp.X = rnd.Next(GameInfo.mapHeight);
+                    tmp.Y = rnd.Next(GameInfo.mapWidth);
                 }
                 entities.Add(tmp);
             }
 
             return entities;
         }
-        public (Map, List<Entity>) Turn(bool renderOnly = false)
+        public void GenerateMap(Entity entity, Generation.From EnterDirection, bool newMap = false)
+        {
+            if (newMap || entity is Player && map.Tiles[player.X][player.Y] is Exit) {
+                int destinationMapNumber;
+                
+                if (newMap)
+                    destinationMapNumber = 0;
+                else
+                    destinationMapNumber = ((Exit) map.Tiles[player.X][player.Y]).Room;
+
+                if (destinationMapNumber == -1) {
+                    return;
+                }
+                else if (destinationMapNumber == history.Count) {
+                    history.Add(Generation.GenerateDungeon(GameInfo.mapHeight, GameInfo.mapWidth, EnterDirection, destinationMapNumber));
+                }
+
+                int currentMap = GameInfo.currentMap;
+                GameInfo.currentMap = destinationMapNumber;
+
+                if (newMap)
+                    PlacePlayer(-1);
+                else
+                    PlacePlayer(currentMap);
+                
+                this.entities = PlaceEntities(5);
+                
+                visiblePoints = new List<(int, int)>();
+            }
+        }
+        public void Turn(bool renderOnly = false)
         {
             if (!renderOnly)
             {
@@ -85,110 +152,36 @@ namespace roguelike_spbu
             {
                 map.Tiles[point.Item1][point.Item2].Status = VisualStatus.isVisible;
             }
-
-            return (map, entities);
         }
         void ElementaryTurn(Entity entity)
         {
             ActionInfo nextMove = entity.GetNextMove(map, entities, player);
 
-            int n, m;
             switch (nextMove.Action)
             {
                 case Action.Up:
                     if (IsNewPlaceOK(entity.X - 1, entity.Y))
                         entity.moveUp();
                     
-                    if (entity is Player && map.Tiles[player.X][player.Y] is Exit) {
-                        n = ((Exit) map.Tiles[player.X][player.Y]).Room;
-                        m = map.Num;
-
-                        if (n == -1) {
-                            break;
-                        }
-                        else if (n == history.Count) {
-                            this.map = Generation.GenerateDungeon(45, 180, Generation.From.Up, m + 1);
-                            history.Add(this.map);
-                            
-                        }
-                        else {
-                            this.map = history[n];
-                        }
-
-                        PlacePlayer(m);
-                        this.entities = PlaceEntities(5);
-                        
-                        visiblePoints = new List<(int, int)>();
-                    }    
+                    GenerateMap(entity, Generation.From.Up);  
                     break;
                 case Action.Down:
                     if (IsNewPlaceOK(entity.X + 1, entity.Y))
                         entity.moveDown();
 
-                    if (entity is Player && map.Tiles[player.X][player.Y] is Exit) {
-                        n = ((Exit) map.Tiles[player.X][player.Y]).Room;
-                        m = map.Num;
-
-                        if (n == -1) {
-                            break;
-                        }
-                        else if (n == history.Count) {
-                            this.map = Generation.GenerateDungeon(45, 180, Generation.From.Down, m + 1);
-                            history.Add(this.map);
-                        }
-                        else {
-                            this.map = history[n];
-                        }
-                        this.entities = PlaceEntities(5);
-                        PlacePlayer(m);
-                        visiblePoints = new List<(int, int)>();
-                    }  
+                    GenerateMap(entity, Generation.From.Down);
                     break;
                 case Action.Left:
                     if (IsNewPlaceOK(entity.X, entity.Y - 1))
                         entity.moveLeft();
 
-                    if (entity is Player && map.Tiles[player.X][player.Y] is Exit) {
-                        n = ((Exit) map.Tiles[player.X][player.Y]).Room;
-                        m = map.Num;
-
-                        if (n == -1) {
-                            break;
-                        }
-                        else if (n == history.Count) {
-                            this.map = Generation.GenerateDungeon(45, 180, Generation.From.Left, m + 1);
-                            history.Add(this.map);
-                        }
-                        else {
-                            this.map = history[n];
-                        }
-                        this.entities = PlaceEntities(5);
-                        PlacePlayer(m);
-                        visiblePoints = new List<(int, int)>();
-                    }  
+                    GenerateMap(entity, Generation.From.Left);
                     break;
                 case Action.Right:
                     if (IsNewPlaceOK(entity.X, entity.Y + 1))
                         entity.moveRight();
 
-                    if (entity is Player && map.Tiles[player.X][player.Y] is Exit) {
-                        n = ((Exit) map.Tiles[player.X][player.Y]).Room;
-                        m = map.Num;
-
-                        if (n == -1) {
-                            break;
-                        }
-                        else if (n == history.Count) {
-                            this.map = Generation.GenerateDungeon(45, 180, Generation.From.Right, m + 1);
-                            history.Add(this.map);
-                        }
-                        else {
-                            this.map = history[n];
-                        }
-                        this.entities = PlaceEntities(5);
-                        PlacePlayer(m);
-                        visiblePoints = new List<(int, int)>();
-                    }  
+                    GenerateMap(entity, Generation.From.Right); 
                     break;
                 case Action.Quit:
                     Program.NormilizeConsole();
