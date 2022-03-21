@@ -8,21 +8,27 @@ namespace roguelike_spbu
     {
         private Trait trait;
         private string symbol = "@";
-        private Color color = Color.Red;
-
-        public int Level
-        {
+        private Color color = Color.White;
+        
+        public static uint LVL {
             get;
             set;
         }
 
-        public int XP_to_Level_UP
-        {
+        public Color Color {
             get;
             set;
         }
 
+        public int Position {
+            get;
+            set;
+        }
 
+         public uint XP_to_Level_UP {
+            get;
+            set;
+        }
         public Player(int x, int y, Trait trait = Trait.Saber)
         {
             X = x;
@@ -31,17 +37,21 @@ namespace roguelike_spbu
             HealthPoints = 100;
             Damage = 1000;
             RangeOfHit = 2;
-            Level = 1;
             XP = 0;
             XP_to_Level_UP = 15;
             VStatus = VisualStatus.isVisible;
             Symbol = symbol;
             PrimaryForegroundColor = color;
+            LVL = 1;
         }
 
         public override ActionInfo GetNextMove(Map map, List<Entity> entities, Player player) {
 
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+            while (Console.KeyAvailable) {
+                Console.ReadKey(true);
+            }
 
             switch (keyInfo.Key) {
                 case ConsoleKey.LeftArrow:
@@ -58,6 +68,8 @@ namespace roguelike_spbu
                     return new ActionInfo(Action.Quit, player, 1);
                 case ConsoleKey.A:
                     return new ActionInfo(Action.Attack, player, 1);
+                case ConsoleKey.C:
+                    return new ActionInfo(Action.Cheat, player, 1);
                 default:
                     return new ActionInfo(Action.StayInPlace, player, 1);
 
