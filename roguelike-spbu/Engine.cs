@@ -47,12 +47,22 @@ namespace roguelike_spbu
         }
 
         List<Entity> PlaceEntities(int entityCount) {
-
+            
             Random rnd = new Random();
             List<Entity> entities = new List<Entity>();
             for (int i = 0; i < entityCount; i++)
-            {
-                Entity tmp = new Devil(rnd.Next(45), rnd.Next(180));
+            {   
+                List<Entity> monsters = new List<Entity>();
+                monsters.Add(new Goblin(rnd.Next(45), rnd.Next(180)));
+                monsters.Add(new Hobgoblin(rnd.Next(45), rnd.Next(180)));
+                monsters.Add(new Skeleton(rnd.Next(45), rnd.Next(180)));
+                monsters.Add(new Zombie(rnd.Next(45), rnd.Next(180)));
+                monsters.Add(new Lich(rnd.Next(45), rnd.Next(180)));
+                monsters.Add(new DeathKnight(rnd.Next(45), rnd.Next(180)));
+                monsters.Add(new Devil (rnd.Next(45), rnd.Next(180)));
+                monsters.Add(new Archangel(rnd.Next(45), rnd.Next(180)));
+                float[] monsterschance = { Math.Max(1, 20 - player.LVL - history.Count), 5, Math.Max(1, 13 - player.LVL), 8, 1 + player.LVL + history.Count, 1 + 3*(player.LVL + history.Count), 1 + 3*(player.LVL + history.Count)};
+                Entity tmp = monsters[Walker.Alias(monsterschance)];
 
                 while (this.map.Tiles[tmp.X][tmp.Y].Impassable || this.map.Tiles[tmp.X][tmp.Y].GetType() == typeof(Void)) //TODO
                 {
@@ -75,11 +85,10 @@ namespace roguelike_spbu
                         player.XP += entity.XP;
                         while (player.PlayerExperiencePoints > player.XPToLevelUP)
                         {
-                            uint n = player.PlayerExperiencePoints / player.XPToLevelUP;
+                            int n = player.PlayerExperiencePoints / player.XPToLevelUP;
                             player.LVL += player.PlayerExperiencePoints % player.XPToLevelUP;
                             player.PlayerExperiencePoints -= player.XPToLevelUP;
-                            player.XPToLevelUP *= (uint)Math.Pow(2, (double)n);
-                            System.Console.WriteLine( player.LVL);
+                            player.XPToLevelUP *= (int)Math.Pow(2, (double)n);
                         }
                         
                     }
@@ -110,6 +119,7 @@ namespace roguelike_spbu
             ActionInfo nextMove = entity.GetNextMove(map, entities, player);
 
             int n, m;
+            Random rnd = new Random();
             switch (nextMove.Action)
             {
                 case Action.Up:
@@ -133,7 +143,8 @@ namespace roguelike_spbu
                         }
 
                         PlacePlayer(m);
-                        this.entities = PlaceEntities(5);
+
+                        this.entities = PlaceEntities(rnd.Next(5, 7 + player.LVL + history.Count));
                         
                         visiblePoints = new List<(int, int)>();
                     }    
@@ -156,7 +167,7 @@ namespace roguelike_spbu
                         else {
                             this.map = history[n];
                         }
-                        this.entities = PlaceEntities(5);
+                        this.entities = PlaceEntities(rnd.Next(5, 7 + player.LVL + history.Count));
                         PlacePlayer(m);
                         visiblePoints = new List<(int, int)>();
                     }  
@@ -179,7 +190,7 @@ namespace roguelike_spbu
                         else {
                             this.map = history[n];
                         }
-                        this.entities = PlaceEntities(5);
+                        this.entities = PlaceEntities(rnd.Next(5, 7 + player.LVL + history.Count));
                         PlacePlayer(m);
                         visiblePoints = new List<(int, int)>();
                     }  
@@ -202,7 +213,7 @@ namespace roguelike_spbu
                         else {
                             this.map = history[n];
                         }
-                        this.entities = PlaceEntities(5);
+                        this.entities = PlaceEntities(rnd.Next(5, 7 + player.LVL + history.Count));
                         PlacePlayer(m);
                         visiblePoints = new List<(int, int)>();
                     }  

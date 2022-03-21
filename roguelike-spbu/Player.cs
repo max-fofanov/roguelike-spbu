@@ -10,7 +10,7 @@ namespace roguelike_spbu
         private string symbol = "@";
         private Color color = Color.White;
         
-        public  uint LVL {
+        public int LVL {
             get;
             set;
         }
@@ -25,11 +25,11 @@ namespace roguelike_spbu
             set;
         }
 
-         public  uint XPToLevelUP {
+         public  int XPToLevelUP {
             get;
             set;
         }
-        public  uint PlayerExperiencePoints {
+        public  int PlayerExperiencePoints {
             get;
             set;
         }

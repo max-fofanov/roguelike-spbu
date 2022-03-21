@@ -114,7 +114,7 @@ namespace roguelike_spbu
             var chars = "$%!*abcdefghijklmnopqrstuvwxyz1234567890?;:ABCDEFGHIJKLMNOPQRSTUVWXYZ^&";
 
             Player player = new Player(0, 0);
-            int entityCount = 5;
+            int entityCount = 7;
             List<Entity> entities = new List<Entity>();
             new Renderer(40, 150, 20, 20);
             //Renderer.SetGui("./GUI gold.txt", 1, 1);
@@ -135,7 +135,7 @@ namespace roguelike_spbu
 
             for (int i = 0; i < entityCount; i++)
             {
-                Entity tmp = new Devil(rnd.Next(45), rnd.Next(180));
+                Entity tmp = new Goblin(rnd.Next(45), rnd.Next(180));
 
                 while (board.Tiles[tmp.X][tmp.Y].Impassable || board.Tiles[tmp.X][tmp.Y].GetType() == typeof(Void)) //TODO
                 {
