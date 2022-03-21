@@ -20,10 +20,6 @@ namespace roguelike_spbu
             Impassable = true;
             PrimaryForegroundColor = Color.DimGray;
             PrimaryBackgroundColor = Color.Gray;
-
-
-
-
             
         }
     }
@@ -54,6 +50,22 @@ namespace roguelike_spbu
             Symbol = ".";
             PrimaryForegroundColor = Color.DarkGreen;
             PrimaryBackgroundColor = Color.Green;
+        }
+
+    }
+
+    public class Exit : Tile
+    {
+        public int Room {
+            get;
+            set;
+        }
+        public Exit(int x, int y, int num) : base(x, y)
+        {
+            Symbol = "/";
+            PrimaryForegroundColor = Color.DarkGreen;
+            PrimaryBackgroundColor = Color.Green;
+            Room = num;
         }
 
     }

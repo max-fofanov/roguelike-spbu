@@ -33,7 +33,7 @@ namespace roguelike_spbu
         {
             return Math.Abs(x - y) < exp;
         }
-        static void Main(string[] args)
+        static void Main3(string[] args)
         {
             MakeConsoleReady();
             Window mm = new Window(0, 0, 17, 30);
@@ -106,7 +106,7 @@ namespace roguelike_spbu
                 Console.ReadLine();
             }
         }
-        static void Main1(string[] args)
+        static void Main(string[] args)
         {
             MakeConsoleReady();
 
@@ -167,19 +167,28 @@ namespace roguelike_spbu
             Engine engine = new Engine(board, entities, player);
             Console.SetCursorPosition(0, 0);
             engine.Turn(true);
-            Console.Write(Renderer.Render(board, entities, player));
+            string[,] screenMatrix = Renderer.Render(board, entities, player, engine.allVisible);
+            for (int i = 0; i < screenMatrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < screenMatrix.GetLength(1); j++)
+                    Console.Write(screenMatrix[i, j]);
+                Console.WriteLine();
+            }
+            
 
-            //Thread thread = new Thread(Walkman.Play); //Включение музыки
-            //thread.IsBackground = true;
-            //thread.Start();
-
-            Walkman.Play("./sounds/Waves.wav");
+            //Walkman.Play("./sounds/Hub/Good-theme.-The-Versions-Final-Fantasy-7-Main-Theme-_From-Final-Fantasy-7-_.wav");
          
             while (true)
             {
                 Console.SetCursorPosition(0, 0);
-                engine.Turn();
-                Console.Write(Renderer.Render(board, entities, player));
+                (Map, List<Entity>) t = engine.Turn();
+                screenMatrix = Renderer.Render(t.Item1, t.Item2, player, engine.allVisible);
+                for (int i = 0; i < screenMatrix.GetLength(0); i++)
+                {
+                    for (int j = 0; j < screenMatrix.GetLength(1); j++)
+                        Console.Write(screenMatrix[i, j]);
+                    Console.WriteLine();
+                }
             }
         }
     }

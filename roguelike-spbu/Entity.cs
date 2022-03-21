@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace roguelike_spbu
 {
@@ -108,7 +109,7 @@ namespace roguelike_spbu
     }
     public class Entity
     {
-        public Guid id
+        public Guid ID
         {
             set;
             get;
@@ -138,7 +139,7 @@ namespace roguelike_spbu
             get;
             set;
         }
-        public string Discription
+        public string Description
         {
             get;
             set;

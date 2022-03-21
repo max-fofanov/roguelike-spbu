@@ -8,9 +8,19 @@ namespace roguelike_spbu
     {
         private Trait trait;
         private string symbol = "@";
-        private Color color = Color.Red;
+        private Color color = Color.White;
+        
+        public static uint LVL {
+            get;
+            set;
+        }
 
         public Color Color {
+            get;
+            set;
+        }
+
+        public int Position {
             get;
             set;
         }
@@ -25,11 +35,16 @@ namespace roguelike_spbu
             VStatus = VisualStatus.isVisible;
             Symbol = symbol;
             PrimaryForegroundColor = color;
+            LVL = 0;
         }
 
         public override ActionInfo GetNextMove(Map map, List<Entity> entities, Player player) {
 
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+            while (Console.KeyAvailable) {
+                Console.ReadKey(true);
+            }
 
             switch (keyInfo.Key) {
                 case ConsoleKey.LeftArrow:
