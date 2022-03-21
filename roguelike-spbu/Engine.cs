@@ -89,7 +89,9 @@ namespace roguelike_spbu
             {
                 Entity tmp = new Devil(rnd.Next(GameInfo.mapHeight), rnd.Next(GameInfo.mapWidth));
 
-                while (this.map.Tiles[tmp.X][tmp.Y].Impassable || this.map.Tiles[tmp.X][tmp.Y].GetType() == typeof(Void)) //TODO
+                while (this.map.Tiles[tmp.X][tmp.Y].Impassable || this.map.Tiles[tmp.X][tmp.Y].GetType() == typeof(Void))
+                //TODO check if in new place no other monsters
+                //TODO copy code from lore branch and make stating position generation once
                 {
                     tmp.X = rnd.Next(GameInfo.mapHeight);
                     tmp.Y = rnd.Next(GameInfo.mapWidth);

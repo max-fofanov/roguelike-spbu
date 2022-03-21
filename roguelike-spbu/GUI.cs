@@ -50,7 +50,7 @@ namespace roguelike_spbu {
     {
         static Window MiniMap = new Window(0, 0, 17, 30);
         static TextBox Statistics = new TextBox(16, 0, 36, 30, "Stats", "None");
-        static Window GameBox = new Window(0, 29, 42, 152);
+        static Window GameBox = new GameBox(0, 29, 42, 152);
         static Window UnderBar = new Window(41, 29, 11, 152);
         static ListBox ListBox = new ListBox(0, 180, 26, 30, "Inventory", new List<string>() { "None"});
         static TextBox Description = new TextBox(25, 180, 25, 30, "Description", "None");
@@ -396,6 +396,18 @@ namespace roguelike_spbu {
             }
 
             return innerText;
+        }
+    }
+    public class GameBox : Window
+    {
+        public GameBox(int x, int y, int h, int w, bool active = true) : base(x, y, h, w, false, active)
+        {
+            GameInfo.mapHeight = h - 2;
+            GameInfo.mapWidth = w - 2;
+        }
+        override public string[,] GetInsides()
+        {
+            return Renderer.Render(GameInfo.history[GameInfo.currentMap], GameInfo.entities, GameInfo.player, GameInfo.allVisible);
         }
     }
     public class TextBox : Window

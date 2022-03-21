@@ -23,25 +23,13 @@ namespace roguelike_spbu
             engine.Turn(true);
 
             Console.SetCursorPosition(0, 0);
-            string[,] screenMatrix = Renderer.Render(GameInfo.history[GameInfo.currentMap], GameInfo.entities, GameInfo.player, GameInfo.allVisible);
-            for (int i = 0; i < screenMatrix.GetLength(0); i++)
-            {
-                for (int j = 0; j < screenMatrix.GetLength(1); j++)
-                    Console.Write(screenMatrix[i, j]);
-                Console.WriteLine();
-            }
+            gui.Print();
         }
         public void FullTurn()
         {
             Console.SetCursorPosition(0, 0);
             engine.Turn();
-            string[,] screenMatrix = Renderer.Render(GameInfo.history[GameInfo.currentMap], GameInfo.entities, GameInfo.player, GameInfo.allVisible);
-            for (int i = 0; i < screenMatrix.GetLength(0); i++)
-            {
-                for (int j = 0; j < screenMatrix.GetLength(1); j++)
-                    Console.Write(screenMatrix[i, j]);
-                Console.WriteLine();
-            }
+            gui.Print();
         }
     }
 }
