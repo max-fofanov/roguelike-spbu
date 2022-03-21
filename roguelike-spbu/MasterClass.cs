@@ -1,7 +1,15 @@
 namespace roguelike_spbu
 {
-    public class MasterClass
+    public static class WorldIfo
     {
         
+    }
+    public class Game
+    {
+        
+        public void FullTurn()
+        {
+
+        }
     }
 }
