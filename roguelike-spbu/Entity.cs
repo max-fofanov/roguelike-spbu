@@ -128,27 +128,27 @@ namespace roguelike_spbu
             get;
             set;
         }
-        public int Stamina
+        /*public int Stamina
+        {
+            get;
+            set;
+        }*/
+        public string? Name
         {
             get;
             set;
         }
-        public string Name
+        public string? Description
         {
             get;
             set;
         }
-        public string Description
+        public string? CreatureType
         {
             get;
             set;
         }
-        public string CreatureType
-        {
-            get;
-            set;
-        }
-        public string ForceType
+        public string? ForceType
         {
             get;
             set;
@@ -159,6 +159,12 @@ namespace roguelike_spbu
             set;
         }
         public int HealthPoints
+        {
+            get;
+            set;
+        }
+        
+        public int XP
         {
             get;
             set;

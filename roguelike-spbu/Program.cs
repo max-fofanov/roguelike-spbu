@@ -101,7 +101,7 @@ namespace roguelike_spbu
             //thread.IsBackground = true;
             //thread.Start();
 
-            Walkman.Play("./sounds/Waves.wav");
+            Walkman.Play("./sounds/Bad theme. HоM&M III OST - Necropolis Town.wav");
          
             while (true)
             {

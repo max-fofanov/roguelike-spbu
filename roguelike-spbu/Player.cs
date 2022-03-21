@@ -10,6 +10,19 @@ namespace roguelike_spbu
         private string symbol = "@";
         private Color color = Color.Red;
 
+        public int Level
+        {
+            get;
+            set;
+        }
+
+        public int XP_to_Level_UP
+        {
+            get;
+            set;
+        }
+
+
         public Player(int x, int y, Trait trait = Trait.Saber)
         {
             X = x;
@@ -18,6 +31,9 @@ namespace roguelike_spbu
             HealthPoints = 100;
             Damage = 1000;
             RangeOfHit = 2;
+            Level = 1;
+            XP = 0;
+            XP_to_Level_UP = 15;
             VStatus = VisualStatus.isVisible;
             Symbol = symbol;
             PrimaryForegroundColor = color;
