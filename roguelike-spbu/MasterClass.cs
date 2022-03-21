@@ -22,7 +22,7 @@ namespace roguelike_spbu
             engine.GenerateMap(GameInfo.player, Generation.From.Down, true);
             engine.Turn(true);
 
-            Console.SetCursorPosition(0, 2);
+            Console.SetCursorPosition(0, 0);
             string[,] screenMatrix = Renderer.Render(GameInfo.history[GameInfo.currentMap], GameInfo.entities, GameInfo.player, GameInfo.allVisible);
             for (int i = 0; i < screenMatrix.GetLength(0); i++)
             {
@@ -33,7 +33,7 @@ namespace roguelike_spbu
         }
         public void FullTurn()
         {
-            Console.SetCursorPosition(0, 2);
+            Console.SetCursorPosition(0, 0);
             engine.Turn();
             string[,] screenMatrix = Renderer.Render(GameInfo.history[GameInfo.currentMap], GameInfo.entities, GameInfo.player, GameInfo.allVisible);
             for (int i = 0; i < screenMatrix.GetLength(0); i++)

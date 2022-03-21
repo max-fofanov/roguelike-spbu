@@ -68,12 +68,8 @@ namespace roguelike_spbu
             return true;
         }
         void PlacePlayer(int num) {
-            Console.SetCursorPosition(0, 0);
             for (int i = 0; i < this.map.Tiles.Length; i++) {
                 for (int j = 0; j < this.map.Tiles[i].Length; j++) {
-                    if (this.map.Tiles[i][j] is Exit)
-                        Console.WriteLine("{0} {1}", num, (map.Tiles[i][j] as Exit).Room);
-                        //Console.SetCursorPosition(0, 0);
                     if (this.map.Tiles[i][j] is Exit && (this.map.Tiles[i][j] as Exit).Room == num) { 
                         player.X = i;
                         player.Y = j;
@@ -110,25 +106,20 @@ namespace roguelike_spbu
                 else
                     destinationMapNumber = ((Exit) map.Tiles[player.X][player.Y]).Room;
 
-                Console.Write("{0} {1} {2} ", GameInfo.currentMap, destinationMapNumber, history.Count());
-
                 if (destinationMapNumber == -1) {
                     return;
                 }
                 else if (destinationMapNumber == history.Count) {
                     history.Add(Generation.GenerateDungeon(GameInfo.mapHeight, GameInfo.mapWidth, EnterDirection, destinationMapNumber));
                 }
-                
+
+                int currentMap = GameInfo.currentMap;
+                GameInfo.currentMap = destinationMapNumber;
+
                 if (newMap)
                     PlacePlayer(-1);
                 else
-                {
-                    //Console.SetCursorPosition(0, 0);
-                    //Console.WriteLine(GameInfo.currentMap);
-                    PlacePlayer(GameInfo.currentMap);
-                }
-
-                GameInfo.currentMap = destinationMapNumber;
+                    PlacePlayer(currentMap);
                 
                 this.entities = PlaceEntities(5);
                 
@@ -163,7 +154,6 @@ namespace roguelike_spbu
         {
             ActionInfo nextMove = entity.GetNextMove(map, entities, player);
 
-            int n, m;
             switch (nextMove.Action)
             {
                 case Action.Up:
