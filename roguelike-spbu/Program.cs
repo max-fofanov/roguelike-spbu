@@ -98,7 +98,7 @@ namespace roguelike_spbu
             Console.Write(Renderer.Render(board, entities, player, engine.allVisible));
             
 
-            Walkman.Play("./sounds/Waves.wav");
+            //Walkman.Play("./sounds/Hub/Good-theme.-The-Versions-Final-Fantasy-7-Main-Theme-_From-Final-Fantasy-7-_.wav");
          
             while (true)
             {

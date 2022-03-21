@@ -12,7 +12,7 @@ namespace roguelike_spbu {
 
         public static Map GenerateCave(int x, int y, (int, int) startingPosition, (int, int) endingPosition) {
 
-            Map dungeon = new Map(x, y);
+            Map dungeon = new Map(x, y, 0);
             Player player = new Player(startingPosition.Item1, startingPosition.Item2);
             Random random = new Random();
             int freeSpace = 1;
@@ -70,9 +70,9 @@ namespace roguelike_spbu {
         public enum From {
             Left, Right, Up, Down
         }
-        public static Map GenerateDungeon(int x, int y, From from = From.Down, int minsize = 10, int maxsize = 20) {
+        public static Map GenerateDungeon(int x, int y, From from = From.Down, int num = 0, int minsize = 10, int maxsize = 20) {
 
-            Map dungeon = new Map(x, y);
+            Map dungeon = new Map(x, y, num);
             Player player = new Player(0, 0);
             Random random = new Random();
 
@@ -220,7 +220,15 @@ namespace roguelike_spbu {
 
                     coord = random.Next(entrance.Y0 + 1, entrance.Y1 - 1);
 
-                    for (int i = 0; i <= entrance.X0; i++) {    
+
+                    dungeon.Tiles[0][coord] = new Exit(0, coord, num - 1);
+                                            
+                    dungeon.Tiles[0][coord - 1] = new Border(0, coord - 1);
+
+                    dungeon.Tiles[0][coord + 1] = new Border(0, coord + 1);
+                    
+
+                    for (int i = 1; i <= entrance.X0; i++) {    
 
                         dungeon.Tiles[i][coord] = new Field(i, coord);
                                         
@@ -236,7 +244,14 @@ namespace roguelike_spbu {
 
                     coord = random.Next(entrance.Y0 + 1, entrance.Y1 - 1);
 
-                    for (int i = entrance.X1 - 1; i < x; i++) {
+                    dungeon.Tiles[x - 1][coord] = new Exit(x - 1, coord, num - 1);
+                                            
+                    dungeon.Tiles[x - 1][coord - 1] = new Border(x - 1, coord - 1);
+
+                    dungeon.Tiles[x - 1][coord + 1] = new Border(x - 1, coord + 1);
+                    
+
+                    for (int i = entrance.X1 - 1; i < x - 1; i++) {
                         
                         dungeon.Tiles[i][coord] = new Field(i, coord);
                                         
@@ -253,7 +268,13 @@ namespace roguelike_spbu {
 
                     coord = random.Next(entrance.X0 + 1, entrance.X1 - 1);
 
-                    for (int i = entrance.Y1 - 1; i < y; i++) {
+                    dungeon.Tiles[coord][y - 1] = new Exit(coord, y - 1, num - 1);
+                                            
+                    dungeon.Tiles[coord - 1][y - 1] = new Border(coord - 1, y - 1);
+
+                    dungeon.Tiles[coord + 1][y - 1] = new Border(coord + 1, y - 1);
+
+                    for (int i = entrance.Y1 - 1; i < y - 1; i++) {
                         
 
                         dungeon.Tiles[coord][i] = new Field(coord, i);
@@ -271,8 +292,15 @@ namespace roguelike_spbu {
                     entrance = rooms[r * (y / 30)];
 
                     coord = random.Next(entrance.X0 + 1, entrance.X1 - 1);
+                    
+                    dungeon.Tiles[coord][0] = new Exit(coord, 0, num - 1);
+                                            
+                    dungeon.Tiles[coord - 1][0] = new Border(coord - 1, 0);
 
-                    for (int i = 0; i <= entrance.Y0; i++) {
+                    dungeon.Tiles[coord + 1][0] = new Border(coord + 1, 0);
+                    
+
+                    for (int i = 1; i <= entrance.Y0; i++) {
                         
 
                         dungeon.Tiles[coord][i] = new Field(coord, i);
@@ -293,9 +321,14 @@ namespace roguelike_spbu {
 
                 coord = random.Next(exit.X0 + 1, exit.X1 - 1);
 
-                for (int i = exit.Y1 - 1; i < y; i++) {
-                        
+                dungeon.Tiles[coord][y - 1] = new Exit(coord, y - 1, num + 1);
+                                            
+                dungeon.Tiles[coord - 1][y - 1] = new Border(coord - 1, y - 1);
 
+                dungeon.Tiles[coord + 1][y - 1] = new Border(coord + 1, y - 1);
+
+                for (int i = exit.Y1 - 1; i < y - 1; i++) {
+                        
                     dungeon.Tiles[coord][i] = new Field(coord, i);
                                         
                     dungeon.Tiles[coord - 1][i] = new Border(coord - 1, i);
@@ -307,7 +340,13 @@ namespace roguelike_spbu {
 
                 coord = random.Next(exit.X0 + 1, exit.X1 - 1);
 
-                for (int i = 0; i <= exit.Y0; i++) {                
+                dungeon.Tiles[coord][0] = new Exit(coord, 0, num + 1);
+                                            
+                dungeon.Tiles[coord - 1][0] = new Border(coord - 1, 0);
+
+                dungeon.Tiles[coord + 1][0] = new Border(coord + 1, 0);
+
+                for (int i = 1; i <= exit.Y0; i++) {                
 
                     dungeon.Tiles[coord][i] = new Field(coord, i);
                                         
@@ -320,7 +359,13 @@ namespace roguelike_spbu {
                 
                 coord = random.Next(exit.Y0 + 1, exit.Y1 - 1);
 
-                for (int i = 0; i <= exit.X0; i++) {    
+                dungeon.Tiles[0][coord] = new Exit(0, coord, num + 1);
+                                            
+                dungeon.Tiles[0][coord - 1] = new Border(0, coord - 1);
+
+                dungeon.Tiles[0][coord + 1] = new Border(0, coord + 1);
+
+                for (int i = 1; i <= exit.X0; i++) {    
 
                     dungeon.Tiles[i][coord] = new Field(i, coord);
                                         
@@ -334,7 +379,13 @@ namespace roguelike_spbu {
 
                 coord = random.Next(exit.Y0 + 1, exit.Y1 - 1);
 
-                for (int i = exit.X1 - 1; i < x; i++) {
+                dungeon.Tiles[x - 1][coord] = new Exit(x - 1, coord, num + 1);
+                                            
+                dungeon.Tiles[x - 1][coord - 1] = new Border(x - 1, coord - 1);
+
+                dungeon.Tiles[x - 1][coord + 1] = new Border(x - 1, coord + 1);
+
+                for (int i = exit.X1 - 1; i < x - 1; i++) {
                         
                     dungeon.Tiles[i][coord] = new Field(i, coord);
                                         
@@ -347,7 +398,7 @@ namespace roguelike_spbu {
 
 
             if (Primitives.AStarSearch(dungeon, new List<Entity>(), new Player(0, 0), (rooms[0].X0 + 2, rooms[0].Y0 + 2), (rooms[rooms.Count - 1].X1 - 2, rooms[rooms.Count - 1].Y1 - 2)).Count == 0)
-                return GenerateDungeon(x, y, from, minsize, maxsize);
+                return GenerateDungeon(x, y, from, num, minsize, maxsize);
             
             return dungeon;
 

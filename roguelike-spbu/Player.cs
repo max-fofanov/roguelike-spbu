@@ -35,6 +35,7 @@ namespace roguelike_spbu
             VStatus = VisualStatus.isVisible;
             Symbol = symbol;
             PrimaryForegroundColor = color;
+            LVL = 0;
         }
 
         public override ActionInfo GetNextMove(Map map, List<Entity> entities, Player player) {

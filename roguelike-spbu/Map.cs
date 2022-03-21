@@ -21,11 +21,15 @@ namespace roguelike_spbu
             set;
         }
 
-        public Map(int height, int width)
+        public int Num {
+            get;
+            set;
+        }
+        public Map(int height, int width, int num)
         {
             Height = height;
             Width = width;
-
+            Num = num;
             Tiles = new Tile[Height][];
 
             for (int i = 0; i < Height; i++)

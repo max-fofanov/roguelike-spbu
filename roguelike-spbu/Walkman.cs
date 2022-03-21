@@ -5,7 +5,7 @@ namespace roguelike_spbu {
 
         static NetCoreAudio.Player walkman = new NetCoreAudio.Player();
 
-        private static string cT = "./sounds/Traffic.wav";
+        private static string cT = "./sounds/Hub/Menu theme. Mustin - Serenity (Final Fantasy VII Main Theme).mp3";
 
         public static string CurrentTrack {
             set {
@@ -42,6 +42,8 @@ namespace roguelike_spbu {
         public static void Resume() {
             if (walkman.Paused) walkman.Resume();
         }
+
+    
         
 
 
