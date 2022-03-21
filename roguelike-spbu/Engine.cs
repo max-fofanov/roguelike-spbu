@@ -69,6 +69,21 @@ namespace roguelike_spbu
             if (!renderOnly)
             {
                 ElementaryTurn(player);
+                foreach (Entity entity in entities){
+                    if (entity.HealthPoints <0)
+                    {
+                        player.XP += entity.XP;
+                        while (player.PlayerExperiencePoints > player.XPToLevelUP)
+                        {
+                            uint n = player.PlayerExperiencePoints / player.XPToLevelUP;
+                            player.LVL += player.PlayerExperiencePoints % player.XPToLevelUP;
+                            player.PlayerExperiencePoints -= player.XPToLevelUP;
+                            player.XPToLevelUP *= (uint)Math.Pow(2, (double)n);
+                            System.Console.WriteLine( player.LVL);
+                        }
+                        
+                    }
+                }
                 entities.RemoveAll(e => e.HealthPoints <= 0);
 
                 foreach (Entity entity in entities){
