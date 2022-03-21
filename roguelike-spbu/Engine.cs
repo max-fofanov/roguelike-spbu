@@ -5,7 +5,6 @@ namespace roguelike_spbu
         Map map;
         public Player player;
         public List<Entity> entities;
-
         public List<Map> history = new List<Map>();
         List<(int, int)> visiblePoints = new List<(int, int)>();
         public bool allVisible = false; 

@@ -46,7 +46,29 @@ namespace roguelike_spbu {
         public static string scrollPointer = "▓"; //"◄";
         public static string listPointer = "►";
     }
-
+    public static class GameGUITemplate
+    {
+        static Window MiniMap = new Window(0, 0, 17, 30);
+        static TextBox Statistics = new TextBox(16, 0, 36, 30, "Stats", "None");
+        static Window GameBox = new Window(0, 29, 42, 152);
+        static Window UnderBar = new Window(41, 29, 11, 152);
+        static ListBox ListBox = new ListBox(0, 180, 26, 30, "Inventory", new List<string>() { "None"});
+        static TextBox Description = new TextBox(25, 180, 25, 30, "Description", "None");
+        static TextBox Mode = new TextBox(49, 180, 3, 30, "Mode", "");
+        static MenuBox MenuBox = new MenuBox(30, 30, "Menu", new List<string>() { "Resume", "Save Game", "Load Game", "Toggle music", "Controls", "Quit"});
+        public static List<Window> GetWindows(){
+            List<Window> windows = new List<Window>();
+            windows.Add(MiniMap);
+            windows.Add(Statistics);
+            windows.Add(GameBox);
+            windows.Add(UnderBar);
+            windows.Add(ListBox);
+            windows.Add(Description);
+            windows.Add(Mode);
+            windows.Add(MenuBox);
+            return windows;
+        }
+    }
     public class GUI
     {
         public bool error = false;
@@ -64,6 +86,7 @@ namespace roguelike_spbu {
             set;
         }
         public List<Window> windows = new List<Window>();
+        public GUI() : this(GameGUITemplate.GetWindows()) { }
         public GUI(List<Window> windows)
         {
             this.windows = windows;
