@@ -39,8 +39,9 @@ namespace roguelike_spbu
         }
         public void FullTurn()
         {
-            Console.SetCursorPosition(0, 0);
             engine.Turn();
+
+            Console.SetCursorPosition(0, 0);
             gui.Print();
         }
     }

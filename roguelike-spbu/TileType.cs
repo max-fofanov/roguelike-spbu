@@ -66,7 +66,7 @@ namespace roguelike_spbu
             PrimaryForegroundColor = Color.DarkGreen;
             PrimaryBackgroundColor = Color.Green;
             Room = num;
-            Symbol = "/"; //Room.ToString(); 
+            Symbol = Room.ToString(); // "/";
         }
 
     }

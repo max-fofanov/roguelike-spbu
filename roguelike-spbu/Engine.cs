@@ -89,7 +89,7 @@ namespace roguelike_spbu
             {
                 int x = rnd.Next(GameInfo.mapHeight);
                 int y = rnd.Next(GameInfo.mapWidth);
-                
+
                 List<Entity> monsters = new List<Entity>();
                 monsters.Add(new Goblin(x, y));
                 monsters.Add(new Hobgoblin(x, y));
@@ -128,7 +128,8 @@ namespace roguelike_spbu
                 if (destinationMapNumber == -1) {
                     return;
                 }
-                else if (destinationMapNumber == history.Count) {
+                else if (destinationMapNumber == history.Count()) {
+                    // Console.WriteLine("Im creating a new map");
                     history.Add(Generation.GenerateDungeon(GameInfo.mapHeight, GameInfo.mapWidth, EnterDirection, destinationMapNumber));
                 }
 
@@ -139,8 +140,13 @@ namespace roguelike_spbu
                     PlacePlayer(-1);
                 else
                     PlacePlayer(currentMap);
-                
-                this.entities = PlaceEntities(5);
+
+                // Console.WriteLine(history.Count());
+                // Console.WriteLine(GameInfo.currentMap);
+                // Console.ReadKey(true);
+
+                Random rnd = new Random();
+                this.entities = PlaceEntities(rnd.Next(5, 7 + player.LVL + history.Count));
                 
                 visiblePoints = new List<(int, int)>();
             }
@@ -187,109 +193,31 @@ namespace roguelike_spbu
         {
             ActionInfo nextMove = entity.GetNextMove(map, entities, player);
 
-            int n, m;
-            Random rnd = new Random();
             switch (nextMove.Action)
             {
                 case Action.Up:
                     if (IsNewPlaceOK(entity.X - 1, entity.Y))
                         entity.moveUp();
                     
-                    GenerateMap(entity, Generation.From.Up);  
-                    if (entity is Player && map.Tiles[player.X][player.Y] is Exit) {
-                        n = ((Exit) map.Tiles[player.X][player.Y]).Room;
-                        m = map.Num;
-
-                        if (n == -1) {
-                            break;
-                        }
-                        else if (n == history.Count) {
-                            this.map = Generation.GenerateDungeon(45, 180, Generation.From.Up, m + 1);
-                            history.Add(this.map);
-                            
-                        }
-                        else {
-                            this.map = history[n];
-                        }
-
-                        PlacePlayer(m);
-
-                        this.entities = PlaceEntities(rnd.Next(5, 7 + player.LVL + history.Count));
-                        
-                        visiblePoints = new List<(int, int)>();
-                    }    
+                    GenerateMap(entity, Generation.From.Up);
                     break;
                 case Action.Down:
                     if (IsNewPlaceOK(entity.X + 1, entity.Y))
                         entity.moveDown();
 
-                    GenerateMap(entity, Generation.From.Down);
-                    if (entity is Player && map.Tiles[player.X][player.Y] is Exit) {
-                        n = ((Exit) map.Tiles[player.X][player.Y]).Room;
-                        m = map.Num;
-
-                        if (n == -1) {
-                            break;
-                        }
-                        else if (n == history.Count) {
-                            this.map = Generation.GenerateDungeon(45, 180, Generation.From.Down, m + 1);
-                            history.Add(this.map);
-                        }
-                        else {
-                            this.map = history[n];
-                        }
-                        this.entities = PlaceEntities(rnd.Next(5, 7 + player.LVL + history.Count));
-                        PlacePlayer(m);
-                        visiblePoints = new List<(int, int)>();
-                    }  
+                    GenerateMap(entity, Generation.From.Down); 
                     break;
                 case Action.Left:
                     if (IsNewPlaceOK(entity.X, entity.Y - 1))
                         entity.moveLeft();
 
                     GenerateMap(entity, Generation.From.Left);
-                    if (entity is Player && map.Tiles[player.X][player.Y] is Exit) {
-                        n = ((Exit) map.Tiles[player.X][player.Y]).Room;
-                        m = map.Num;
-
-                        if (n == -1) {
-                            break;
-                        }
-                        else if (n == history.Count) {
-                            this.map = Generation.GenerateDungeon(45, 180, Generation.From.Left, m + 1);
-                            history.Add(this.map);
-                        }
-                        else {
-                            this.map = history[n];
-                        }
-                        this.entities = PlaceEntities(rnd.Next(5, 7 + player.LVL + history.Count));
-                        PlacePlayer(m);
-                        visiblePoints = new List<(int, int)>();
-                    }  
                     break;
                 case Action.Right:
                     if (IsNewPlaceOK(entity.X, entity.Y + 1))
                         entity.moveRight();
 
-                    GenerateMap(entity, Generation.From.Right); 
-                    if (entity is Player && map.Tiles[player.X][player.Y] is Exit) {
-                        n = ((Exit) map.Tiles[player.X][player.Y]).Room;
-                        m = map.Num;
-
-                        if (n == -1) {
-                            break;
-                        }
-                        else if (n == history.Count) {
-                            this.map = Generation.GenerateDungeon(45, 180, Generation.From.Right, m + 1);
-                            history.Add(this.map);
-                        }
-                        else {
-                            this.map = history[n];
-                        }
-                        this.entities = PlaceEntities(rnd.Next(5, 7 + player.LVL + history.Count));
-                        PlacePlayer(m);
-                        visiblePoints = new List<(int, int)>();
-                    }  
+                    GenerateMap(entity, Generation.From.Right);
                     break;
                 case Action.Quit:
                     Program.NormilizeConsole();
