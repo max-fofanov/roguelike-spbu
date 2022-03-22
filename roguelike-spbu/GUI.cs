@@ -11,6 +11,16 @@ namespace roguelike_spbu {
         OnRight,
         OnLeft
     }
+    public enum GameState
+    {
+        Game,
+        Inventory,
+        InventoryDescription,
+        Attack,
+        AttackDescription,
+        Menu,
+        Controls
+    }
     public static class GUIElements
     {
         public static string cornerBorders = "╔╚╗╝╠╣╩╦╬";
@@ -107,6 +117,10 @@ namespace roguelike_spbu {
 
                 CreateLayout();
             }
+        }
+        public ActionInfo GetAction()
+        {
+            return new ActionInfo();
         }
         public void EraseLayoutMatrix()
         {

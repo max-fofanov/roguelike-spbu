@@ -65,7 +65,6 @@ namespace roguelike_spbu
                     return new ActionInfo(Action.Cheat, player, 1);
                 default:
                     return new ActionInfo(Action.StayInPlace, player, 1);
-
             }
 
             throw new KeyNotFoundException("not yet implemented");
