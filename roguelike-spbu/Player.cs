@@ -54,6 +54,8 @@ namespace roguelike_spbu
 
         public override ActionInfo GetNextMove(Map map, List<Entity> entities, Player player) {
 
+            return SystemInfo.gui.GetAction();
+
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
             while (Console.KeyAvailable) {

@@ -29,19 +29,19 @@ namespace roguelike_spbu
         }
         public Game()
         {
+            engine.GetEntitiesInRange();
             new Renderer(40, 150, 20, 20);
             
             engine.GenerateMap(GameInfo.player, Generation.From.Down, true);
             engine.Turn(true);
 
-            Console.SetCursorPosition(0, 0);
+            
             gui.Print();
         }
         public void FullTurn()
         {
             engine.Turn();
-
-            Console.SetCursorPosition(0, 0);
+            
             gui.Print();
         }
     }
