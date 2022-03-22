@@ -69,9 +69,8 @@ namespace roguelike_spbu
                     tmp.X = rnd.Next(45);
                     tmp.Y = rnd.Next(180);
                 }
-                
+                entities.Add(tmp);
             }
-            entities.Add(new Skeleton(rnd.Next(45), rnd.Next(180)));
 
             return entities;
         }
@@ -88,8 +87,10 @@ namespace roguelike_spbu
                         {
                             int n = player.PlayerExperiencePoints / player.XPToLevelUP;
                             player.LVL += player.PlayerExperiencePoints % player.XPToLevelUP;
+                            player.HealthPoints += 50;
+                            player.Damage += 20;
                             player.PlayerExperiencePoints -= player.XPToLevelUP;
-                            player.XPToLevelUP *= (int)Math.Pow(2, (double)n);
+                            player.XPToLevelUP += 30;
                         }
                         
                     }
