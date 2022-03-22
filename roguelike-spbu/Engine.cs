@@ -86,16 +86,20 @@ namespace roguelike_spbu
             Random rnd = new Random();
             List<Entity> entities = new List<Entity>();
             for (int i = 0; i < entityCount; i++)
-            {   
+            {
+                int x = rnd.Next(GameInfo.mapHeight);
+                int y = rnd.Next(GameInfo.mapWidth);
+                
                 List<Entity> monsters = new List<Entity>();
-                monsters.Add(new Goblin(rnd.Next(45), rnd.Next(180)));
-                monsters.Add(new Hobgoblin(rnd.Next(45), rnd.Next(180)));
-                monsters.Add(new Skeleton(rnd.Next(45), rnd.Next(180)));
-                monsters.Add(new Zombie(rnd.Next(45), rnd.Next(180)));
-                monsters.Add(new Lich(rnd.Next(45), rnd.Next(180)));
-                monsters.Add(new DeathKnight(rnd.Next(45), rnd.Next(180)));
-                monsters.Add(new Devil (rnd.Next(45), rnd.Next(180)));
-                monsters.Add(new Archangel(rnd.Next(45), rnd.Next(180)));
+                monsters.Add(new Goblin(x, y));
+                monsters.Add(new Hobgoblin(x, y));
+                monsters.Add(new Skeleton(x, y));
+                monsters.Add(new Zombie(x, y));
+                monsters.Add(new Lich(x, y));
+                monsters.Add(new DeathKnight(x, y));
+                monsters.Add(new Devil (x, y));
+                monsters.Add(new Archangel(x, y));
+
                 float[] monsterschance = { Math.Max(1, 20 - player.LVL - history.Count), 5, Math.Max(1, 13 - player.LVL), 8, 1 + player.LVL + history.Count, 1 + 3*(player.LVL + history.Count), 1 + 3*(player.LVL + history.Count)};
                 Entity tmp = monsters[Walker.Alias(monsterschance)];
 
