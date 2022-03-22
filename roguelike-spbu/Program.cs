@@ -41,6 +41,7 @@ namespace roguelike_spbu
             while (true)
                 game.FullTurn();
         }
+        /*
         static void Main3(string[] args)
         {
             MakeConsoleReady();
@@ -164,7 +165,7 @@ namespace roguelike_spbu
             /*foreach ((int x, int y) in path)
             {
                 board.Tiles[x][y] = new Rock(x, y);
-            }*/
+            }
 
 
 
@@ -202,5 +203,6 @@ namespace roguelike_spbu
             }
         }
         */
+        
     }
 }
