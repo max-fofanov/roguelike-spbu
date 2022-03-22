@@ -168,8 +168,10 @@ namespace roguelike_spbu
                         {
                             int n = player.PlayerExperiencePoints / player.XPToLevelUP;
                             player.LVL += player.PlayerExperiencePoints % player.XPToLevelUP;
+                            player.HealthPoints += 50;
+                            player.Damage += 20;
                             player.PlayerExperiencePoints -= player.XPToLevelUP;
-                            player.XPToLevelUP *= (int)Math.Pow(2, (double)n);
+                            player.XPToLevelUP += 30;
                         }
                         
                     }

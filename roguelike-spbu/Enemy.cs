@@ -21,6 +21,7 @@ namespace roguelike_spbu
             this.CreatureType = "";
             this.RangeOfHit = 0;
             this.XP = 1;
+            this.Description = "somethig";
         }
 
         public override ActionInfo GetNextMove(Map map, List<Entity> entities, Player player)
