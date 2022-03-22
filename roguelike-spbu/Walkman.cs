@@ -20,6 +20,10 @@ namespace roguelike_spbu {
         public static bool IsPlaying {
             get {return walkman.Playing; }
         }
+
+        public static bool IsPaused {
+            get {return !walkman.Playing; }
+        }
         public static void Play() {
             if (walkman.Playing) walkman.Stop();
             walkman.Play(CurrentTrack);
