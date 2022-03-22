@@ -10,7 +10,7 @@ namespace roguelike_spbu
         private string symbol = "@";
         private Color color = Color.White;
         
-        public static uint LVL {
+        public int LVL {
             get;
             set;
         }
@@ -24,6 +24,18 @@ namespace roguelike_spbu
             get;
             set;
         }
+
+         public  int XPToLevelUP {
+            get;
+            set;
+        }
+        public  int PlayerExperiencePoints {
+            get;
+            set;
+        }
+        
+
+        
         public Player(int x, int y, Trait trait = Trait.Saber)
         {
             X = x;
@@ -32,10 +44,12 @@ namespace roguelike_spbu
             HealthPoints = 100;
             Damage = 1000;
             RangeOfHit = 2;
+            PlayerExperiencePoints = 0;
+            XPToLevelUP = 15;
             VStatus = VisualStatus.isVisible;
             Symbol = symbol;
             PrimaryForegroundColor = color;
-            LVL = 0;
+            LVL = 1;
         }
 
         public override ActionInfo GetNextMove(Map map, List<Entity> entities, Player player) {
