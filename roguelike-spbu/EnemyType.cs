@@ -11,12 +11,13 @@ namespace roguelike_spbu
             Symbol = "g";
             PrimaryForegroundColor = Color.Green;
             Name = "Goblin";
-            Stamina = 1;
+            //Stamina = 1;
             ForceType = "neutral";
             Damage = 10;
             HealthPoints = 12;
             CreatureType = "light";
             RangeOfHit = 1;
+            XP = 1;
         }
     }
 
@@ -28,12 +29,13 @@ namespace roguelike_spbu
             Symbol = "H";
             PrimaryForegroundColor = Color.Green;
             Name = "Hobgoblin";
-            Stamina = 1;
+            //Stamina = 1;
             ForceType = "neutral";
             Damage = 25;
             HealthPoints = 45;
             CreatureType = "normal";
             RangeOfHit = 1;
+            XP = 10;
         }
     }
     
@@ -45,12 +47,13 @@ namespace roguelike_spbu
             Symbol = "f";
             PrimaryForegroundColor = Color.Green;
             Name = "Goblin Flinger";
-            Stamina = 1;
+            //Stamina = 1;
             ForceType = "neutral";
             Damage = 7;
             HealthPoints = 10;
             CreatureType = "light";
             RangeOfHit = 3;
+            XP = 5;
         }
     }
 
@@ -62,12 +65,13 @@ namespace roguelike_spbu
             Symbol = "s";
             PrimaryForegroundColor = Color.Gray;
             Name = "Skeleton";
-            Stamina = 1;
+            //Stamina = 1;
             ForceType = "dark";
             Damage = 15;
             HealthPoints = 5;
             CreatureType = "light";
             RangeOfHit = 1.5f;
+            XP = 3;
         }
     }
     
@@ -75,16 +79,17 @@ namespace roguelike_spbu
     {
         public Zombie(int x, int y) : base(x, y)
         {
-            RangeOfView = 6;
+            RangeOfView = 4;
             Symbol = "z";
             PrimaryForegroundColor = Color.Brown;
             Name = "Zombie";
-            Stamina = 1;
+            //Stamina = 1;
             ForceType = "dark";
-            Damage = 5;
-            HealthPoints = 20;
+            Damage = 10;
+            HealthPoints = 60;
             CreatureType = "normal";
             RangeOfHit = 1;
+            XP = 3;
         }
     }
     class DeathKnight : Enemy
@@ -94,12 +99,13 @@ namespace roguelike_spbu
             Symbol = "N";
             PrimaryForegroundColor = Color.Blue;
             Name = "Death Knight";
-            Stamina = 2;
+            //Stamina = 2;
             ForceType = "dark";
-            Damage = 10;
-            HealthPoints = 20;
+            Damage = 18;
+            HealthPoints = 45;
             CreatureType = "normal";
-            RangeOfHit = 1.5f;
+            RangeOfHit = 2;
+            XP = 10;
         }
     }
     
@@ -110,12 +116,13 @@ namespace roguelike_spbu
             Symbol = "L";
             PrimaryForegroundColor = Color.Gray;
             Name = "Lich";
-            Stamina = 1;
+            //Stamina = 1;
             ForceType = "dark";
-            Damage = 10;
+            Damage = 15;
             HealthPoints = 5;
             CreatureType = "light";
-            RangeOfHit = 3;
+            RangeOfHit = 4;
+            XP = 8;
         }
     }
 
@@ -127,12 +134,13 @@ namespace roguelike_spbu
             Symbol = "d";
             PrimaryForegroundColor = Color.Blue;
             Name = "Demon";
-            Stamina = 1;
+            //Stamina = 1;
             ForceType = "dark";
-            Damage = 22;
+            Damage = 33;
             HealthPoints = 66;
             CreatureType = "heavy";
-            RangeOfHit = 1.5f;
+            RangeOfHit = 2;
+            XP = 15;
         }
     }
     
@@ -144,7 +152,7 @@ namespace roguelike_spbu
             Symbol = "D";
             PrimaryForegroundColor = Color.Blue;
             Name = "Devil";
-            Stamina = 1;
+            //Stamina = 1;
             ForceType = "dark";
             Damage = 30;
             HealthPoints = 250;
@@ -161,7 +169,7 @@ namespace roguelike_spbu
             Symbol = "a";
             PrimaryForegroundColor = Color.White;
             Name = "Angel";
-            Stamina = 1;
+            //Stamina = 1;
             ForceType = "light";
             Damage = 33;
             HealthPoints = 33;
@@ -178,9 +186,9 @@ namespace roguelike_spbu
             Symbol = "A";
             PrimaryForegroundColor = Color.White;
             Name = "Archangel";
-            Stamina = 2;
+            //Stamina = 2;
             ForceType = "light";
-            Damage = 20;
+            Damage = 40;
             HealthPoints = 150;
             CreatureType = "normal";
             RangeOfHit = 2;

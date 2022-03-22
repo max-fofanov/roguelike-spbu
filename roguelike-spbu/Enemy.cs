@@ -14,12 +14,13 @@ namespace roguelike_spbu
             this.Symbol = "%";
             this.PrimaryForegroundColor = Color.Yellow;
             this.Name = "Scam";
-            this.Stamina = 1;
+            //this.Stamina = 1;
             this.ForceType = "";
             this.Damage = 1;
             this.HealthPoints = 1;
-            this.CreatureType ="";
+            this.CreatureType = "";
             this.RangeOfHit = 0;
+            this.XP = 1;
         }
 
         public override ActionInfo GetNextMove(Map map, List<Entity> entities, Player player)
