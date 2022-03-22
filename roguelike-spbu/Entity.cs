@@ -21,8 +21,6 @@ namespace roguelike_spbu
     }
     
     public class ActionInfo {
-        
-
         public ActionInfo() {}
 
         public ActionInfo(Action action) {

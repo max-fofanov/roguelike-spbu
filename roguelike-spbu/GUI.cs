@@ -13,13 +13,15 @@ namespace roguelike_spbu {
     }
     public enum GameState
     {
+        None,
         Game,
         Inventory,
         InventoryDescription,
         Attack,
         AttackDescription,
         Menu,
-        Controls
+        Controls,
+        StatingScreen
     }
     public static class GUIElements
     {
@@ -81,6 +83,7 @@ namespace roguelike_spbu {
     }
     public class GUI
     {
+        public GameState gameState = GameState.Game;
         public bool error = false;
         public string errorMessage = "";
         public string[,] layoutMatrix = new string[0, 0];
