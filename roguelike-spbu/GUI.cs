@@ -120,6 +120,7 @@ namespace roguelike_spbu {
         }
         public ActionInfo GetAction()
         {
+            
             return new ActionInfo();
         }
         public void EraseLayoutMatrix()
