@@ -1,30 +1,74 @@
 ﻿using System;
+using System.Drawing;
 
 namespace roguelike_spbu
 {
-    class Tile
+    public class Tile
     {
-        private Entity landscape;
-        private Creature inhabitat;
-
-        public Entity Landscape
+        
+        public int X {
+            get;
+            set;
+        }
+        public int Y {
+            get;
+            set;
+        }
+        private string _symbol = "";
+        public string Symbol
         {
-            get { return this.landscape; }
-            set { this.landscape = value; }
+            get
+            {
+                return _symbol;
+            }
+            set
+            {
+                _symbol = value.Length > 0 ? value[0].ToString() : " ";
+            }
+        }
+        public Color PrimaryForegroundColor
+        {
+            get;
+            set;
+        }
+        public Color PrimaryBackgroundColor
+        {
+            get;
+            set;
         }
 
-        public Creature Inhabitat
+        /*
+        public Color SecondaryForegroundColor 
         {
-            get { return this.inhabitat; }
-            set { this.inhabitat = value; }
+            get;
+            set;
         }
-
-
-        public Tile(Entity landscape, Creature inhabitat = null)
+        public Color SecondaryBackgroundColor 
         {
-            this.Landscape = landscape;
-            this.Inhabitat = inhabitat;
+            get;
+            set;
+        }  
+        */
 
+        public VisualStatus Status
+        {
+            get;
+            set;
+        }
+        public bool Impassable 
+        {
+            get;
+            set;
+        }
+        public Tile(int x = 0, int y = 0, string symbol = " ", Color? PFC = null, Color? PBC = null, VisualStatus status = VisualStatus.isHidden, bool impassable = false)
+        {
+            X = x;
+            Y = y;
+            Symbol = symbol;
+            PrimaryForegroundColor = PFC ?? Color.White;
+            PrimaryBackgroundColor = PBC ?? Color.Black;
+            Status = status;
+            Impassable = impassable;
         }
     }
 }

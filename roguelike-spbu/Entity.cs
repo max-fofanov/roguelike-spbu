@@ -1,122 +1,264 @@
 ﻿using System;
+using System.Drawing;
+using System.Collections.Generic;
 
 namespace roguelike_spbu
 {
-    class Entity
-    {
-        private int x;
-        private int y;
-        private char symbol;
-        private ConsoleColor color;
+    
+    public enum Action {
+        Up,
+        Down,
+        Left,
+        Right,
+        Pass,
+        StayInPlace,
+        ChangeColor,
+        GiveEffect,
+        UseItem,
+        Attack,
+        Quit,
+        Cheat
+    }
+    
+    public class ActionInfo {
+        
 
+        public ActionInfo() {}
+
+        public ActionInfo(Action action) {
+            Action = action;
+        }
+
+        public ActionInfo(Action action, Color color) {
+            Action = action;
+            Color = color;
+        }
+
+        public ActionInfo(Action action, EntityEffect effect, int time) {
+            Action = action;
+            Effect = effect;
+            Time = time;
+        }
+        public ActionInfo(Action action, Entity entity, int power) {
+            Action = action;
+            Entity = entity;
+            Power = power;
+        }
+
+        public ActionInfo(Action action, int number) {
+            Action = action;
+            Number = number;
+        }
+
+        public ActionInfo(Action action, Guid target, int power) {
+            Action = action;
+            Target = target;
+            Power = power;
+        }
+        public Action Action {
+            get;
+            set;
+        }
+
+        public Entity? Entity {
+            get;
+            set;
+        }
+
+        public int Power {
+            get;
+            set;
+        }
+
+        public Color Color {
+            get;
+            set;
+        }
+
+        public int Time {
+            get;
+            set;
+        }
+
+        public EntityEffect? Effect {
+            get;
+            set;
+        }
+
+        public int Number {
+            get;
+            set;
+        }
+
+        public Guid? Target {
+            get;
+            set;
+        }
+
+    }
+    
+    public enum EntityStatus
+    {
+
+    }
+    public enum EntityAttitude
+    {
+        friendly,
+        passive,
+        agressive
+    }
+    public class Entity
+    {
+        public Guid ID
+        {
+            set;
+            get;
+        }
         public int X
         {
-            get { return this.x; }
-            set { this.x = value; }
+            get;
+            set;
         }
-
         public int Y
         {
-            get { return this.y; }
-            set { this.y = value; }
+            get;
+            set;
         }
-
-        public ConsoleColor Color
+        public int RangeOfView
         {
-            get { return this.color; }
-            set { this.color = value; }
+            get;
+            set;
         }
-
-        public char Symbol
+        /*public int Stamina
         {
-            get { return this.symbol; }
-            set { this.symbol = value; }
+            get;
+            set;
+        }*/
+        public string? Name
+        {
+            get;
+            set;
+        }
+        public string? Description
+        {
+            get;
+            set;
+        }
+        public string? CreatureType
+        {
+            get;
+            set;
+        }
+        public string? ForceType
+        {
+            get;
+            set;
+        }
+        public int Damage
+        {
+            get;
+            set;
+        }
+        public int HealthPoints
+        {
+            get;
+            set;
         }
         
-    }
+        public int XP
+        {
+            get;
+            set;
+        }
+        public float RangeOfHit
+        {
+            get;
+            set;
+        }
 
-    class Border : Entity
-    {
-        private int x;
-        private int y;
-        private ConsoleColor color = ConsoleColor.White;
-        private char symbol = '#';
-       
 
+        private string _symbol = "";
+        public string Symbol
+        {
+            get
+            {
+                return _symbol;
+            }
+            set
+            {
+                _symbol = value.Length > 0 ? value[0].ToString() : " ";
+            }
+        }
+        public Color PrimaryForegroundColor
+        {
+            get;
+            set;
+        }
+        public Color? PrimaryBackgroundColor
+        {
+            get;
+            set;
+        }
+        public Color? CurrentForegroundColor
+        {
+            get;
+            set;
+        }
+        public EntityStatus Status
+        {
+            get;
+            set;
+        }
+        public int StatusTime
+        {
+            get;
+            set;
+        }
+        public VisualStatus VStatus
+        {
+            get;
+            set;
+        }
+        public EntityAttitude Attitude
+        {
+            get;
+            set;
+        }
 
-        public Border(int x, int y)
+        public int  Range {
+            get;
+            set;
+        }
+        
+        private Item[] _inventory = Array.Empty<Item>();
+        public Item[] Inventory
+        {
+            get { return _inventory; }
+            set { _inventory = value.Length > 0 ? value : Array.Empty<Item>(); }
+        }
+        public bool IgnoreEngine
+        {
+            get;
+            set;
+        }
+        public void SetCoordinates(int x, int y)
         {
             X = x;
             Y = y;
-            Color = this.color;
-            Symbol = this.symbol;
         }
-    }
-    class Tree : Entity
-    {
-        private int x;
-        private int y;
-        private ConsoleColor color = ConsoleColor.Green;
-        private char symbol = 'T';
+        public void moveUp() { X--; }
+        public void moveDown() { X++; }
+        public void moveLeft() { Y--; }
+        public void moveRight() { Y++; }
+        public void PassTurn() { }
+        public void ChangeColor(Color TempColor) { }
+        public void GetEffect(EntityEffect effect, int time) { }
+        public void UseItem(int number) { }
 
-        public Tree(int x, int y)
-        {
-            X = x;
-            Y = y;
-            Color = this.color;
-            Symbol = this.symbol;
+        public virtual void Attack(Player player) {
+            player.HealthPoints -= this.Damage;        
         }
-
-    }
-
-    class Rock : Entity
-    {
-        private int x;
-        private int y;
-        private ConsoleColor color = ConsoleColor.Gray;
-        private char symbol = 'R';
-
-        public Rock(int x, int y)
-        {
-            X = x;
-            Y = y;
-            Color = color;
-            Symbol = symbol;
-        }
-
-    }
-
-    class Field : Entity
-    {
-        private int x;
-        private int y;
-        private ConsoleColor color = ConsoleColor.Gray;
-        private char symbol = '.';
-
-        public Field(int x, int y)
-        {
-            X = x;
-            Y = y;
-            Color = this.color;
-            Symbol = this.symbol;
-        }
-
-    }
-
-    class Water : Entity
-    {
-        private int x;
-        private int y;
-        private ConsoleColor color = ConsoleColor.Blue;
-        private char symbol = 'W';
-
-        public Water(int x, int y)
-        {
-            X = x;
-            Y = y;
-            Color = this.color;
-            Symbol = this.symbol;
-        }
-
+        public void GetDamage(int damage) { }
+        public virtual ActionInfo GetNextMove(Map map, List<Entity> entities, Player player) { return new ActionInfo(); }
     }
 }

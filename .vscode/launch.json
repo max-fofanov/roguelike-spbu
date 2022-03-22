@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Debugger",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/roguelike-spbu/bin/Debug/net6.0/roguelike-spbu.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/roguelike-spbu",
+            "stopAtEntry": false,
+            "console": "externalTerminal"
+        },
+        {
+            "name": "Attach Debugger",
+            "type": "coreclr",
+            "request": "attach"
+        }
+    ]
+}
