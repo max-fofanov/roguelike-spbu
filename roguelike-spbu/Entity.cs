@@ -230,11 +230,11 @@ namespace roguelike_spbu
             set;
         }
         
-        private Item[] _inventory = Array.Empty<Item>();
-        public Item[] Inventory
+        private List<Item> _inventory = new List<Item>();
+        public List<Item> Inventory
         {
             get { return _inventory; }
-            set { _inventory = value.Length > 0 ? value : Array.Empty<Item>(); }
+            set { _inventory = value; } //.Length > 0 ? value : Array.Empty<Item>(); }
         }
         public bool IgnoreEngine
         {
@@ -246,6 +246,8 @@ namespace roguelike_spbu
             X = x;
             Y = y;
         }
+
+        
         public void moveUp() { X--; }
         public void moveDown() { X++; }
         public void moveLeft() { Y--; }

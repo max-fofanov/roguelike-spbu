@@ -33,6 +33,8 @@ namespace roguelike_spbu
             get;
             set;
         }
+
+        public int maxCapacity = 5;
         
 
         
@@ -50,6 +52,12 @@ namespace roguelike_spbu
             Symbol = symbol;
             PrimaryForegroundColor = color;
             LVL = 1;
+        }
+
+        public void AddToInventory(Item item) {
+            if (Inventory.Count < maxCapacity) {
+                Inventory.Add(item);
+            }
         }
 
         public override ActionInfo GetNextMove(Map map, List<Entity> entities, Player player) {
