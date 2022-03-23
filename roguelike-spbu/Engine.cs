@@ -116,7 +116,7 @@ namespace roguelike_spbu
             return entities;
         }
 
-        public List<Entity>? GetEntitiesInRange() {
+        public List<Entity> GetEntitiesInRange() {
             return entities.FindAll(target => Math.Pow(target.X - player.X, 2) + Math.Pow(target.Y - player.Y, 2) <= Math.Pow(player.RangeOfHit, 2));
         }
         public void GenerateMap(Entity entity, Generation.From EnterDirection, bool newMap = false)
@@ -239,9 +239,12 @@ namespace roguelike_spbu
                     break;
                 case Action.Attack:
 
-                    if (entity is Player) { 
-                        Entity? target = entities.MinBy(e => Math.Sqrt(Math.Pow(player.X - e.X, 2) + Math.Pow(player.Y - e.Y, 2)));
-                        if (target != null && Math.Pow(target.X - player.X, 2) + Math.Pow(target.Y - player.Y, 2) <= Math.Pow(player.RangeOfHit, 2)) target.HealthPoints -= player.Damage;
+                    if (entity is Player) {
+                        List<Entity> enemies = GetEntitiesInRange();
+                        if (nextMove.Number >= 0 && nextMove.Number < enemies.Count())
+                            enemies[nextMove.Number].HealthPoints -= player.Damage;
+                        // Entity? target = entities.MinBy(e => Math.Sqrt(Math.Pow(player.X - e.X, 2) + Math.Pow(player.Y - e.Y, 2)));
+                        //if (target != null && Math.Pow(target.X - player.X, 2) + Math.Pow(target.Y - player.Y, 2) <= Math.Pow(player.RangeOfHit, 2)) target.HealthPoints -= player.Damage;
                     }
                     else entity.Attack(player);
 
