@@ -13,6 +13,8 @@ namespace roguelike_spbu
     }
     public static class SystemInfo
     {
+        public static int RenderHeight = 40;
+        public static int RenderWidth = 150;
         public static GUI gui = new GUI();
         public static Engine engine = new Engine();
     }
@@ -29,8 +31,8 @@ namespace roguelike_spbu
         }
         public Game()
         {
-            engine.GetEntitiesInRange();
-            new Renderer(40, 150, 20, 20);
+            // engine.GetEntitiesInRange();
+            new Renderer(SystemInfo.RenderHeight, SystemInfo.RenderWidth, 20, 20);
             
             engine.GenerateMap(GameInfo.player, Generation.From.Down, true);
             engine.Turn(true);

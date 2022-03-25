@@ -134,7 +134,7 @@ namespace roguelike_spbu
                 }
                 else if (destinationMapNumber == history.Count()) {
                     // Console.WriteLine("Im creating a new map");
-                    history.Add(Generation.GenerateDungeon(GameInfo.mapHeight * 2, GameInfo.mapWidth * 2, EnterDirection, destinationMapNumber));
+                    history.Add(Generation.GenerateDungeon(GameInfo.mapHeight, GameInfo.mapWidth, EnterDirection, destinationMapNumber));
                 }
 
                 int currentMap = GameInfo.currentMap;
@@ -240,9 +240,17 @@ namespace roguelike_spbu
                 case Action.Attack:
 
                     if (entity is Player) {
-                        List<Entity> enemies = GetEntitiesInRange();
-                        if (nextMove.Number >= 0 && nextMove.Number < enemies.Count())
-                            enemies[nextMove.Number].HealthPoints -= player.Damage;
+                        for (int i = 0; i < entities.Count(); i++)
+                        {
+                            if (entities[i].ID == nextMove.Target)
+                            {
+                                entities[i].HealthPoints -= player.Damage;
+                            }
+                        }
+                        
+                        // List<Entity> enemies = GetEntitiesInRange();
+                        // if (nextMove.Number >= 0 && nextMove.Number < enemies.Count())
+                            // enemies[nextMove.Number].HealthPoints -= player.Damage;
                         // Entity? target = entities.MinBy(e => Math.Sqrt(Math.Pow(player.X - e.X, 2) + Math.Pow(player.Y - e.Y, 2)));
                         //if (target != null && Math.Pow(target.X - player.X, 2) + Math.Pow(target.Y - player.Y, 2) <= Math.Pow(player.RangeOfHit, 2)) target.HealthPoints -= player.Damage;
                     }

@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Drawing;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace roguelike_spbu
 {
@@ -47,7 +47,11 @@ namespace roguelike_spbu
             Action = action;
             Number = number;
         }
-
+        public ActionInfo(Action action, Guid target)
+        {
+            Action = action;
+            Target = target;
+        }
         public ActionInfo(Action action, Guid target, int power) {
             Action = action;
             Target = target;
@@ -132,7 +136,7 @@ namespace roguelike_spbu
             get;
             set;
         }*/
-        public string? Name
+        public string Name
         {
             get;
             set;
@@ -239,13 +243,15 @@ namespace roguelike_spbu
             get;
             set;
         }
+        public Entity()
+        {
+            ID = Guid.NewGuid();
+        }
         public void SetCoordinates(int x, int y)
         {
             X = x;
             Y = y;
         }
-
-        
         public void moveUp() { X--; }
         public void moveDown() { X++; }
         public void moveLeft() { Y--; }
@@ -254,7 +260,6 @@ namespace roguelike_spbu
         public void ChangeColor(Color TempColor) { }
         public void GetEffect(EntityEffect effect, int time) { }
         public void UseItem(int number) { }
-
         public virtual void Attack(Player player) {
             player.HealthPoints -= this.Damage;        
         }

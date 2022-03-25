@@ -6,7 +6,7 @@ namespace roguelike_spbu
 {
     class Enemy : Entity
     {
-        public Enemy(int x, int y)
+        public Enemy(int x, int y) : base()
         {
             this.X = x;
             this.Y = y;
