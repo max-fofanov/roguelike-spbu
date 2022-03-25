@@ -89,6 +89,16 @@ namespace roguelike_spbu {
         public static TextBox Description = new TextBox(25, 180, 25, 30, "Description", "");
         public static TextBox Mode = new TextBox(49, 180, 3, 30, "Mode", "");
         public static MenuBox MenuBox = new MenuBox(30, 30, "Menu", new List<string>() { "Resume", "Save Game", "Load Game", "Toggle music", "Controls", "Quit"});
+        static string controlsText = "Escape - enter/exit menu\n\n" +
+                                    "Up/down arrow (in windows) - navigate in window\n\n" +
+                                    "Enter - choose selected item\n\n" +
+                                    "A - open attack list\n\n" +
+                                    "I - open inventory\n\n" +
+                                    "D - go to description of item\n\n" +
+                                    "Arrows (in game) - move player\n\n" +
+                                    "Spacebar - pass turn\n\n" + 
+                                    "Q - force quit";
+        public static TextBox Control = new TextBox(0, 0, 40, 51, "Controls", controlsText, true, false);
         public static List<Window> GetWindows(){
             List<Window> windows = new List<Window>();
             windows.Add(MiniMap);
@@ -99,6 +109,7 @@ namespace roguelike_spbu {
             windows.Add(Description);
             windows.Add(Mode);
             windows.Add(MenuBox);
+            windows.Add(Control);
             return windows;
         }
     }
@@ -356,6 +367,7 @@ namespace roguelike_spbu {
                     else Walkman.Play();
                     break;
                 case 4:
+                    DoControlsMenuStuff();
                     break;
                 case 5:
                     Program.NormilizeConsole();
@@ -401,6 +413,21 @@ namespace roguelike_spbu {
                 // Console.WriteLine(key);
             }
         }
+        public void DoControlsMenuStuff()
+        {
+            if (!GameGUIWindows.Control.Active)
+            {
+                UpdateMode(GameState.Controls);
+                GameGUIWindows.MenuBox.TurnOff();
+                GameGUIWindows.Control.TurnOn();
+            }
+            else
+            {
+                UpdateMode(GameState.Menu);
+                GameGUIWindows.MenuBox.TurnOn();
+                GameGUIWindows.Control.TurnOff();
+            }
+        }
         public ActionInfo GetAction()
         {
 
@@ -422,78 +449,77 @@ namespace roguelike_spbu {
                 if (key.Key == ConsoleKey.Q)
                     return new ActionInfo(Action.Quit, GameInfo.player, 1);
 
+                else if (gameState == GameState.Controls)
+                    DoControlsMenuStuff();
+
                 // TODO if gamestate.startingscreen return something
-
-                if (gameState == GameState.Game)
-                {
-                    switch (key.Key)
+                else {
+                    if (gameState == GameState.Game)
                     {
-                        case ConsoleKey.LeftArrow:
-                            return new ActionInfo(Action.Left, GameInfo.player, 1);
-                        case ConsoleKey.RightArrow:
-                            return new ActionInfo(Action.Right, GameInfo.player, 1);
-                        case ConsoleKey.UpArrow:
-                            return new ActionInfo(Action.Up, GameInfo.player, 1);
-                        case ConsoleKey.DownArrow:
-                            return new ActionInfo(Action.Down, GameInfo.player, 1);
-                        case ConsoleKey.Spacebar:
-                            return new ActionInfo(Action.Pass, GameInfo.player, 1);
-                        case ConsoleKey.C:
-                            return new ActionInfo(Action.Cheat, GameInfo.player, 1);
-                        default:
-                            break;
-                    }
-                }
-
-                if (gameState == GameState.Attack)
-                {
-                    ActionInfo? attackAction = DoAttackStuff(key.Key);
-                    if (attackAction != null)
-                        return attackAction;
-                }
-
-                if (gameState == GameState.Inventory)
-                {
-                    ActionInfo? inventoryAction = DoInventoryStuff(key.Key);
-                    if (inventoryAction != null)
-                        return inventoryAction;
-                }
-
-                if (gameState == GameState.AttackDescription || gameState == GameState.InventoryDescription)
-                    DoDescriptionStuff(key.Key);
-
-                if (gameState != GameState.Menu && gameState != GameState.Controls && gameState != GameState.StatingScreen)
-                {
-                    if (key.Key == ConsoleKey.Escape && gameState != GameState.AttackDescription && gameState != GameState.InventoryDescription)
-                    {
-                        DoMenuStuff();
-                    } else
                         switch (key.Key)
                         {
-                            case ConsoleKey.A:
-                                DoAttackStuff();
-                                break;
-                            case ConsoleKey.Escape:
-                                DoInventoryStuff();
-                                break;
-                            case ConsoleKey.I:
-                                DoInventoryStuff();
-                                break;
-                            case ConsoleKey.D:
-                                DoDescriptionStuff();
-                                break;
-                            case ConsoleKey.G:
-                                ReturnToGame();
-                                break;
+                            case ConsoleKey.LeftArrow:
+                                return new ActionInfo(Action.Left, GameInfo.player, 1);
+                            case ConsoleKey.RightArrow:
+                                return new ActionInfo(Action.Right, GameInfo.player, 1);
+                            case ConsoleKey.UpArrow:
+                                return new ActionInfo(Action.Up, GameInfo.player, 1);
+                            case ConsoleKey.DownArrow:
+                                return new ActionInfo(Action.Down, GameInfo.player, 1);
+                            case ConsoleKey.Spacebar:
+                                return new ActionInfo(Action.Pass, GameInfo.player, 1);
+                            case ConsoleKey.C:
+                                return new ActionInfo(Action.Cheat, GameInfo.player, 1);
                             default:
                                 break;
                         }
-                } else 
-                {
-                    if (gameState == GameState.Menu)
+                    }
+                    if (gameState == GameState.Attack)
+                    {
+                        ActionInfo? attackAction = DoAttackStuff(key.Key);
+                        if (attackAction != null)
+                            return attackAction;
+                    }
+                    if (gameState == GameState.Inventory)
+                    {
+                        ActionInfo? inventoryAction = DoInventoryStuff(key.Key);
+                        if (inventoryAction != null)
+                            return inventoryAction;
+                    }
+                    if (gameState == GameState.AttackDescription || gameState == GameState.InventoryDescription)
+                        DoDescriptionStuff(key.Key);
+                    if (gameState != GameState.Menu && gameState != GameState.Controls && gameState != GameState.StatingScreen)
+                    {
+                        if (key.Key == ConsoleKey.Escape && gameState != GameState.AttackDescription && gameState != GameState.InventoryDescription)
+                        {
+                            DoMenuStuff();
+                        }
+                        else
+                            switch (key.Key)
+                            {
+                                case ConsoleKey.A:
+                                    DoAttackStuff();
+                                    break;
+                                case ConsoleKey.Escape:
+                                    DoInventoryStuff();
+                                    break;
+                                case ConsoleKey.I:
+                                    DoInventoryStuff();
+                                    break;
+                                case ConsoleKey.D:
+                                    DoDescriptionStuff();
+                                    break;
+                                case ConsoleKey.G:
+                                    ReturnToGame();
+                                    break;
+                                default:
+                                    break;
+                            }
+                    }
+                    else if (gameState == GameState.Menu)
                         DoMenuStuff(key.Key);
                 }
-
+                
                 Print();
             }
         }
@@ -769,6 +795,14 @@ namespace roguelike_spbu {
             FullSreen = fullSreen;
             Active = active;
         }
+        public virtual void TurnOn()
+        {
+            Active = true;
+        }
+        public virtual void TurnOff()
+        {
+            Active = false;
+        }
         public virtual void GenerateInsides()
         {
 
@@ -818,7 +852,7 @@ namespace roguelike_spbu {
         List<string> textLines = new List<string>();
         int currentLine = 0;
         int lastLine = 0;
-        public TextBox(int x, int y, int h, int w, string title, string text, bool fullSreen = false) : base(x, y, h, w)
+        public TextBox(int x, int y, int h, int w, string title, string text, bool fullSreen = false, bool active = true) : base(x, y, h, w, fullSreen, active)
         {
             UpdateTitle(title);
             UpdateText(text);
@@ -1061,12 +1095,12 @@ namespace roguelike_spbu {
             UpdateTitle(title);
             UpdateList(textLines);
         }
-        public virtual void TurnOn()
+        public override void TurnOn()
         {
             currentLine = 0;
             Active = true;
         }
-        public virtual void TurnOff()
+        public override void TurnOff()
         {
             Active = false;
         }
