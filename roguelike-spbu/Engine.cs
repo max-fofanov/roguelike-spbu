@@ -134,7 +134,7 @@ namespace roguelike_spbu
                 }
                 else if (destinationMapNumber == history.Count()) {
                     // Console.WriteLine("Im creating a new map");
-                    history.Add(Generation.GenerateDungeon(GameInfo.mapHeight, GameInfo.mapWidth, EnterDirection, destinationMapNumber));
+                    history.Add(Generation.GenerateDungeon(GameInfo.mapHeight * 2, GameInfo.mapWidth * 2, EnterDirection, destinationMapNumber));
                 }
 
                 int currentMap = GameInfo.currentMap;
