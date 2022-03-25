@@ -32,6 +32,7 @@ namespace roguelike_spbu
         public Game()
         {
             // engine.GetEntitiesInRange();
+            Walkman.Play();
             new Renderer(SystemInfo.RenderHeight, SystemInfo.RenderWidth, 20, 20);
             
             engine.GenerateMap(GameInfo.player, Generation.From.Down, true);

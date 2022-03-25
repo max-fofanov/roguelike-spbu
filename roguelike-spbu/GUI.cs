@@ -339,6 +339,68 @@ namespace roguelike_spbu {
 
             GameGUIWindows.Description.UpdateText("");
         }
+        public void ExecuteMenu(int num)
+        {
+            switch (num)
+            {
+                case 0:
+                    GameGUIWindows.MenuBox.TurnOff();
+                    ReturnToGame();
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    if (Walkman.IsPlaying) Walkman.Stop();
+                    else Walkman.Play();
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    Program.NormilizeConsole();
+                    break;
+                default:
+                    break;
+            }
+        }
+        public void DoMenuStuff(ConsoleKey? key = null)
+        {
+            if (key == null)
+            {
+                if (!GameGUIWindows.MenuBox.Active)
+                {
+                    UpdateMode(GameState.Menu);
+                    GameGUIWindows.MenuBox.TurnOn();
+                } else
+                {
+                    GameGUIWindows.MenuBox.TurnOff();
+                    ReturnToGame();
+                }
+            } else
+            {
+                switch (key)
+                {
+                    case ConsoleKey.UpArrow:
+                        GameGUIWindows.MenuBox.ScroolUp();
+                        break;
+                    case ConsoleKey.DownArrow:
+                        GameGUIWindows.MenuBox.ScroolDown();
+                        break;
+                    case ConsoleKey.Enter:
+                        ExecuteMenu(GameGUIWindows.MenuBox.currentLine);
+                        break;
+                    case ConsoleKey.Escape:
+                        GameGUIWindows.MenuBox.TurnOff();
+                        ReturnToGame();
+                        break;
+                    default:
+                        break;
+                }
+                // Console.WriteLine(GameGUIWindows.MenuBox.Active);
+                // Console.WriteLine(key);
+            }
+        }
         public ActionInfo GetAction()
         {
 
@@ -357,30 +419,10 @@ namespace roguelike_spbu {
             {
                 ConsoleKeyInfo key = GetKey();
 
-                // TODO if gamestate.startingscreen return something
-
                 if (key.Key == ConsoleKey.Q)
                     return new ActionInfo(Action.Quit, GameInfo.player, 1);
 
-                if (gameState != GameState.Menu && gameState != GameState.Controls && gameState != GameState.StatingScreen)
-                {
-                    if (key.Key == ConsoleKey.A)
-                    {
-                        DoAttackStuff();
-                    }
-                    if (key.Key == ConsoleKey.I)
-                    {
-                        DoInventoryStuff();
-                    }
-                    if (key.Key == ConsoleKey.D)
-                    {
-                        DoDescriptionStuff();
-                    }
-                    if (key.Key == ConsoleKey.G)
-                    {
-                        ReturnToGame();
-                    }
-                }
+                // TODO if gamestate.startingscreen return something
 
                 if (gameState == GameState.Game)
                 {
@@ -417,6 +459,41 @@ namespace roguelike_spbu {
                         return inventoryAction;
                 }
 
+                if (gameState == GameState.AttackDescription || gameState == GameState.InventoryDescription)
+                    DoDescriptionStuff(key.Key);
+
+                if (gameState != GameState.Menu && gameState != GameState.Controls && gameState != GameState.StatingScreen)
+                {
+                    if (key.Key == ConsoleKey.Escape && gameState != GameState.AttackDescription && gameState != GameState.InventoryDescription)
+                    {
+                        DoMenuStuff();
+                    } else
+                        switch (key.Key)
+                        {
+                            case ConsoleKey.A:
+                                DoAttackStuff();
+                                break;
+                            case ConsoleKey.Escape:
+                                DoInventoryStuff();
+                                break;
+                            case ConsoleKey.I:
+                                DoInventoryStuff();
+                                break;
+                            case ConsoleKey.D:
+                                DoDescriptionStuff();
+                                break;
+                            case ConsoleKey.G:
+                                ReturnToGame();
+                                break;
+                            default:
+                                break;
+                        }
+                } else 
+                {
+                    if (gameState == GameState.Menu)
+                        DoMenuStuff(key.Key);
+                }
+
                 Print();
             }
         }
@@ -443,7 +520,8 @@ namespace roguelike_spbu {
             }
 
             if (Console.LargestWindowHeight <= Height || Console.LargestWindowWidth <= Width) {
-                Console.SetWindowSize(Width, Height);
+                Console.WriteLine("Window is to small");
+                return;
             }
 
             UpdateStats();
@@ -690,14 +768,6 @@ namespace roguelike_spbu {
             Width = w;
             FullSreen = fullSreen;
             Active = active;
-        }
-        public virtual void TurnOn()
-        {
-            Active = true;
-        }
-        public virtual void TurnOff()
-        {
-            Active = false;
         }
         public virtual void GenerateInsides()
         {
@@ -984,12 +1054,21 @@ namespace roguelike_spbu {
         }
         public string Text = "";
         List<string> textLines = new List<string>();
-        int currentLine = 0;
+        public int currentLine = 0;
         int lastLine = 0;
         public MenuBox(int h, int w, string title, List<string> textLines) : base(0, 0, h, w, true, false)
         {
             UpdateTitle(title);
             UpdateList(textLines);
+        }
+        public virtual void TurnOn()
+        {
+            currentLine = 0;
+            Active = true;
+        }
+        public virtual void TurnOff()
+        {
+            Active = false;
         }
         public void UpdateTitle(string title)
         {

@@ -5,11 +5,10 @@ namespace roguelike_spbu {
 
         static NetCoreAudio.Player walkman = new NetCoreAudio.Player();
 
-        private static string cT = "./sounds/Hub/Menu theme. Mustin - Serenity (Final Fantasy VII Main Theme).mp3";
+        private static string cT = "./sounds/Bad theme. HоM&M III OST - Necropolis Town.wav";
 
         public static string CurrentTrack {
             set {
-
                 cT = value; 
             }
             get {
