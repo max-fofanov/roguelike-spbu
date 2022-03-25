@@ -4,12 +4,6 @@ namespace roguelike_spbu {
     
     public class Generation {
 
-
-
-        public Generation() {
-
-        }
-
         public static Map GenerateCave(int x, int y, (int, int) startingPosition, (int, int) endingPosition) {
 
             Map dungeon = new Map(x, y, 0);
@@ -75,6 +69,7 @@ namespace roguelike_spbu {
             Map dungeon = new Map(x, y, num);
             Player player = new Player(0, 0);
             Random random = new Random();
+            Map miniMap = new Map(2 + (x / 20) * 3 + (x / 20 - 1), 2 + (y / 30) * 3 + (y / 30 - 1), num);
 
             List<Room> rooms = new List<Room>();
 
@@ -104,9 +99,14 @@ namespace roguelike_spbu {
                             }
                             else {
                                 Tile tmp = new Field(a, b);
-                            dungeon.Tiles[a][b] = tmp;
+                                dungeon.Tiles[a][b] = tmp;
                             }
                             
+                        }
+                    }
+                    for (int a = -1; a <= 1; a++) {
+                        for (int b = -1; b <= 1; b++) {
+                            miniMap.Tiles[2 + i * 3 + a][2 + j * 3 + b] = new Field(2 + i * 3 + a, 2 + j * 3 + b);
                         }
                     }
 
@@ -137,6 +137,8 @@ namespace roguelike_spbu {
                                 dungeon.Tiles[coordinate][a] = tmp;
                             }
                         }
+
+                        miniMap.Tiles[2 + (i / (x / 20) * 4)][4 + (i / (x / 20) * 4)] = new Field(2 + (i / (x / 20) * 4), 4 + (i / (y / 30) * 4));
                     }
                 }
                 if (i < (x / 20) * (y / 30) - (y / 30) && Math.Max(rooms[i].Y0, rooms[i + (y / 30)].Y0) < Math.Min(rooms[i].Y1, rooms[i + (y / 30)].Y1)) {
@@ -164,55 +166,13 @@ namespace roguelike_spbu {
 
                             
                         }
+                        miniMap.Tiles[4 + (i / (x / 20) * 4)][2 + (i / (x / 20) * 4)] = new Field(4 + (i / (x / 20) * 4), 2 + (i / (y / 30) * 4));
                     }
 
                 }
 
             }
-            /*
-            int rand1 = random.Next(rooms.Count / 2);
-            int rand2 = random.Next(rooms.Count / 2, rooms.Count);
-
-            Room entrance = rooms[rand1];
-            Room exit = rooms[rand2];
-
-            int coord = random.Next(entrance.Y0 + 1, entrance.Y1 - 1);
-
-            for (int i = 0; i <= entrance.X0; i++) {
-                
-
-                Tile tmp = new Field(i, coord);
-                dungeon.Tiles[i][coord] = tmp;
-                                
-                Tile tmp1 = new Border(i, coord - 1);
-                dungeon.Tiles[i][coord - 1] = tmp1;
-
-                Tile tmp2 = new Border(i, coord + 1);
-                dungeon.Tiles[i][coord + 1] = tmp2;
-
-            }
-
-            coord = random.Next(exit.Y0 + 1, exit.Y1 - 1);
-
-            for (int i = exit.X1 - 1; i < x; i++) {
-                
-
-                Tile tmp = new Field(i, coord);
-                dungeon.Tiles[i][coord] = tmp;
-                                
-                Tile tmp1 = new Border(i, coord - 1);
-                dungeon.Tiles[i][coord - 1] = tmp1;
-
-                Tile tmp2 = new Border(i, coord + 1);
-                dungeon.Tiles[i][coord + 1] = tmp2;
-
-            if (room1.Y0 > room2.Y0) 
-            { 
-                
-                return 1;
-            }
-            */
-
+            
             int r = 0, coord;
             Room entrance;
 
@@ -240,6 +200,8 @@ namespace roguelike_spbu {
 
                         dungeon.Tiles[i][coord + 1] = new Border(i, coord + 1);
                     }
+
+                    miniMap.Tiles[0][2 + r * 4] = new Field(0, 2 + r * 4);
                     break;
                 case From.Up:
                     r = random.Next((y / 30) * (x / 20) - (y / 30), (y / 30) * (x / 20));
@@ -264,6 +226,8 @@ namespace roguelike_spbu {
                         dungeon.Tiles[i][coord + 1] = new Border(i, coord + 1);
 
                     }
+
+                    miniMap.Tiles[miniMap.Height - 1][2 + r * 4] = new Field(miniMap.Height - 1, 2 + r * 4);
                     break;
                 case From.Left:
                     r = random.Next(x / 20);
@@ -288,6 +252,8 @@ namespace roguelike_spbu {
                         dungeon.Tiles[coord + 1][i] = new Border(coord + 1, i);
 
                     }
+
+                    miniMap.Tiles[2 + r * 4][miniMap.Width - 1] = new Field(2 + r * 4, miniMap.Width - 1);
                     break;
                 case From.Right:
 
@@ -314,6 +280,8 @@ namespace roguelike_spbu {
                         dungeon.Tiles[coord + 1][i] = new Border(coord + 1, i);
 
                     }
+
+                    miniMap.Tiles[2 + r * 4][0] = new Field(2 + r * 4, 0);
                     break;
             }
 
@@ -339,6 +307,9 @@ namespace roguelike_spbu {
 
                     dungeon.Tiles[coord + 1][i] = new Border(coord + 1, i);
                 }
+
+                miniMap.Tiles[2 + r1 * 4][miniMap.Width - 1] = new Field(2 + r1 * 4, miniMap.Width - 1);
+
             }
             else if (r1 % (y / 30) == 0 && random.Next(2) == 0) {
 
@@ -358,6 +329,8 @@ namespace roguelike_spbu {
 
                     dungeon.Tiles[coord + 1][i] = new Border(coord + 1, i);
                 }
+
+                miniMap.Tiles[2 + r1 * 4][0] = new Field(2 + r1 * 4, 0);
             }
             else if (r1 < y / 30) {
                 
@@ -378,6 +351,8 @@ namespace roguelike_spbu {
                     dungeon.Tiles[i][coord + 1] = new Border(i, coord + 1);
                 }
 
+                miniMap.Tiles[0][2 + r1 * 4] = new Field(0, 2 + r1 * 4);
+
             }
             else if (r1 >= (y / 30) * (x / 20) - (y / 30)) {
 
@@ -397,6 +372,8 @@ namespace roguelike_spbu {
 
                     dungeon.Tiles[i][coord + 1] = new Border(i, coord + 1);
                 }
+
+                miniMap.Tiles[miniMap.Height - 1][2 + r1 * 4] = new Field(miniMap.Height - 1, 2 + r1 * 4);
             }
 
 
@@ -404,6 +381,7 @@ namespace roguelike_spbu {
             if (Primitives.AStarSearch(dungeon, new List<Entity>(), new Player(0, 0), (rooms[0].X0 + 2, rooms[0].Y0 + 2), (rooms[rooms.Count - 1].X1 - 2, rooms[rooms.Count - 1].Y1 - 2)).Count == 0)
                 return GenerateDungeon(x, y, from, num, minsize, maxsize);
             
+            dungeon.MiniMap = miniMap;
             return dungeon;
 
             

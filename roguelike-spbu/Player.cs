@@ -33,6 +33,8 @@ namespace roguelike_spbu
             get;
             set;
         }
+
+        public int maxCapacity = 5;
         
 
         
@@ -52,7 +54,15 @@ namespace roguelike_spbu
             LVL = 1;
         }
 
+        public void AddToInventory(Item item) {
+            if (Inventory.Count < maxCapacity) {
+                Inventory.Add(item);
+            }
+        }
+
         public override ActionInfo GetNextMove(Map map, List<Entity> entities, Player player) {
+
+            return SystemInfo.gui.GetAction();
 
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 

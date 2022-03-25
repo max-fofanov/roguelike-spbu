@@ -25,6 +25,11 @@ namespace roguelike_spbu
             get;
             set;
         }
+
+        public Map? MiniMap {
+            get;
+            set;
+        }
         public Map(int height, int width, int num)
         {
             Height = height;
