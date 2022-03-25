@@ -245,6 +245,7 @@ namespace roguelike_spbu
         }
         public Entity()
         {
+            Name = "NoName";
             ID = Guid.NewGuid();
         }
         public void SetCoordinates(int x, int y)

@@ -14,7 +14,8 @@ namespace roguelike_spbu
         }
 
         public Item() {
-
+            ID = Guid.NewGuid();
+            Name = "";
         }
 
         public virtual void Effect() {
