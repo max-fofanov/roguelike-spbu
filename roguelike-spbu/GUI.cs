@@ -348,6 +348,7 @@ namespace roguelike_spbu {
         }
         public void ReturnToGame()
         {
+            Renderer.SelectedEntity = Guid.Empty;
             UpdateMode(GameState.Game);
 
             GameGUIWindows.ListBox.UpdateTitle("");
