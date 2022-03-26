@@ -5,7 +5,10 @@ using System.Runtime.Serialization;
 namespace roguelike_spbu {
 
     public static class Saver {
-        public static bool Save() {
+
+
+        public static List<string> history = new List<string>();
+        public static bool Save(int num = 0) {
             
             Hashtable addresses = new Hashtable();
             addresses.Add("allVisible", GameInfo.allVisible);
@@ -17,13 +20,23 @@ namespace roguelike_spbu {
             addresses.Add("mapWidth", GameInfo.mapWidth);
             addresses.Add("player", GameInfo.player);
 
-            FileStream fs = new FileStream("DataFile.dat", FileMode.Create);
+            FileStream fs;
+
+            if (num >= 0) 
+                fs = new FileStream("DataFile" + num + ".dat", FileMode.Create);
+            else
+                return false;
 
             // Construct a BinaryFormatter and use it to serialize the data to the stream.
             BinaryFormatter formatter = new BinaryFormatter();
             try
             {
                 formatter.Serialize(fs, addresses);
+
+                if (num < history.Count)
+                    history[num] = "DataFile" + num + ".dat";
+                else
+                    history.Add("DataFile" + history.Count + ".dat");
                 fs.Close();
                 return true;
             }
@@ -37,15 +50,32 @@ namespace roguelike_spbu {
         }
     
 
-        public static bool Load()
+        public static bool Load(int num = 0)
         {
             Hashtable addresses  = null;
+            FileStream fs;
 
-            FileStream fs = new FileStream("DataFile.dat", FileMode.Open);
+            if (num < history.Count && num >= 0) {
+                fs = new FileStream(history[num], FileMode.Open);
+            }
+            else return false;
+            
             try
             {
+                
                 BinaryFormatter formatter = new BinaryFormatter();
+
                 addresses = (Hashtable) formatter.Deserialize(fs);
+
+                GameInfo.allVisible = (bool) addresses["allVisible"];
+                GameInfo.currentMap = (int) addresses["currentMap"];
+                GameInfo.entities = (List<Entity>) addresses["entities"];
+                GameInfo.history = (List<Map>) addresses["history"];
+                GameInfo.isMusic = (bool) addresses["isMusic"];
+                GameInfo.mapHeight = (int) addresses["mapHeight"];
+                GameInfo.mapWidth = (int) addresses["mapWidth"];
+                GameInfo.player = (Player) addresses["player"];
+
                 return true;
             }
             catch (SerializationException e)
@@ -54,6 +84,8 @@ namespace roguelike_spbu {
                 return false;
             }
         }
+
+        
     }
 }
     

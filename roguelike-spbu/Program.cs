@@ -44,15 +44,9 @@ namespace roguelike_spbu
             while (Saver.Save()) {
                 
                 game.FullTurn();
-                /*       
-                if (!Walkman.IsPlaying && !Walkman.IsPaused) {
-                    Walkman.Play();
-                } */
+
                 
             }
-                
-            
-            
             
         }
 
