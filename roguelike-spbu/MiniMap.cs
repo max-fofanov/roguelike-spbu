@@ -34,6 +34,7 @@ namespace roguelike_spbu {
                     miniMap.Tiles[2 + num / (GameInfo.mapWidth / 30) * 4 + i][2 + num % (GameInfo.mapWidth / 30) * 4 + j].PrimaryForegroundColor = System.Drawing.Color.Red;
                 }
             }
+            this.prev = num;
 
         }
 
