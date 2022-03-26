@@ -4,7 +4,6 @@ using System.Drawing;
 
 namespace roguelike_spbu
 {
-    
     public enum Action {
         Up,
         Down,
@@ -220,7 +219,7 @@ namespace roguelike_spbu
                     
                 } else if (place == 1)
                 {
-                    
+
                 }
                 if ((LeftHand ?? new Item()).Type != ItemType.TwoHandWeapon)
                     if (LeftHand == null)
@@ -290,7 +289,7 @@ namespace roguelike_spbu
         }
         public virtual void GetDamage(int damage)
         {
-            this.HealthPoints -= damage - GetTotalDefence();
+            this.HealthPoints -= Math.Max(damage - GetTotalDefence(), 0);
         }
         public virtual ActionInfo GetNextMove(Map map, List<Entity> entities, Player player) { return new ActionInfo(); }
     }

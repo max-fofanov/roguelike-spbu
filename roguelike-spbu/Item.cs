@@ -30,6 +30,11 @@ namespace roguelike_spbu
             get;
             set;
         }
+        public int Defence
+        {
+            get;
+            set;
+        }
         public int HealthPoints
         {
             get;
