@@ -241,7 +241,7 @@ namespace roguelike_spbu
                 case Action.GiveEffect:
                     break;
                 case Action.UseItem:
-                    entity.UseItem(nextMove.Target);
+                    entity.UseItem(nextMove.Target, nextMove.Position);
                     break;
                 case Action.Attack:
                     if (nextMove.Target == player.ID)
