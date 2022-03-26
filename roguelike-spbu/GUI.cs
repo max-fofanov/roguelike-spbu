@@ -172,6 +172,9 @@ namespace roguelike_spbu {
             description += String.Format("Attack: {0}\n", GameInfo.player.GetTotalAttack());
             description += String.Format("Defence: {0}\n", GameInfo.player.GetTotalDefence());
             description += "\n";
+            description += String.Format("LVL: {0}\n", GameInfo.player.LVL);
+            description += String.Format("XP: {0}/{1}\n", GameInfo.player.XP, GameInfo.player.XPToLevelUP);
+            description += "\n";
             description += String.Format("Right hand: {0}\n", (GameInfo.player.RightHand ?? new Item()).Name);
             description += String.Format("Left hand: {0}\n", (GameInfo.player.LeftHand ?? new Item()).Name);
             description += String.Format("Body: {0}\n", (GameInfo.player.Body ?? new Item()).Name);
@@ -321,21 +324,6 @@ namespace roguelike_spbu {
             }
             else
                 GameGUIWindows.Description.UpdateText("");
-
-            /*Entity enemy = GameGUIWindows.GetEntityInRange(num);
-
-            string description = "";
-            description += enemy.Name ?? "Noname";
-            description += "\n\n";
-            description += String.Format("HP: {0}\n", enemy.HealthPoints);
-            description += String.Format("Attack: {0}\n", enemy.Damage);
-            description += String.Format("ROW: {0}\n", enemy.RangeOfView);
-            description += String.Format("ROA: {0}\n", enemy.RangeOfHit);
-            description += "\n";
-            description += enemy.Description;
-
-            GameGUIWindows.Description.UpdateText(description);*/
-
         }
         public void DoDescriptionStuff(ConsoleKey? key = null)
         {

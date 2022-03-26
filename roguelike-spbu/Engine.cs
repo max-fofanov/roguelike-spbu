@@ -163,20 +163,21 @@ namespace roguelike_spbu
             {
                 ElementaryTurn(player);
                 foreach (Entity entity in entities){
-                    if (entity.HealthPoints <0)
+                    if (entity.HealthPoints <= 0)
                     {
+                        Console.Beep();
                         player.XP += entity.XP;
-                        while (player.PlayerExperiencePoints > player.XPToLevelUP)
-                        {
-                            player.LVL += 1;
-                            player.HealthPoints += 50;
-                            player.Damage += 20;
-                            player.PlayerExperiencePoints -= player.XPToLevelUP;
-                            player.XPToLevelUP += 30;
-                        }
-                        
                     }
                 }
+                while (player.XP > player.XPToLevelUP)
+                {
+                    player.LVL++;
+                    player.SetHealth(player.MaxHealthPoints + 50, false);
+                    player.Damage += 20;
+                    player.XP -= player.XPToLevelUP;
+                    player.XPToLevelUP += 30;
+                }
+
                 entities.RemoveAll(e => e.HealthPoints <= 0);
 
                 foreach (Entity entity in entities){
