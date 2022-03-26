@@ -64,7 +64,7 @@ namespace roguelike_spbu {
         public enum From {
             Left, Right, Up, Down
         }
-        public static Map GenerateDungeon(int x, int y, From from = From.Down, int num = 0, int minsize = 10, int maxsize = 20) {
+        public static Map GenerateDungeon(int x, int y, From from = From.Down, int num = 0) {
 
             Map dungeon = new Map(x, y, num);
             Player player = new Player(0, 0);
@@ -76,13 +76,13 @@ namespace roguelike_spbu {
             for (int i = 0; i < x / 20; i++) {
                 for (int j = 0; j < y / 30; j++) {
                     
-                    int x0 = random.Next(20 * i + 1, 20 * (i + 1) - minsize);
-                    int y0 = random.Next(30 * j + 1, 30 * (j + 1) - minsize);
+                    int x0 = random.Next(20 * i + 1, 20 * (i + 1) - 12);
+                    int y0 = random.Next(30 * j + 1, 30 * (j + 1) - 17);
 
                     int x1 = 0;
                     int y1 = 0;
 
-                    while (x1 - x0 < minsize || y1 - y0 < minsize || x1 - x0 > maxsize || y1 - y0 > maxsize) {
+                    while (x1 - x0 < 12 || y1 - y0 < 17 || x1 - x0 > 12 || y1 - y0 > 17) {
                         x1 = random.Next(x0 + 1, 20 * (i + 1));
                         y1 = random.Next(y0 + 1, 30 * (j + 1));
                     }
@@ -381,7 +381,7 @@ namespace roguelike_spbu {
 
 
             if (Primitives.AStarSearch(dungeon, new List<Entity>(), new Player(0, 0), (rooms[0].X0 + 2, rooms[0].Y0 + 2), (rooms[rooms.Count - 1].X1 - 2, rooms[rooms.Count - 1].Y1 - 2)).Count == 0)
-                return GenerateDungeon(x, y, from, num, minsize, maxsize);
+                return GenerateDungeon(x, y, from, num);
             
             dungeon.MiniMap = miniMap;
             return dungeon;
