@@ -2,6 +2,7 @@ using System;
 
 namespace roguelike_spbu
 {
+    [Serializable]
     public class Map
     {
         public int Height

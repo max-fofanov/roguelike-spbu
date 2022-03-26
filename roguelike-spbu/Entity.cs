@@ -58,6 +58,8 @@ namespace roguelike_spbu
         passive,
         agressive
     }
+
+    [Serializable]
     public class Entity
     {
         public Guid ID

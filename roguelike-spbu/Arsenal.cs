@@ -1,5 +1,6 @@
 namespace roguelike_spbu
 {
+    [Serializable]
     class SwordOneHanded: Item
     {
         public SwordOneHanded()
@@ -13,6 +14,7 @@ namespace roguelike_spbu
         }
     }
 
+    [Serializable]
     class BastardSword: Item
     {
         public BastardSword()
@@ -26,6 +28,7 @@ namespace roguelike_spbu
         }
     }
 
+    [Serializable]
     class TwoHandedSword: Item
     {
         public TwoHandedSword()
@@ -39,6 +42,7 @@ namespace roguelike_spbu
         }
     }
 
+    [Serializable]
     class Aerondight: Item
     {
         public Aerondight()
@@ -51,6 +55,8 @@ namespace roguelike_spbu
             Description = " ";
         }
     }
+
+    [Serializable]
     class Spear: Item
     {
         public Spear()
@@ -63,6 +69,7 @@ namespace roguelike_spbu
             Description = " ";
         }
     }
+    [Serializable]
     class MagicBolt: Item
     {
         public MagicBolt()
@@ -76,6 +83,7 @@ namespace roguelike_spbu
         }
     }
 
+    [Serializable]
     class MagicLince: Item
     {
         public MagicLince()
@@ -88,6 +96,8 @@ namespace roguelike_spbu
             Description = " ";
         }
     }
+
+    [Serializable]
     class Bow: Item
     {
         public Bow()
@@ -101,6 +111,7 @@ namespace roguelike_spbu
         }
     }
 
+    [Serializable]
     class MagicStrike: Item //all enem
     {
         public MagicStrike()
@@ -114,6 +125,7 @@ namespace roguelike_spbu
         }
     }
     
+    [Serializable]
     class Mjolnir: Item
     {
         public Mjolnir()
@@ -126,7 +138,7 @@ namespace roguelike_spbu
             Description = " ";
         }
     }
-
+    [Serializable]
     class Frostmourne: Item
     {
         public Frostmourne()
@@ -140,6 +152,7 @@ namespace roguelike_spbu
         }
     }
 
+    [Serializable]
     class CrossBow: Item
     {
         public CrossBow()
