@@ -7,7 +7,7 @@ namespace roguelike_spbu
             Type = ItemType.OneHandWeapon;
             Name = "Sword One Handed";
             Damage = 15;
-            RangeOfHit = 1;
+            RangeOfHit = 1; // 1
             Symbol = "/";
             Description = " ";
         }

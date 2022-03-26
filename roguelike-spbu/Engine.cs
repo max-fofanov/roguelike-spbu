@@ -165,7 +165,6 @@ namespace roguelike_spbu
                 foreach (Entity entity in entities){
                     if (entity.HealthPoints <= 0)
                     {
-                        Console.Beep();
                         player.XP += entity.XP;
                     }
                 }

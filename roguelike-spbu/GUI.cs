@@ -171,6 +171,7 @@ namespace roguelike_spbu {
             description += String.Format("HP: {0}/{1}\n", GameInfo.player.HealthPoints, GameInfo.player.MaxHealthPoints);
             description += String.Format("Attack: {0}\n", GameInfo.player.GetTotalAttack());
             description += String.Format("Defence: {0}\n", GameInfo.player.GetTotalDefence());
+            description += String.Format("ROA: {0}\n", GameInfo.player.RangeOfHit);
             description += "\n";
             description += String.Format("LVL: {0}\n", GameInfo.player.LVL);
             description += String.Format("XP: {0}/{1}\n", GameInfo.player.XP, GameInfo.player.XPToLevelUP);

@@ -136,10 +136,11 @@ namespace roguelike_spbu
             get;
             set;
         }
+        float _rangeOfHit = 0;
         public float RangeOfHit
         {
-            get;
-            set;
+            get { return Math.Max(_rangeOfHit, Math.Max((LeftHand ?? new Item()).RangeOfHit, (RightHand ?? new Item()).RangeOfHit)); }
+            set { _rangeOfHit = value; }
         }
         private string _symbol = "";
         public string Symbol
