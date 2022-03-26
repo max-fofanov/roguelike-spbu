@@ -168,8 +168,13 @@ namespace roguelike_spbu {
         public void UpdateStats()
         {
             string description = "";
-            description += String.Format("HP: {0}\n", GameInfo.player.HealthPoints);
-            description += String.Format("Attack: {0}\n", GameInfo.player.Damage);
+            description += String.Format("HP: {0}/{1}\n", GameInfo.player.HealthPoints, GameInfo.player.MaxHealthPoints);
+            description += String.Format("Attack: {0}\n", GameInfo.player.GetTotalAttack());
+            description += String.Format("Defence: {0}\n", GameInfo.player.GetTotalDefence());
+            description += "\n";
+            description += String.Format("Right hand: {0}\n", (GameInfo.player.RightHand ?? new Item()).Name);
+            description += String.Format("Left hand: {0}\n", (GameInfo.player.LeftHand ?? new Item()).Name);
+            description += String.Format("Body: {0}\n", (GameInfo.player.Body ?? new Item()).Name);
 
             GameGUIWindows.Statistics.UpdateText(description);
         }
@@ -246,7 +251,7 @@ namespace roguelike_spbu {
             UpdateMode(GameState.Inventory);
 
             GameGUIWindows.ListBox.UpdateTitle("Inventory");
-            GameGUIWindows.ListBox.UpdateList((from item in GameGUIWindows.Inventory select item.Name ?? "NoName").ToList());
+            GameGUIWindows.ListBox.UpdateList((from item in GameGUIWindows.Inventory select ((item.Name ?? "NoName") + (GameInfo.player.IsItemAlreadyEquiped(item.ID) ? "*" : ""))).ToList());
             
             if (key != null)
             {
@@ -258,7 +263,12 @@ namespace roguelike_spbu {
                     case ConsoleKey.DownArrow:
                         GameGUIWindows.ListBox.ScroolDown();
                         break;
+                    case ConsoleKey.D1:
                     case ConsoleKey.Enter:
+                        return new ActionInfo(Action.UseItem, GameGUIWindows.GetItemInInventory(GameGUIWindows.ListBox.currentLine).ID, 0);
+                    case ConsoleKey.D2:
+                        return new ActionInfo(Action.UseItem, GameGUIWindows.GetItemInInventory(GameGUIWindows.ListBox.currentLine).ID, 1);
+                    case ConsoleKey.D0:
                         return new ActionInfo(Action.UseItem, GameGUIWindows.GetItemInInventory(GameGUIWindows.ListBox.currentLine).ID);
                     default:
                         break;
@@ -282,7 +292,7 @@ namespace roguelike_spbu {
             string description = "";
             description += enemy.Name ?? "Noname";
             description += "\n\n";
-            description += String.Format("HP: {0}\n", enemy.HealthPoints);
+            description += String.Format("HP: {0}/{1}\n", enemy.HealthPoints, enemy.MaxHealthPoints);
             description += String.Format("Attack: {0}\n", enemy.Damage);
             description += String.Format("ROW: {0}\n", enemy.RangeOfView);
             description += String.Format("ROA: {0}\n", enemy.RangeOfHit);

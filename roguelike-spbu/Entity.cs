@@ -19,16 +19,18 @@ namespace roguelike_spbu
     }
     
     public class ActionInfo {
-        public ActionInfo(Action? action = null, int? time = null, EntityEffect? effect = null, Guid? target = null) {
+        public ActionInfo(Action? action = null, int? time = null, EntityEffect? effect = null, Guid? target = null, int? position = null) {
             Action = action ?? Action.StayInPlace;
             Effect = effect ?? new EntityEffect();
             Time = time ?? 0;
             Target = target ?? Guid.Empty;
+            Position = position ?? -1;
         }
 
-        public ActionInfo(Action action) : this(action, null, null, null) { }
-        public ActionInfo(Action action, EntityEffect effect, int time) : this(action, time, effect, null) { }
-        public ActionInfo(Action action, Guid target) : this(action, null, null, target) { }
+        public ActionInfo(Action action) : this(action, null, null, null, null) { }
+        public ActionInfo(Action action, EntityEffect effect, int time) : this(action, time, effect, null, null) { }
+        public ActionInfo(Action action, Guid target) : this(action, null, null, target, null) { }
+        public ActionInfo(Action action, Guid target, int position) : this(action, null, null, target, position) { }
         public Action Action {
             get;
             set;
@@ -42,6 +44,10 @@ namespace roguelike_spbu
             set;
         }
         public Guid Target {
+            get;
+            set;
+        }
+        public int Position {
             get;
             set;
         }
@@ -210,51 +216,57 @@ namespace roguelike_spbu
         }
         public void ChangeColor(Color TempColor) { }
         public void GetEffect(EntityEffect effect, int time) { }
+        public bool IsTwoHandWeaponEquiped()
+        {
+            return (LeftHand ?? new Item()).Type == ItemType.TwoHandWeapon ||
+                    (RightHand ?? new Item()).Type == ItemType.TwoHandWeapon;
+        }
+        public bool IsItemAlreadyEquiped(Guid ID)
+        {
+            return (LeftHand ?? new Item()).ID == ID ||
+                    (RightHand ?? new Item()).ID == ID ||
+                    (Body ?? new Item()).ID == ID;
+        }
         void PutItemOnEntity(Item item, int place = 0)
         {
-            if (item.Type == ItemType.OneHandWeapon)
-            {
-                if (place == 0)
+            if (!IsItemAlreadyEquiped(item.ID))
+                if (item.Type == ItemType.OneHandWeapon)
                 {
-                    
-                } else if (place == 1)
-                {
-
-                }
-                if ((LeftHand ?? new Item()).Type != ItemType.TwoHandWeapon)
-                    if (LeftHand == null)
-                        LeftHand = item;
-                    else if (RightHand == null)
+                    //Console.Beep();
+                    if (place == 0)
+                    {
+                        if (IsTwoHandWeaponEquiped())
+                        {
+                            LeftHand = null;
+                        }
                         RightHand = item;
-                    else
+                    } else if (place == 1)
+                    {
+                        if (IsTwoHandWeaponEquiped())
+                        {
+                            RightHand = null;
+                        }
                         LeftHand = item;
-                else
+                    }
+                } else if (item.Type == ItemType.TwoHandWeapon)
                 {
                     LeftHand = item;
-                    RightHand = null;
-                }
-            } else if (item.Type == ItemType.TwoHandWeapon)
-            {
-                if (item.ID != (LeftHand ?? new Item()).ID)
+                    RightHand = item;
+                } else if (item.Type == ItemType.Armor)
                 {
-                    LeftHand = item;
-                    RightHand = item;   
-                }
-            } else if (item.Type == ItemType.Armor)
-            {
-                Body = item;
-            } else if (item.Type == ItemType.Consumable)
-            {
+                    Body = item;
+                } else if (item.Type == ItemType.Consumable)
+                {
 
-            }
+                }
         }
-        public void UseItem(Guid itemID) {
+        public void UseItem(Guid itemID, int place = 0) {
             // TODO: make possible to remove items from hand
             foreach (Item item in Inventory)
             {
                 if (item.ID == itemID)
                 {
-                    PutItemOnEntity(item);
+                    PutItemOnEntity(item, place);
                     break;
                 }
             }
@@ -266,7 +278,7 @@ namespace roguelike_spbu
                 Inventory.Add(item);
             }
         }
-        int GetTotalAttack()
+        public int GetTotalAttack()
         {
             int totalDamage = 0;
             
@@ -279,7 +291,7 @@ namespace roguelike_spbu
 
             return totalDamage;
         }
-        int GetTotalDefence()
+        public int GetTotalDefence()
         {
             return 0;
         }
