@@ -15,7 +15,7 @@ namespace roguelike_spbu {
                     engine.player.Damage = 999999;
                     break;
                 case ConsoleKey.K:
-                    engine.entities.ForEach(e => e.SetHealth(0));
+                    engine.entities.ForEach(e => e.HealthPoints = -999);
                     break;
                 case ConsoleKey.P:
                     engine.entities.ForEach(e => e.Damage = 0);
