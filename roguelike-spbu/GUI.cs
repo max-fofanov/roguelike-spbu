@@ -267,8 +267,9 @@ namespace roguelike_spbu {
                     case ConsoleKey.DownArrow:
                         GameGUIWindows.ListBox.ScroolDown();
                         break;
-                    case ConsoleKey.D1:
                     case ConsoleKey.Enter:
+                        return new ActionInfo(Action.UseItem, GameGUIWindows.GetItemInInventory(GameGUIWindows.ListBox.currentLine).ID, -2);
+                    case ConsoleKey.D1:
                         return new ActionInfo(Action.UseItem, GameGUIWindows.GetItemInInventory(GameGUIWindows.ListBox.currentLine).ID, 0);
                     case ConsoleKey.D2:
                         return new ActionInfo(Action.UseItem, GameGUIWindows.GetItemInInventory(GameGUIWindows.ListBox.currentLine).ID, 1);

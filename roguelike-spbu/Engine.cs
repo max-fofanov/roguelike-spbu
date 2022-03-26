@@ -240,6 +240,7 @@ namespace roguelike_spbu
                 case Action.GiveEffect:
                     break;
                 case Action.UseItem:
+                    //Console.Beep();
                     entity.UseItem(nextMove.Target, nextMove.Position);
                     break;
                 case Action.Attack:
