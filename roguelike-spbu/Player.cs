@@ -36,12 +36,8 @@ namespace roguelike_spbu
 
         public int maxCapacity = 5;
 
-
-
-        public Player(int x, int y, Trait trait = Trait.Saber) : base()
+        public Player(int x, int y, Trait trait = Trait.Saber) : base(x, y)
         {
-            X = x;
-            Y = y;
             this.trait = trait;
             HealthPoints = 100;
             Damage = 10;
@@ -52,6 +48,7 @@ namespace roguelike_spbu
             Symbol = symbol;
             PrimaryForegroundColor = color;
             LVL = 1;
+            Inventory = new List<Item>() { new SwordOneHanded(), new BastardSword() };
         }
 
         public void AddToInventory(Item item) {

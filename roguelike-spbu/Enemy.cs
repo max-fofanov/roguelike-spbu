@@ -6,10 +6,8 @@ namespace roguelike_spbu
 {
     class Enemy : Entity
     {
-        public Enemy(int x, int y) : base()
+        public Enemy(int x, int y) : base(x, y)
         {
-            this.X = x;
-            this.Y = y;
             this.RangeOfView = 10;
             this.Symbol = "%";
             this.PrimaryForegroundColor = Color.Yellow;

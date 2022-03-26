@@ -243,8 +243,10 @@ namespace roguelike_spbu
             get;
             set;
         }
-        public Entity()
+        public Entity(int x = 0, int y = 0)
         {
+            X = x;
+            Y = y;
             Name = "NoName";
             ID = Guid.NewGuid();
         }

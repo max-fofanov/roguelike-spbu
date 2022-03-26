@@ -294,7 +294,24 @@ namespace roguelike_spbu {
         }
         public void UpdateInventoryDescription(int num)
         {
-            GameGUIWindows.Description.UpdateText("");
+            if (num >= 0 && num < GameGUIWindows.Inventory.Count())
+            {
+                Item item = GameGUIWindows.Inventory[num];
+
+                string description = "";
+                description += item.Name ?? "Noname";
+                description += "\n\n";
+                //description += String.Format("HP: {0}\n", item.HealthPoints);
+                description += String.Format("Attack: {0}\n", item.Damage);
+                description += String.Format("ROA: {0}\n", item.RangeOfHit);
+                description += "\n";
+                description += item.Description;
+
+                GameGUIWindows.Description.UpdateText(description);
+            }
+            else
+                GameGUIWindows.Description.UpdateText("");
+
             /*Entity enemy = GameGUIWindows.GetEntityInRange(num);
 
             string description = "";

@@ -13,7 +13,7 @@ namespace roguelike_spbu
             set;
         }
 
-         public string? Description
+        public string? Description
         {
             get;
             set;
@@ -35,7 +35,7 @@ namespace roguelike_spbu
             get;
             set;
         }
-         private string _symbol = "";
+        private string _symbol = "";
         public string Symbol
         {
             get
