@@ -46,7 +46,7 @@ namespace roguelike_spbu
             set;
         }
         private string _symbol = "";
-        public string Symbol
+        /*public string Symbol
         {
             get
             {
@@ -56,7 +56,7 @@ namespace roguelike_spbu
             {
                 _symbol = value.Length > 0 ? value[0].ToString() : " ";
             }
-        }
+        }*/
         public ItemType Type = ItemType.None;
         public Item() {
             ID = Guid.NewGuid();

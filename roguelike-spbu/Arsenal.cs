@@ -8,7 +8,7 @@ namespace roguelike_spbu
             Name = "Sword One Handed";
             Damage = 15;
             RangeOfHit = 1;
-            Symbol = "/";
+            //Symbol = "/";
             Description = " ";
         }
     }
@@ -19,9 +19,9 @@ namespace roguelike_spbu
         {
             Type = ItemType.OneHandWeapon;
             Name = "Bastard Sword";
-            Damage = 20;
-            RangeOfHit = 2;
-            Symbol = "½";
+            Damage = 22;
+            RangeOfHit = 1;
+            //Symbol = "½";
             Description = " ";
         }
     }
@@ -30,11 +30,11 @@ namespace roguelike_spbu
     {
         public TwoHandedSword()
         {
-            Type = ItemType.OneHandWeapon;
+            Type = ItemType.TwoHandWeapon;
             Name = "Two Handed Sword";
-            Damage = 26;
+            Damage = 35;
             RangeOfHit = 2;
-            Symbol = "!";
+            //Symbol = "!";
             Description = " ";
         }
     }
@@ -47,7 +47,7 @@ namespace roguelike_spbu
             Name = "Aerondight";
             Damage = 60;
             RangeOfHit = 3;
-            Symbol = "@";
+            //Symbol = "@";
             Description = " ";
         }
     }
@@ -55,11 +55,11 @@ namespace roguelike_spbu
     {
         public Spear()
         {
-            Type = ItemType.OneHandWeapon;
+            Type = ItemType.TwoHandWeapon;
             Name = "Spear";
             Damage = 16;
             RangeOfHit = 3;
-            Symbol = "|";
+            //Symbol = "|";
             Description = " ";
         }
     }
@@ -71,7 +71,7 @@ namespace roguelike_spbu
             Name = "Magic Bolt";
             Damage = 15;
             RangeOfHit = 4;
-            Symbol = "~";
+            //Symbol = "~";
             Description = " ";
         }
     }
@@ -84,7 +84,7 @@ namespace roguelike_spbu
             Name = "Magic Lince";
             Damage = 25;
             RangeOfHit = 4;
-            Symbol = "-";
+            //Symbol = "-";
             Description = " ";
         }
     }
@@ -96,7 +96,7 @@ namespace roguelike_spbu
             Name = "Bow";
             Damage = 12;
             RangeOfHit = 4;
-            Symbol = ")";
+            //Symbol = ")";
             Description = " ";
         }
     }
@@ -109,7 +109,7 @@ namespace roguelike_spbu
             Name = "Magic Strike";
             Damage = 25;
             RangeOfHit = 3;
-            Symbol = "*";
+            //Symbol = "*";
             Description = " ";
         }
     }
@@ -122,7 +122,7 @@ namespace roguelike_spbu
             Name = "Mjolnir";
             Damage = 40;
             RangeOfHit = 4;
-            Symbol = "%";
+            //Symbol = "%";
             Description = " ";
         }
     }
@@ -131,11 +131,11 @@ namespace roguelike_spbu
     {
         public Frostmourne()
         {
-            Type = ItemType.OneHandWeapon;
+            Type = ItemType.TwoHandWeapon;
             Name = "Frostmourne";
             Damage = 100;
-            RangeOfHit = 1;
-            Symbol = "F";
+            RangeOfHit = 2;
+            //Symbol = "F";
             Description = "For the glory of the whip!";
         }
     }
@@ -148,10 +148,23 @@ namespace roguelike_spbu
             Name = "Cross Bow";
             Damage = 30;
             RangeOfHit = 4;
-            Symbol = "c";
+            //Symbol = "c";
             Description = "";
         }
     }
+    class Axe: Item
+    {
+        public Axe()
+        {
+            Type = ItemType.OneHandWeapon;
+            Name = "Cross Bow";
+            Damage = 30;
+            RangeOfHit = 4;
+            //Symbol = "c";
+            Description = "";
+        }
+    }
+
 
 
 

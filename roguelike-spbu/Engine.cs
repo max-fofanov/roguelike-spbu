@@ -168,8 +168,7 @@ namespace roguelike_spbu
                         player.XP += entity.XP;
                         while (player.PlayerExperiencePoints > player.XPToLevelUP)
                         {
-                            int n = player.PlayerExperiencePoints / player.XPToLevelUP;
-                            player.LVL += player.PlayerExperiencePoints % player.XPToLevelUP;
+                            player.LVL += 1;
                             player.HealthPoints += 50;
                             player.Damage += 20;
                             player.PlayerExperiencePoints -= player.XPToLevelUP;
