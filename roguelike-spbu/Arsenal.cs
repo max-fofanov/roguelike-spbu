@@ -66,7 +66,6 @@ namespace roguelike_spbu
         }
     }
     [Serializable]
-
     class Aerondight: Item
     {
         public Aerondight()

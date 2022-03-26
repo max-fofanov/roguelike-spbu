@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace roguelike_spbu
 {
-    
+    [Serializable]  
     public class Player : Entity
     {
         private Trait trait;

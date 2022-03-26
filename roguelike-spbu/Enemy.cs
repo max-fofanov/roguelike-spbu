@@ -4,6 +4,7 @@ using System.Drawing;
 
 namespace roguelike_spbu
 {
+    [Serializable]
     class Enemy : Entity
     {
         public Enemy(int x, int y) : base(x, y)
