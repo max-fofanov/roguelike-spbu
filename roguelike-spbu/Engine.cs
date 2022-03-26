@@ -118,8 +118,13 @@ namespace roguelike_spbu
             return entities;
         }
 
-        public List<Entity> GetEntitiesInRange() {
+        public List<Entity> GetEntitiesInRange()
+        {
             return entities.FindAll(target => Math.Pow(target.X - player.X, 2) + Math.Pow(target.Y - player.Y, 2) <= Math.Pow(player.RangeOfHit, 2));
+        }
+        public List<Chest> GetChestsInRange()
+        {
+            return entities.FindAll(target => (Math.Pow(target.X - player.X, 2) + Math.Pow(target.Y - player.Y, 2) <= Math.Pow(player.RangeOfHit, 2)) && target is Chest).Select(t => (t as Chest)!).ToList();
         }
         public void GenerateMap(Entity entity, Generation.From EnterDirection, bool newMap = false)
         {

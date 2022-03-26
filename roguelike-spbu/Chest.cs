@@ -7,8 +7,12 @@ namespace roguelike_spbu
     {
         public Chest(int x, int y) : base(x, y)
         {
+
+            this.SetHealth(1);
             PrimaryForegroundColor = Color.White;
-            Symbol = "⊞";
+            Symbol = "П";
+            Name = "Chest";
+            Description = "Chest with items";
         }
     }
 }

@@ -12,6 +12,7 @@ namespace roguelike_spbu
         }
     }
     //sword
+    [Serializable]
     class SwordOneHanded: Item
     {
         
