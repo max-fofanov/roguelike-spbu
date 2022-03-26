@@ -19,6 +19,7 @@ namespace roguelike_spbu {
         InventoryDescription,
         Attack,
         AttackDescription,
+        Chest,
         Menu,
         Controls,
         StatingScreen
@@ -62,7 +63,7 @@ namespace roguelike_spbu {
     {
         public static List<Entity> EntitiesInRange
         {
-            get {return SystemInfo.engine.GetEntitiesInRange(); }
+            get { return SystemInfo.engine.GetEntitiesInRange(); }
         }
         public static Entity GetEntityInRange(int num)
         {
@@ -70,6 +71,17 @@ namespace roguelike_spbu {
                 return new Entity();
 
             return EntitiesInRange[num];
+        }
+        public static List<Chest> ChestsInRange
+        {
+            get { return SystemInfo.engine.GetChestsInRange(); }
+        }
+        public static Chest GetChestInRange(int num)
+        {
+            if (num < 0 || num >= ChestsInRange.Count())
+                return new Chest(0, 0);
+
+            return ChestsInRange[num];
         }
         public static List<Item> Inventory {
             get { return GameInfo.player.Inventory; }
@@ -84,7 +96,7 @@ namespace roguelike_spbu {
         public static Window MiniMap = new Window(0, 0, 17, 30);
         public static TextBox Statistics = new TextBox(16, 0, 36, 30, "Stats", "");
         public static Window GameBox = new GameBox(0, 29, 42, 152);
-        public static Window UnderBar = new Window(41, 29, 11, 152);
+        public static ListBox UnderBar = new ListBox(41, 29, 11, 152, "", new List<string>());
         public static ListBox ListBox = new ListBox(0, 180, 26, 30, "", new List<string>());
         public static TextBox Description = new TextBox(25, 180, 25, 30, "Description", "");
         public static TextBox Mode = new TextBox(49, 180, 3, 30, "Mode", "");
@@ -202,6 +214,9 @@ namespace roguelike_spbu {
                 case GameState.AttackDescription:
                     modeName = "Description";
                     break;
+                case GameState.Chest:
+                    modeName = "Chest";
+                    break;
                 case GameState.Menu:
                     modeName = "Menu";
                     break;
@@ -212,6 +227,7 @@ namespace roguelike_spbu {
                     modeName = "None";
                     break;
             }
+
             GameGUIWindows.Mode.UpdateTitle(modeName);
         }
         public ActionInfo? DoAttackStuff(ConsoleKey? key = null)
@@ -281,6 +297,9 @@ namespace roguelike_spbu {
             }
 
             UpdateInventoryDescription(GameGUIWindows.ListBox.currentLine);
+
+            if (GameGUIWindows.Inventory.Count() == 0)
+                ReturnToGame();
 
             return null;
         }
@@ -370,6 +389,9 @@ namespace roguelike_spbu {
             Renderer.SelectedEntity = Guid.Empty;
             UpdateMode(GameState.Game);
 
+            GameGUIWindows.UnderBar.UpdateTitle("");
+            GameGUIWindows.UnderBar.UpdateList(new List<string>());
+
             GameGUIWindows.ListBox.UpdateTitle("");
             GameGUIWindows.ListBox.UpdateList(new List<string>());
 
@@ -453,6 +475,33 @@ namespace roguelike_spbu {
                 GameGUIWindows.Control.TurnOff();
             }
         }
+        public void DoChestStuff(ConsoleKey? key = null)
+        {
+            UpdateMode(GameState.Chest);
+
+            GameGUIWindows.ListBox.UpdateTitle("Chest");
+            GameGUIWindows.ListBox.UpdateList((from item in GameGUIWindows.ChestsInRange select ((item.Name ?? "NoName") + (GameInfo.player.IsItemAlreadyEquiped(item.ID) ? "*" : ""))).ToList());
+
+            if (key != null)
+            {
+                switch (key)
+                {
+                    case ConsoleKey.UpArrow:
+                        GameGUIWindows.ListBox.ScroolUp();
+                        break;
+                    case ConsoleKey.DownArrow:
+                        GameGUIWindows.ListBox.ScroolDown();
+                        break;
+                    case ConsoleKey.Enter:
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            UpdateInventoryDescription(GameGUIWindows.ListBox.currentLine);
+            //GameInfo.entities.Add(new Chest(GameInfo.player.X, GameInfo.player.Y));
+        }
         public ActionInfo GetAction()
         {
 
@@ -473,10 +522,8 @@ namespace roguelike_spbu {
 
                 if (key.Key == ConsoleKey.Q)
                     return new ActionInfo(Action.Quit);
-
                 else if (gameState == GameState.Controls)
                     DoControlsMenuStuff();
-
                 // TODO if gamestate.startingscreen return something
                 else {
                     if (gameState == GameState.Game)
@@ -536,6 +583,9 @@ namespace roguelike_spbu {
                                     break;
                                 case ConsoleKey.G:
                                     ReturnToGame();
+                                    break;
+                                case ConsoleKey.O:
+                                    DoChestStuff();
                                     break;
                                 default:
                                     break;

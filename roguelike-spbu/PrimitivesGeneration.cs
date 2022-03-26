@@ -110,6 +110,9 @@ namespace roguelike_spbu
             if (map.Tiles[x][y].Impassable)
                 return null;
 
+            if (entities.Where(e => e.X == x && e.Y == y && e is Chest).Count() > 0)
+                return null;
+
             if (entities.Where(e => e.X == x && e.Y == y).Count() > 0)
                 return 3;
 
