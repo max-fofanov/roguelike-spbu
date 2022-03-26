@@ -344,20 +344,21 @@ namespace roguelike_spbu
         }
         public int GetTotalAttack()
         {
-            int totalDamage = Damage;
-            
-            totalDamage += (LeftHand ?? new Item()).Damage;
+            int totalDamage = Damage + (RightHand ?? new Item()).Damage;
 
-            if ((LeftHand ?? new Item()).Type != ItemType.TwoHandWeapon)
-                totalDamage += (RightHand ?? new Item()).Damage;
+            if (!IsTwoHandWeaponEquiped())
+                totalDamage += (LeftHand ?? new Item()).Damage;
 
             return totalDamage;
         }
         public int GetTotalDefence()
         {
-            return (Body ?? new Item()).Defence +
-                    (LeftHand ?? new Item()).Defence +
-                    (RightHand ?? new Item()).Defence;
+            int totalDefence = (Body ?? new Item()).Defence + (RightHand ?? new Item()).Defence;
+
+            if (!IsTwoHandWeaponEquiped())
+                totalDefence += (LeftHand ?? new Item()).Damage;
+
+            return totalDefence;
         }
         public virtual void Attack(Entity target)
         {
