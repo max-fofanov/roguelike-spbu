@@ -6,7 +6,7 @@ namespace roguelike_spbu
 {
     class Enemy : Entity
     {
-        public Enemy(int x, int y)
+        public Enemy(int x, int y) : base()
         {
             this.X = x;
             this.Y = y;
@@ -21,6 +21,7 @@ namespace roguelike_spbu
             this.CreatureType = "";
             this.RangeOfHit = 0;
             this.XP = 1;
+            this.Description = "somethig";
         }
 
         public override ActionInfo GetNextMove(Map map, List<Entity> entities, Player player)

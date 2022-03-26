@@ -58,16 +58,47 @@ namespace roguelike_spbu {
         public static string scrollPointer = "▓"; //"◄";
         public static string listPointer = "►";
     }
-    public static class GameGUITemplate
+    public static class GameGUIWindows
     {
-        static Window MiniMap = new Window(0, 0, 17, 30);
-        static TextBox Statistics = new TextBox(16, 0, 36, 30, "Stats", "None");
-        static Window GameBox = new GameBox(0, 29, 42, 152);
-        static Window UnderBar = new Window(41, 29, 11, 152);
-        static ListBox ListBox = new ListBox(0, 180, 26, 30, "Inventory", new List<string>() { "None"});
-        static TextBox Description = new TextBox(25, 180, 25, 30, "Description", "None");
-        static TextBox Mode = new TextBox(49, 180, 3, 30, "Mode", "");
-        static MenuBox MenuBox = new MenuBox(30, 30, "Menu", new List<string>() { "Resume", "Save Game", "Load Game", "Toggle music", "Controls", "Quit"});
+        public static List<Entity> EntitiesInRange
+        {
+            get {return SystemInfo.engine.GetEntitiesInRange(); }
+        }
+        public static Entity GetEntityInRange(int num)
+        {
+            if (num < 0 || num >= EntitiesInRange.Count())
+                return new Entity();
+
+            return EntitiesInRange[num];
+        }
+        public static List<Item> Inventory {
+            get { return GameInfo.player.Inventory; }
+        }
+        public static Item GetItemInInventory(int num)
+        {
+            if (num < 0 || num >= Inventory.Count())
+                return new Item();
+
+            return Inventory[num];
+        }
+        public static Window MiniMap = new Window(0, 0, 17, 30);
+        public static TextBox Statistics = new TextBox(16, 0, 36, 30, "Stats", "");
+        public static Window GameBox = new GameBox(0, 29, 42, 152);
+        public static Window UnderBar = new Window(41, 29, 11, 152);
+        public static ListBox ListBox = new ListBox(0, 180, 26, 30, "", new List<string>());
+        public static TextBox Description = new TextBox(25, 180, 25, 30, "Description", "");
+        public static TextBox Mode = new TextBox(49, 180, 3, 30, "Mode", "");
+        public static MenuBox MenuBox = new MenuBox(30, 30, "Menu", new List<string>() { "Resume", "Save Game", "Load Game", "Toggle music", "Controls", "Quit"});
+        static string controlsText = "Escape - enter/exit menu\n\n" +
+                                    "Up/down arrow (in windows) - navigate in window\n\n" +
+                                    "Enter - choose selected item\n\n" +
+                                    "A - open attack list\n\n" +
+                                    "I - open inventory\n\n" +
+                                    "D - go to description of item\n\n" +
+                                    "Arrows (in game) - move player\n\n" +
+                                    "Spacebar - pass turn\n\n" + 
+                                    "Q - force quit";
+        public static TextBox Control = new TextBox(0, 0, 40, 51, "Controls", controlsText, true, false);
         public static List<Window> GetWindows(){
             List<Window> windows = new List<Window>();
             windows.Add(MiniMap);
@@ -78,6 +109,7 @@ namespace roguelike_spbu {
             windows.Add(Description);
             windows.Add(Mode);
             windows.Add(MenuBox);
+            windows.Add(Control);
             return windows;
         }
     }
@@ -98,13 +130,12 @@ namespace roguelike_spbu {
             get;
             set;
         }
-        public List<Window> windows = new List<Window>();
-        public GUI() : this(GameGUITemplate.GetWindows()) { }
-        public GUI(List<Window> windows)
+        public List<Window> windows {
+            get { return GameGUIWindows.GetWindows(); }
+        }
+        public GUI()
         {
-            gameState = GameState.Game;
-            (windows[6] as TextBox).UpdateTitle("Game");
-            this.windows = windows;
+            UpdateMode(GameState.Game);
             if (CheckIntersection(out (int, int) overlappingWindows))
             {
                 error = true;
@@ -123,82 +154,6 @@ namespace roguelike_spbu {
                 CreateLayout();
             }
         }
-        public void UpdateTextBox(int position, string? title = null, string? text = null)
-        {
-            TextBox tb = windows[position] as TextBox;
-            if (title != null)
-            {
-                tb.UpdateTitle(title);
-            }
-            if (text != null)
-            {
-                tb.UpdateText(text);
-            }
-            windows[position] = tb;
-            Print();
-        }
-        public void UpdateListBox(int position, string? title = null, List<string>? list = null)
-        {
-            ListBox lb = windows[position] as ListBox;
-            if (title != null)
-            {
-                lb.UpdateTitle(title);
-            }
-            if (list != null)
-            {
-                lb.UpdateList(list);
-            }
-            windows[position] = lb;
-            Print();
-        }
-        public void ShowInvetory()
-        {
-            (windows[4] as ListBox).UpdateTitle("Inventory");
-        }
-        public void ShowInvetoryDescription()
-        {
-
-        }
-        public void ShowAttack()
-        {
-            UpdateTextBox(6, "Attack");
-            List<string> EnemiesList = new List<string>();
-            foreach (Entity entity in SystemInfo.engine.GetEntitiesInRange())
-            {
-                EnemiesList.Add(entity.Name ?? "NoName");
-            }
-            UpdateListBox(4, "Attack", EnemiesList);
-            ShowAttackDescription((windows[4] as ListBox).currentLine);
-        }
-        public void ShowAttackDescription(int num)
-        {
-            UpdateTextBox(6, "Attack");
-            List<Entity> EnemiesList = SystemInfo.engine.GetEntitiesInRange();
-            if (num > 0 && num < EnemiesList.Count())
-            {
-                Entity enemy = EnemiesList[num];
-
-                string description = "";
-                description += enemy.Name ?? "Noname";
-                description += "\n\n";
-                description += String.Format("HP: {0}\n", enemy.HealthPoints);
-                description += String.Format("Attack: {0}\n", enemy.Damage);
-                description += String.Format("ROW: {0}\n", enemy.RangeOfView);
-                description += String.Format("ROA: {0}\n", enemy.RangeOfHit);
-                description += "\n";
-                description += enemy.Description;
-
-                UpdateTextBox(5, null, description);
-            }
-        }
-        public void ClearDescription()
-        {
-            UpdateTextBox(5, null, "");
-        }
-        public void ClearRigthPanels(){
-            UpdateListBox(4, "", new List<string>());
-            ClearDescription();
-        }
         public ConsoleKeyInfo GetKey()
         {
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
@@ -210,147 +165,362 @@ namespace roguelike_spbu {
 
             return keyInfo;
         }
+        public void UpdateStats()
+        {
+            string description = "";
+            description += String.Format("HP: {0}\n", GameInfo.player.HealthPoints);
+            description += String.Format("Attack: {0}\n", GameInfo.player.Damage);
+
+            GameGUIWindows.Statistics.UpdateText(description);
+        }
+        public void UpdateMode(GameState mode)
+        {
+            gameState = mode;
+
+            string modeName = "";
+            switch (mode)
+            {
+                case GameState.Game:
+                    modeName = "Game";
+                    break;
+                case GameState.Inventory:
+                    modeName = "Inventory";
+                    break;
+                case GameState.Attack:
+                    modeName = "Attack";
+                    break;
+                case GameState.InventoryDescription:
+                case GameState.AttackDescription:
+                    modeName = "Description";
+                    break;
+                case GameState.Menu:
+                    modeName = "Menu";
+                    break;
+                case GameState.Controls:
+                    modeName = "Controls";
+                    break;
+                default:
+                    modeName = "None";
+                    break;
+            }
+            GameGUIWindows.Mode.UpdateTitle(modeName);
+        }
+        public ActionInfo? DoAttackStuff(ConsoleKey? key = null)
+        {
+            UpdateMode(GameState.Attack);
+        
+            GameGUIWindows.ListBox.UpdateTitle("Attack");
+            GameGUIWindows.ListBox.UpdateList((from entity in GameGUIWindows.EntitiesInRange select entity.Name ?? "NoName").ToList());
+
+            if (key != null)
+            {
+                switch (key)
+                {
+                    case ConsoleKey.UpArrow:
+                        GameGUIWindows.ListBox.ScroolUp();
+                        break;
+                    case ConsoleKey.DownArrow:
+                        GameGUIWindows.ListBox.ScroolDown();
+                        break;
+                    case ConsoleKey.Enter:
+                        return new ActionInfo(Action.Attack, GameGUIWindows.GetEntityInRange(GameGUIWindows.ListBox.currentLine).ID);
+                    default:
+                        break;
+                }
+            }
+
+            UpdateAttackDescription(GameGUIWindows.ListBox.currentLine);
+
+            if (GameGUIWindows.EntitiesInRange.Count() == 0)
+                ReturnToGame();
+
+            return null;
+        }
+        public ActionInfo? DoInventoryStuff(ConsoleKey? key = null)
+        {
+            UpdateMode(GameState.Inventory);
+
+            GameGUIWindows.ListBox.UpdateTitle("Inventory");
+            GameGUIWindows.ListBox.UpdateList((from item in GameGUIWindows.Inventory select item.Name ?? "NoName").ToList());
+            
+            if (key != null)
+            {
+                switch (key)
+                {
+                    case ConsoleKey.UpArrow:
+                        GameGUIWindows.ListBox.ScroolUp();
+                        break;
+                    case ConsoleKey.DownArrow:
+                        GameGUIWindows.ListBox.ScroolDown();
+                        break;
+                    case ConsoleKey.Enter:
+                        return new ActionInfo(Action.UseItem, GameGUIWindows.GetItemInInventory(GameGUIWindows.ListBox.currentLine).ID);
+                    default:
+                        break;
+                }
+            }
+
+            UpdateInventoryDescription(GameGUIWindows.ListBox.currentLine);
+
+            return null;
+        }
+        public void UpdateAttackDescription(int num)
+        {
+            if (GameGUIWindows.EntitiesInRange.Count() == 0)
+            {
+                GameGUIWindows.Description.UpdateText("");
+                return;
+            }
+
+            Entity enemy = GameGUIWindows.GetEntityInRange(num);
+
+            string description = "";
+            description += enemy.Name ?? "Noname";
+            description += "\n\n";
+            description += String.Format("HP: {0}\n", enemy.HealthPoints);
+            description += String.Format("Attack: {0}\n", enemy.Damage);
+            description += String.Format("ROW: {0}\n", enemy.RangeOfView);
+            description += String.Format("ROA: {0}\n", enemy.RangeOfHit);
+            description += "\n";
+            description += enemy.Description;
+
+            GameGUIWindows.Description.UpdateText(description);
+
+        }
+        public void UpdateInventoryDescription(int num)
+        {
+            GameGUIWindows.Description.UpdateText("");
+            /*Entity enemy = GameGUIWindows.GetEntityInRange(num);
+
+            string description = "";
+            description += enemy.Name ?? "Noname";
+            description += "\n\n";
+            description += String.Format("HP: {0}\n", enemy.HealthPoints);
+            description += String.Format("Attack: {0}\n", enemy.Damage);
+            description += String.Format("ROW: {0}\n", enemy.RangeOfView);
+            description += String.Format("ROA: {0}\n", enemy.RangeOfHit);
+            description += "\n";
+            description += enemy.Description;
+
+            GameGUIWindows.Description.UpdateText(description);*/
+
+        }
+        public void DoDescriptionStuff(ConsoleKey? key = null)
+        {
+            if (gameState == GameState.Attack)
+                UpdateMode(GameState.AttackDescription);
+            if (gameState == GameState.Inventory)
+                UpdateMode(GameState.InventoryDescription);
+
+            if (key != null)
+            {
+                switch (key)
+                {
+                    case ConsoleKey.UpArrow:
+                        GameGUIWindows.Description.ScroolUp();
+                        break;
+                    case ConsoleKey.DownArrow:
+                        GameGUIWindows.Description.ScroolDown();
+                        break;
+                    case ConsoleKey.Escape:
+                        if (gameState == GameState.AttackDescription)
+                            UpdateMode(GameState.Attack);
+                        if (gameState == GameState.InventoryDescription)
+                            UpdateMode(GameState.Inventory);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                if (gameState == GameState.AttackDescription)
+                    UpdateAttackDescription(GameGUIWindows.ListBox.currentLine);
+                if (gameState == GameState.InventoryDescription)
+                    UpdateInventoryDescription(GameGUIWindows.ListBox.currentLine);
+
+            }
+        }
+        public void ReturnToGame()
+        {
+            UpdateMode(GameState.Game);
+
+            GameGUIWindows.ListBox.UpdateTitle("");
+            GameGUIWindows.ListBox.UpdateList(new List<string>());
+
+            GameGUIWindows.Description.UpdateText("");
+        }
+        public void ExecuteMenu(int num)
+        {
+            switch (num)
+            {
+                case 0:
+                    GameGUIWindows.MenuBox.TurnOff();
+                    ReturnToGame();
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    if (Walkman.IsPlaying) Walkman.Stop();
+                    else Walkman.Play();
+                    break;
+                case 4:
+                    DoControlsMenuStuff();
+                    break;
+                case 5:
+                    Program.NormilizeConsole();
+                    break;
+                default:
+                    break;
+            }
+        }
+        public void DoMenuStuff(ConsoleKey? key = null)
+        {
+            if (key == null)
+            {
+                if (!GameGUIWindows.MenuBox.Active)
+                {
+                    UpdateMode(GameState.Menu);
+                    GameGUIWindows.MenuBox.TurnOn();
+                } else
+                {
+                    GameGUIWindows.MenuBox.TurnOff();
+                    ReturnToGame();
+                }
+            } else
+            {
+                switch (key)
+                {
+                    case ConsoleKey.UpArrow:
+                        GameGUIWindows.MenuBox.ScroolUp();
+                        break;
+                    case ConsoleKey.DownArrow:
+                        GameGUIWindows.MenuBox.ScroolDown();
+                        break;
+                    case ConsoleKey.Enter:
+                        ExecuteMenu(GameGUIWindows.MenuBox.currentLine);
+                        break;
+                    case ConsoleKey.Escape:
+                        GameGUIWindows.MenuBox.TurnOff();
+                        ReturnToGame();
+                        break;
+                    default:
+                        break;
+                }
+                // Console.WriteLine(GameGUIWindows.MenuBox.Active);
+                // Console.WriteLine(key);
+            }
+        }
+        public void DoControlsMenuStuff()
+        {
+            if (!GameGUIWindows.Control.Active)
+            {
+                UpdateMode(GameState.Controls);
+                GameGUIWindows.MenuBox.TurnOff();
+                GameGUIWindows.Control.TurnOn();
+            }
+            else
+            {
+                UpdateMode(GameState.Menu);
+                GameGUIWindows.MenuBox.TurnOn();
+                GameGUIWindows.Control.TurnOff();
+            }
+        }
         public ActionInfo GetAction()
         {
-            Console.WriteLine("Im here 1");
-            gameState = GameState.Game;
-            UpdateTextBox(6, "Game");
+
+            if (gameState == GameState.Attack)
+                DoAttackStuff();
+            if (gameState == GameState.Inventory)
+                DoInventoryStuff();
+            if (gameState == GameState.AttackDescription)
+                UpdateAttackDescription(GameGUIWindows.ListBox.currentLine);
+            if (gameState == GameState.InventoryDescription)
+                UpdateInventoryDescription(GameGUIWindows.ListBox.currentLine);
+
+            Print();
 
             while (true)
             {
                 ConsoleKeyInfo key = GetKey();
 
-                // TODO if gamestate.startingscreen return something
-
                 if (key.Key == ConsoleKey.Q)
                     return new ActionInfo(Action.Quit, GameInfo.player, 1);
 
-                if (gameState != GameState.Menu && gameState != GameState.Controls && gameState != GameState.StatingScreen)
-                {
-                    Console.WriteLine("Im here 2");
-                    if (key.Key == ConsoleKey.A)
-                    {
-                        Console.WriteLine("Im here 3");
-                        ShowAttack();
-                        gameState = GameState.Attack;
-                        continue;
-                    }
-                    if (key.Key == ConsoleKey.I)
-                    {
-                        UpdateTextBox(6, "Inventory");
-                        gameState = GameState.Inventory;
-                        continue;
-                    }
-                    if (key.Key == ConsoleKey.D)
-                    {
-                        UpdateTextBox(6, "Description");
-                        if (gameState == GameState.Attack)
-                            gameState = GameState.AttackDescription;
-                        if (gameState == GameState.Inventory)
-                            gameState = GameState.InventoryDescription;
-                        continue;
-                    }
-                    if (key.Key == ConsoleKey.G)
-                    {
-                        UpdateTextBox(6, "Game");
-                        gameState = GameState.Game;
-                        continue;
-                    }
-                }
+                else if (gameState == GameState.Controls)
+                    DoControlsMenuStuff();
 
-                if (gameState == GameState.Game)
-                {
-                    switch (key.Key)
+                // TODO if gamestate.startingscreen return something
+                else {
+                    if (gameState == GameState.Game)
                     {
-                        case ConsoleKey.LeftArrow:
-                            return new ActionInfo(Action.Left, GameInfo.player, 1);
-                        case ConsoleKey.RightArrow:
-                            return new ActionInfo(Action.Right, GameInfo.player, 1);
-                        case ConsoleKey.UpArrow:
-                            return new ActionInfo(Action.Up, GameInfo.player, 1);
-                        case ConsoleKey.DownArrow:
-                            return new ActionInfo(Action.Down, GameInfo.player, 1);
-                        case ConsoleKey.Spacebar:
-                            return new ActionInfo(Action.Pass, GameInfo.player, 1);
-                        case ConsoleKey.C:
-                            return new ActionInfo(Action.Cheat, GameInfo.player, 1);
-                        default:
-                            return new ActionInfo(Action.StayInPlace, GameInfo.player, 1);
+                        switch (key.Key)
+                        {
+                            case ConsoleKey.LeftArrow:
+                                return new ActionInfo(Action.Left, GameInfo.player, 1);
+                            case ConsoleKey.RightArrow:
+                                return new ActionInfo(Action.Right, GameInfo.player, 1);
+                            case ConsoleKey.UpArrow:
+                                return new ActionInfo(Action.Up, GameInfo.player, 1);
+                            case ConsoleKey.DownArrow:
+                                return new ActionInfo(Action.Down, GameInfo.player, 1);
+                            case ConsoleKey.Spacebar:
+                                return new ActionInfo(Action.Pass, GameInfo.player, 1);
+                            case ConsoleKey.C:
+                                return new ActionInfo(Action.Cheat, GameInfo.player, 1);
+                            default:
+                                break;
+                        }
                     }
-                }
-
-                if (gameState == GameState.Attack)
-                {
-                    switch (key.Key)
+                    if (gameState == GameState.Attack)
                     {
-                        case ConsoleKey.UpArrow:
-                            (windows[4] as ListBox).ScroolUp();
-                            continue;
-                        case ConsoleKey.DownArrow:
-                            (windows[4] as ListBox).ScroolDown();
-                            continue;
-                        case ConsoleKey.Enter:
-                            return new ActionInfo(Action.Attack, (windows[4] as ListBox).currentLine);
-                        default:
-                            continue;
+                        ActionInfo? attackAction = DoAttackStuff(key.Key);
+                        if (attackAction != null)
+                            return attackAction;
                     }
-                }
-                if (gameState == GameState.AttackDescription)
-                {
-                    switch (key.Key)
+                    if (gameState == GameState.Inventory)
                     {
-                        case ConsoleKey.UpArrow:
-                            (windows[5] as TextBox).ScroolUp();
-                            continue;
-                        case ConsoleKey.DownArrow:
-                            (windows[5] as TextBox).ScroolDown();
-                            continue;
-                        case ConsoleKey.Escape:
-                            ClearDescription();
-                            gameState = GameState.Attack;
-                            continue;
-                        default:
-                            continue;
+                        ActionInfo? inventoryAction = DoInventoryStuff(key.Key);
+                        if (inventoryAction != null)
+                            return inventoryAction;
                     }
-                }
-
-                if (gameState == GameState.Inventory)
-                {
-                    switch (key.Key)
+                    if (gameState == GameState.AttackDescription || gameState == GameState.InventoryDescription)
+                        DoDescriptionStuff(key.Key);
+                    if (gameState != GameState.Menu && gameState != GameState.Controls && gameState != GameState.StatingScreen)
                     {
-                        case ConsoleKey.UpArrow:
-                            (windows[4] as ListBox).ScroolUp();
-                            continue;
-                        case ConsoleKey.DownArrow:
-                            (windows[4] as ListBox).ScroolDown();
-                            continue;
-                        case ConsoleKey.Enter:
-                            return new ActionInfo(Action.UseItem, (windows[4] as ListBox).currentLine);
-                        default:
-                            continue;
+                        if (key.Key == ConsoleKey.Escape && gameState != GameState.AttackDescription && gameState != GameState.InventoryDescription)
+                        {
+                            DoMenuStuff();
+                        }
+                        else
+                            switch (key.Key)
+                            {
+                                case ConsoleKey.A:
+                                    DoAttackStuff();
+                                    break;
+                                case ConsoleKey.Escape:
+                                    DoInventoryStuff();
+                                    break;
+                                case ConsoleKey.I:
+                                    DoInventoryStuff();
+                                    break;
+                                case ConsoleKey.D:
+                                    DoDescriptionStuff();
+                                    break;
+                                case ConsoleKey.G:
+                                    ReturnToGame();
+                                    break;
+                                default:
+                                    break;
+                            }
                     }
+                    else if (gameState == GameState.Menu)
+                        DoMenuStuff(key.Key);
                 }
-                if (gameState == GameState.InventoryDescription)
-                {
-                    switch (key.Key)
-                    {
-                        case ConsoleKey.UpArrow:
-                            (windows[5] as TextBox).ScroolUp();
-                            continue;
-                        case ConsoleKey.DownArrow:
-                            (windows[5] as TextBox).ScroolDown();
-                            continue;
-                        case ConsoleKey.Escape:
-                            ClearDescription();
-                            gameState = GameState.Inventory;
-                            continue;
-                        default:
-                            continue;
-                    }
-                }
-
-
-                return new ActionInfo();
+                
+                Print();
             }
         }
         public void EraseLayoutMatrix()
@@ -368,11 +538,20 @@ namespace roguelike_spbu {
         public void Print()
         {
             Console.SetCursorPosition(0, 0);
+
             if (error)
             {
                 Console.WriteLine(errorMessage);
                 return;
             }
+
+            if (Console.LargestWindowHeight <= Height || Console.LargestWindowWidth <= Width) {
+                Console.WriteLine("Window is to small");
+                return;
+            }
+
+            UpdateStats();
+
             bool isActiveFullscreen = false;
             foreach (Window window in windows)
             {
@@ -647,8 +826,8 @@ namespace roguelike_spbu {
     {
         public GameBox(int x, int y, int h, int w, bool active = true) : base(x, y, h, w, false, active)
         {
-            GameInfo.mapHeight = h - 2;
-            GameInfo.mapWidth = w - 2;
+            SystemInfo.RenderHeight = h - 2;
+            SystemInfo.RenderWidth = w - 2;
         }
         override public string[,] GetInsides()
         {
@@ -673,7 +852,7 @@ namespace roguelike_spbu {
         List<string> textLines = new List<string>();
         int currentLine = 0;
         int lastLine = 0;
-        public TextBox(int x, int y, int h, int w, string title, string text, bool fullSreen = false) : base(x, y, h, w)
+        public TextBox(int x, int y, int h, int w, string title, string text, bool fullSreen = false, bool active = true) : base(x, y, h, w, fullSreen, active)
         {
             UpdateTitle(title);
             UpdateText(text);
@@ -807,6 +986,10 @@ namespace roguelike_spbu {
         List<string> textLines = new List<string>();
         public int currentLine = 0;
         int lastLine = 0;
+        public ListBox() : this (0, 0, 0, 0, "", new List<string>())
+        {
+
+        }
         public ListBox(int x, int y, int h, int w, string title, List<string> textLines) : base(x, y, h, w)
         {
             UpdateTitle(title);
@@ -818,6 +1001,9 @@ namespace roguelike_spbu {
         }
         public void UpdateList(List<string> textLines)
         {
+            if (this.textLines.Count() != textLines.Count())
+                currentLine = 0;
+            
             this.textLines = new List<string>();
             foreach (string line in textLines)
             {
@@ -902,12 +1088,21 @@ namespace roguelike_spbu {
         }
         public string Text = "";
         List<string> textLines = new List<string>();
-        int currentLine = 0;
+        public int currentLine = 0;
         int lastLine = 0;
         public MenuBox(int h, int w, string title, List<string> textLines) : base(0, 0, h, w, true, false)
         {
             UpdateTitle(title);
             UpdateList(textLines);
+        }
+        public override void TurnOn()
+        {
+            currentLine = 0;
+            Active = true;
+        }
+        public override void TurnOff()
+        {
+            Active = false;
         }
         public void UpdateTitle(string title)
         {

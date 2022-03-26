@@ -125,3 +125,44 @@ static void Main4(string[] args)
                 
                 return 1;
             }
+
+
+public void ShowAttack()
+{
+    List<string> EnemiesList = new List<string>();
+    foreach (Entity entity in SystemInfo.engine.GetEntitiesInRange())
+    {
+        EnemiesList.Add(entity.Name ?? "NoName");
+    }
+    UpdateListBox(4, "Attack", EnemiesList);
+    ShowAttackDescription((windows[4] as ListBox).currentLine);
+}
+public void ShowAttackDescription(int num)
+{
+    UpdateTextBox(6, "Attack");
+    List<Entity> EnemiesList = SystemInfo.engine.GetEntitiesInRange();
+    if (num > 0 && num < EnemiesList.Count())
+    {
+        Entity enemy = EnemiesList[num];
+
+        string description = "";
+        description += enemy.Name ?? "Noname";
+        description += "\n\n";
+        description += String.Format("HP: {0}\n", enemy.HealthPoints);
+        description += String.Format("Attack: {0}\n", enemy.Damage);
+        description += String.Format("ROW: {0}\n", enemy.RangeOfView);
+        description += String.Format("ROA: {0}\n", enemy.RangeOfHit);
+        description += "\n";
+        description += enemy.Description;
+
+        UpdateTextBox(5, null, description);
+    }
+}
+public void ClearDescription()
+{
+    UpdateTextBox(5, null, "");
+}
+public void ClearRigthPanels(){
+    UpdateListBox(4, "", new List<string>());
+    ClearDescription();
+}

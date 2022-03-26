@@ -92,6 +92,7 @@ namespace roguelike_spbu
 
                 List<Entity> monsters = new List<Entity>();
                 monsters.Add(new Goblin(x, y));
+                monsters.Add(new GoblinFlinger(x, y));
                 monsters.Add(new Hobgoblin(x, y));
                 monsters.Add(new Skeleton(x, y));
                 monsters.Add(new Zombie(x, y));
@@ -99,8 +100,9 @@ namespace roguelike_spbu
                 monsters.Add(new DeathKnight(x, y));
                 monsters.Add(new Devil (x, y));
                 monsters.Add(new Archangel(x, y));
+                monsters.Add(new Demon(x,y));
 
-                float[] monsterschance = { Math.Max(1, 20 - player.LVL - history.Count), 5, Math.Max(1, 13 - player.LVL), 8, 1 + player.LVL + history.Count, 1 + 3*(player.LVL + history.Count), 1 + 3*(player.LVL + history.Count)};
+                float[] monsterschance = { Math.Max(1, 60 - player.LVL - history.Count), 12, 10 + player.LVL + history.Count,  Math.Max(1, 40 - player.LVL), 20, 6 + player.LVL + history.Count, 1 + 3*(player.LVL + history.Count), 1 + 3*(player.LVL + history.Count), 1 + 4*(player.LVL + history.Count)};
                 Entity tmp = monsters[Walker.Alias(monsterschance)];
 
                 while (this.map.Tiles[tmp.X][tmp.Y].Impassable || this.map.Tiles[tmp.X][tmp.Y].GetType() == typeof(Void))
@@ -168,8 +170,10 @@ namespace roguelike_spbu
                         {
                             int n = player.PlayerExperiencePoints / player.XPToLevelUP;
                             player.LVL += player.PlayerExperiencePoints % player.XPToLevelUP;
+                            player.HealthPoints += 50;
+                            player.Damage += 20;
                             player.PlayerExperiencePoints -= player.XPToLevelUP;
-                            player.XPToLevelUP *= (int)Math.Pow(2, (double)n);
+                            player.XPToLevelUP += 30;
                         }
                         
                     }
@@ -240,9 +244,17 @@ namespace roguelike_spbu
                 case Action.Attack:
 
                     if (entity is Player) {
-                        List<Entity> enemies = GetEntitiesInRange();
-                        if (nextMove.Number >= 0 && nextMove.Number < enemies.Count())
-                            enemies[nextMove.Number].HealthPoints -= player.Damage;
+                        for (int i = 0; i < entities.Count(); i++)
+                        {
+                            if (entities[i].ID == nextMove.Target)
+                            {
+                                entities[i].HealthPoints -= player.Damage;
+                            }
+                        }
+                        
+                        // List<Entity> enemies = GetEntitiesInRange();
+                        // if (nextMove.Number >= 0 && nextMove.Number < enemies.Count())
+                            // enemies[nextMove.Number].HealthPoints -= player.Damage;
                         // Entity? target = entities.MinBy(e => Math.Sqrt(Math.Pow(player.X - e.X, 2) + Math.Pow(player.Y - e.Y, 2)));
                         //if (target != null && Math.Pow(target.X - player.X, 2) + Math.Pow(target.Y - player.Y, 2) <= Math.Pow(player.RangeOfHit, 2)) target.HealthPoints -= player.Damage;
                     }

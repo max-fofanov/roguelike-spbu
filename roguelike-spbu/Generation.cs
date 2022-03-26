@@ -139,6 +139,7 @@ namespace roguelike_spbu {
                         }
                         
                         miniMap.Tiles[2 + (i / (y / 30) * 4)][4 + (i % (y / 30) * 4)] = new Field(2 + (i / (y / 30) * 4), 4 + (i % (y / 30) * 4));
+                        
                     }
                 }
                 if (i < (x / 20) * (y / 30) - (y / 30) && Math.Max(rooms[i].Y0, rooms[i + (y / 30)].Y0) < Math.Min(rooms[i].Y1, rooms[i + (y / 30)].Y1)) {
