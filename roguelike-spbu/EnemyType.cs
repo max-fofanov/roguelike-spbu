@@ -14,7 +14,7 @@ namespace roguelike_spbu
             //Stamina = 1;
             ForceType = "neutral";
             Damage = 10;
-            HealthPoints = 12;
+            SetHealth(12);
             CreatureType = "light";
             RangeOfHit = 1;
             XP = 1;
@@ -33,7 +33,7 @@ namespace roguelike_spbu
             //Stamina = 1;
             ForceType = "neutral";
             Damage = 25;
-            HealthPoints = 45;
+            SetHealth(45);
             CreatureType = "normal";
             RangeOfHit = 1;
             XP = 10;
@@ -52,7 +52,7 @@ namespace roguelike_spbu
             //Stamina = 1;
             ForceType = "neutral";
             Damage = 7;
-            HealthPoints = 10;
+            SetHealth(10);
             CreatureType = "light";
             RangeOfHit = 3;
             XP = 5;
@@ -71,7 +71,7 @@ namespace roguelike_spbu
             //Stamina = 1;
             ForceType = "dark";
             Damage = 15;
-            HealthPoints = 5;
+            SetHealth(5);
             CreatureType = "light";
             RangeOfHit = 1.5f;
             XP = 3;
@@ -90,7 +90,7 @@ namespace roguelike_spbu
             //Stamina = 1;
             ForceType = "dark";
             Damage = 10;
-            HealthPoints = 60;
+            SetHealth(60);
             CreatureType = "normal";
             RangeOfHit = 1;
             XP = 3;
@@ -107,7 +107,7 @@ namespace roguelike_spbu
             //Stamina = 2;
             ForceType = "dark";
             Damage = 18;
-            HealthPoints = 45;
+            SetHealth(45);
             CreatureType = "normal";
             RangeOfHit = 2;
             XP = 10;
@@ -125,7 +125,7 @@ namespace roguelike_spbu
             //Stamina = 1;
             ForceType = "dark";
             Damage = 15;
-            HealthPoints = 5;
+            SetHealth(5);
             CreatureType = "light";
             RangeOfHit = 4;
             XP = 8;
@@ -144,7 +144,7 @@ namespace roguelike_spbu
             //Stamina = 1;
             ForceType = "dark";
             Damage = 33;
-            HealthPoints = 66;
+            SetHealth(66);
             CreatureType = "heavy";
             RangeOfHit = 2;
             XP = 15;
@@ -163,7 +163,7 @@ namespace roguelike_spbu
             //Stamina = 1;
             ForceType = "dark";
             Damage = 30;
-            HealthPoints = 250;
+            SetHealth(250);
             CreatureType = "heavy";
             RangeOfHit = 2;
             Description = "1) Devils - the leaders of the armies of demons - are not from this world. Devils wear no armor and are strong in melee and ranged combat. Many warriors fall into a panic just at the mere sight of them. In addition, devils are able to open a portal to another territory. \n2) Devils hate angels and even more so archangels, it was they who put up the greatest resistance to the army of demons during the expansion to the northern islands.";
@@ -181,7 +181,7 @@ namespace roguelike_spbu
             //Stamina = 1;
             ForceType = "light";
             Damage = 33;
-            HealthPoints = 33;
+            SetHealth(33);
             CreatureType = "normal";
             RangeOfHit = 2;
         }
@@ -198,7 +198,7 @@ namespace roguelike_spbu
             //Stamina = 2;
             ForceType = "light";
             Damage = 40;
-            HealthPoints = 150;
+            SetHealth(150);
             CreatureType = "normal";
             RangeOfHit = 2;
             Description = "1) Archangels are the protectors of the human world. As a rule, these are the holy warriors of the old world, thanks to their prayers, who received inhuman abilities and a long life, in exchange they completely devote themselves to the service of God. \n2) If angels are still small people and who find themselves there only because of their origin, then the archangels are a fighting aristocracy, their temper is different, but people respect and a certain awe for each of them. \n3) Only three archangels were able to help hold half of the northern islands for 5 months and prevent the demonic army from passing further. It is a pity that the island magicians were scattered and most of them fled from their native lands.";

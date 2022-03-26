@@ -234,31 +234,28 @@ namespace roguelike_spbu
                     CheatConsole.Cheat(this);
                     break;    
                 case Action.StayInPlace:
+                    entity.PassTurn();
                     break;
                 case Action.ChangeColor:
                     break;
                 case Action.GiveEffect:
                     break;
                 case Action.UseItem:
+                    entity.UseItem(nextMove.Target);
                     break;
                 case Action.Attack:
-
-                    if (entity is Player) {
+                    if (nextMove.Target == player.ID)
+                        entity.Attack(player);
+                    else
                         for (int i = 0; i < entities.Count(); i++)
                         {
                             if (entities[i].ID == nextMove.Target)
                             {
-                                entities[i].HealthPoints -= player.Damage;
+                                player.Attack(entities[i]);
+                                //entities[i].HealthPoints -= player.Damage;
+                                break;
                             }
                         }
-                        
-                        // List<Entity> enemies = GetEntitiesInRange();
-                        // if (nextMove.Number >= 0 && nextMove.Number < enemies.Count())
-                            // enemies[nextMove.Number].HealthPoints -= player.Damage;
-                        // Entity? target = entities.MinBy(e => Math.Sqrt(Math.Pow(player.X - e.X, 2) + Math.Pow(player.Y - e.Y, 2)));
-                        //if (target != null && Math.Pow(target.X - player.X, 2) + Math.Pow(target.Y - player.Y, 2) <= Math.Pow(player.RangeOfHit, 2)) target.HealthPoints -= player.Damage;
-                    }
-                    else entity.Attack(player);
 
                     if (player.HealthPoints <= 0) {
                         Program.NormilizeConsole();

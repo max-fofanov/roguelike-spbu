@@ -1,5 +1,13 @@
 namespace roguelike_spbu
 {
+    public enum ItemType
+    {
+        None,
+        Consumable,
+        OneHandWeapon,
+        TwoHandWeapon,
+        Armor
+    }
     public class Item 
     {
         public Guid ID
@@ -12,13 +20,11 @@ namespace roguelike_spbu
             get;
             set;
         }
-
         public string? Description
         {
             get;
             set;
         }
-
         public int Damage
         {
             get;
@@ -29,7 +35,6 @@ namespace roguelike_spbu
             get;
             set;
         }
-
         public float RangeOfHit
         {
             get;
@@ -47,14 +52,12 @@ namespace roguelike_spbu
                 _symbol = value.Length > 0 ? value[0].ToString() : " ";
             }
         }
-
-
-
+        public ItemType Type = ItemType.None;
         public Item() {
             ID = Guid.NewGuid();
+            Damage = 0;
             Name = "";
         }
-
         public virtual void Effect() {
 
         }

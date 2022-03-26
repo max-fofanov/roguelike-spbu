@@ -9,13 +9,13 @@ namespace roguelike_spbu {
 
             switch (keyInfo.Key) {
                 case ConsoleKey.H:
-                    engine.player.HealthPoints = 999999;
+                    engine.player.SetHealth(999999);
                     break;
                 case ConsoleKey.A:
                     engine.player.Damage = 999999;
                     break;
                 case ConsoleKey.K:
-                    engine.entities.ForEach(e => e.HealthPoints = 0);
+                    engine.entities.ForEach(e => e.SetHealth(0));
                     break;
                 case ConsoleKey.P:
                     engine.entities.ForEach(e => e.Damage = 0);

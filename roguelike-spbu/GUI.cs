@@ -470,7 +470,7 @@ namespace roguelike_spbu {
                 ConsoleKeyInfo key = GetKey();
 
                 if (key.Key == ConsoleKey.Q)
-                    return new ActionInfo(Action.Quit, GameInfo.player, 1);
+                    return new ActionInfo(Action.Quit);
 
                 else if (gameState == GameState.Controls)
                     DoControlsMenuStuff();
@@ -482,17 +482,17 @@ namespace roguelike_spbu {
                         switch (key.Key)
                         {
                             case ConsoleKey.LeftArrow:
-                                return new ActionInfo(Action.Left, GameInfo.player, 1);
+                                return new ActionInfo(Action.Left);
                             case ConsoleKey.RightArrow:
-                                return new ActionInfo(Action.Right, GameInfo.player, 1);
+                                return new ActionInfo(Action.Right);
                             case ConsoleKey.UpArrow:
-                                return new ActionInfo(Action.Up, GameInfo.player, 1);
+                                return new ActionInfo(Action.Up);
                             case ConsoleKey.DownArrow:
-                                return new ActionInfo(Action.Down, GameInfo.player, 1);
+                                return new ActionInfo(Action.Down);
                             case ConsoleKey.Spacebar:
-                                return new ActionInfo(Action.Pass, GameInfo.player, 1);
+                                return new ActionInfo(Action.StayInPlace);
                             case ConsoleKey.C:
-                                return new ActionInfo(Action.Cheat, GameInfo.player, 1);
+                                return new ActionInfo(Action.Cheat);
                             default:
                                 break;
                         }

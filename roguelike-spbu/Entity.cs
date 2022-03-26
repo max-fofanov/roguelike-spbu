@@ -10,7 +10,6 @@ namespace roguelike_spbu
         Down,
         Left,
         Right,
-        Pass,
         StayInPlace,
         ChangeColor,
         GiveEffect,
@@ -21,87 +20,32 @@ namespace roguelike_spbu
     }
     
     public class ActionInfo {
-        public ActionInfo() {}
-
-        public ActionInfo(Action action) {
-            Action = action;
+        public ActionInfo(Action? action = null, int? time = null, EntityEffect? effect = null, Guid? target = null) {
+            Action = action ?? Action.StayInPlace;
+            Effect = effect ?? new EntityEffect();
+            Time = time ?? 0;
+            Target = target ?? Guid.Empty;
         }
 
-        public ActionInfo(Action action, Color color) {
-            Action = action;
-            Color = color;
-        }
-
-        public ActionInfo(Action action, EntityEffect effect, int time) {
-            Action = action;
-            Effect = effect;
-            Time = time;
-        }
-        public ActionInfo(Action action, Entity entity, int power) {
-            Action = action;
-            Entity = entity;
-            Power = power;
-        }
-
-        public ActionInfo(Action action, int number) {
-            Action = action;
-            Number = number;
-        }
-        public ActionInfo(Action action, Guid target)
-        {
-            Action = action;
-            Target = target;
-        }
-        public ActionInfo(Action action, Guid target, int power) {
-            Action = action;
-            Target = target;
-            Power = power;
-        }
+        public ActionInfo(Action action) : this(action, null, null, null) { }
+        public ActionInfo(Action action, EntityEffect effect, int time) : this(action, time, effect, null) { }
+        public ActionInfo(Action action, Guid target) : this(action, null, null, target) { }
         public Action Action {
             get;
             set;
         }
-
-        public Entity? Entity {
-            get;
-            set;
-        }
-
-        public int Power {
-            get;
-            set;
-        }
-
-        public Color Color {
-            get;
-            set;
-        }
-
         public int Time {
             get;
             set;
         }
-
-        public EntityEffect? Effect {
+        public EntityEffect Effect {
             get;
             set;
         }
-
-        public int Number {
+        public Guid Target {
             get;
             set;
         }
-
-        public Guid? Target {
-            get;
-            set;
-        }
-
-    }
-    
-    public enum EntityStatus
-    {
-
     }
     public enum EntityAttitude
     {
@@ -131,6 +75,9 @@ namespace roguelike_spbu
             get;
             set;
         }
+        public Item? LeftHand;
+        public Item? RightHand;
+        public Item? Body;
         /*public int Stamina
         {
             get;
@@ -161,12 +108,23 @@ namespace roguelike_spbu
             get;
             set;
         }
+        int _hp = 0;
+        int _mhp = 0;
         public int HealthPoints
         {
-            get;
-            set;
+            get { return _hp; }
+            set { _hp = Math.Min(value, MaxHealthPoints); }
         }
-        
+        public int MaxHealthPoints
+        {
+            get { return _mhp; }
+            set { _mhp = value; }
+        }
+        public void SetHealth(int hp)
+        {
+            MaxHealthPoints = hp;
+            HealthPoints = hp;
+        }
         public int XP
         {
             get;
@@ -177,8 +135,6 @@ namespace roguelike_spbu
             get;
             set;
         }
-
-
         private string _symbol = "";
         public string Symbol
         {
@@ -206,16 +162,6 @@ namespace roguelike_spbu
             get;
             set;
         }
-        public EntityStatus Status
-        {
-            get;
-            set;
-        }
-        public int StatusTime
-        {
-            get;
-            set;
-        }
         public VisualStatus VStatus
         {
             get;
@@ -231,7 +177,7 @@ namespace roguelike_spbu
             get;
             set;
         }
-        
+        public int MaxInventoryCapacity = 5;
         private List<Item> _inventory = new List<Item>();
         public List<Item> Inventory
         {
@@ -259,14 +205,93 @@ namespace roguelike_spbu
         public void moveDown() { X++; }
         public void moveLeft() { Y--; }
         public void moveRight() { Y++; }
-        public void PassTurn() { }
+        public void PassTurn()
+        {
+            HealthPoints++;
+        }
         public void ChangeColor(Color TempColor) { }
         public void GetEffect(EntityEffect effect, int time) { }
-        public void UseItem(int number) { }
-        public virtual void Attack(Player player) {
-            player.HealthPoints -= this.Damage;        
+        void PutItemOnEntity(Item item, int place = 0)
+        {
+            if (item.Type == ItemType.OneHandWeapon)
+            {
+                if (place == 0)
+                {
+                    
+                } else if (place == 1)
+                {
+                    
+                }
+                if ((LeftHand ?? new Item()).Type != ItemType.TwoHandWeapon)
+                    if (LeftHand == null)
+                        LeftHand = item;
+                    else if (RightHand == null)
+                        RightHand = item;
+                    else
+                        LeftHand = item;
+                else
+                {
+                    LeftHand = item;
+                    RightHand = null;
+                }
+            } else if (item.Type == ItemType.TwoHandWeapon)
+            {
+                if (item.ID != (LeftHand ?? new Item()).ID)
+                {
+                    LeftHand = item;
+                    RightHand = item;   
+                }
+            } else if (item.Type == ItemType.Armor)
+            {
+                Body = item;
+            } else if (item.Type == ItemType.Consumable)
+            {
+
+            }
         }
-        public void GetDamage(int damage) { }
+        public void UseItem(Guid itemID) {
+            // TODO: make possible to remove items from hand
+            foreach (Item item in Inventory)
+            {
+                if (item.ID == itemID)
+                {
+                    PutItemOnEntity(item);
+                    break;
+                }
+            }
+        }
+        public void AddToInventory(Item item)
+        {
+            if (Inventory.Count < MaxInventoryCapacity)
+            {
+                Inventory.Add(item);
+            }
+        }
+        int GetTotalAttack()
+        {
+            int totalDamage = 0;
+            
+            totalDamage += (LeftHand ?? new Item()).Damage;
+
+            if ((LeftHand ?? new Item()).Type != ItemType.TwoHandWeapon)
+                totalDamage += (RightHand ?? new Item()).Damage;
+            
+            if (totalDamage == 0) return Damage;
+
+            return totalDamage;
+        }
+        int GetTotalDefence()
+        {
+            return 0;
+        }
+        public virtual void Attack(Entity target)
+        {
+            target.GetDamage(GetTotalAttack());
+        }
+        public virtual void GetDamage(int damage)
+        {
+            this.HealthPoints -= damage - GetTotalDefence();
+        }
         public virtual ActionInfo GetNextMove(Map map, List<Entity> entities, Player player) { return new ActionInfo(); }
     }
 }

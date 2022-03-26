@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Drawing;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace roguelike_spbu
 {
@@ -15,7 +15,7 @@ namespace roguelike_spbu
             //this.Stamina = 1;
             this.ForceType = "";
             this.Damage = 1;
-            this.HealthPoints = 1;
+            this.SetHealth(1);
             this.CreatureType = "";
             this.RangeOfHit = 0;
             this.XP = 1;
@@ -24,9 +24,9 @@ namespace roguelike_spbu
 
         public override ActionInfo GetNextMove(Map map, List<Entity> entities, Player player)
         {
-            if (Math.Pow(this.X - player.X, 2) + Math.Pow(this.Y - player.Y, 2) <= Math.Pow(this.RangeOfHit, 2)) { return new ActionInfo(Action.Attack); }
-            
-            
+            if (Math.Pow(this.X - player.X, 2) + Math.Pow(this.Y - player.Y, 2) <= Math.Pow(this.RangeOfHit, 2)) { return new ActionInfo(Action.Attack, player.ID); }
+
+
             if ((this.X - player.X) * (this.X - player.X) + (this.Y - player.Y) * (this.Y - player.Y) <= RangeOfView * RangeOfView)
             {
                 List<(int, int)> path = Primitives.AStarSearch(map, entities, player, (X, Y), (player.X, player.Y));
@@ -35,18 +35,18 @@ namespace roguelike_spbu
                 {
                     (int x, int y) = path[1];
                     if (x > X)
-                        return new ActionInfo(Action.Down, player, 1);
+                        return new ActionInfo(Action.Down);
                     if (x < X)
-                        return new ActionInfo(Action.Up, player, 1);
+                        return new ActionInfo(Action.Up);
                     if (y > Y)
-                        return new ActionInfo(Action.Right, player, 1);
+                        return new ActionInfo(Action.Right);
                     if (y < Y)
-                        return new ActionInfo(Action.Left, player, 1);
+                        return new ActionInfo(Action.Left);
                 }
-                
+
             }
 
-            return new ActionInfo(Action.StayInPlace, player, 1);
+            return new ActionInfo(Action.StayInPlace);
 
         }
     }

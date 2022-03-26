@@ -4,6 +4,7 @@ namespace roguelike_spbu
     {
         public SwordOneHanded()
         {
+            Type = ItemType.OneHandWeapon;
             Name = "Sword One Handed";
             Damage = 15;
             RangeOfHit = 1;
@@ -16,6 +17,7 @@ namespace roguelike_spbu
     {
         public BastardSword()
         {
+            Type = ItemType.OneHandWeapon;
             Name = "Bastard Sword";
             Damage = 20;
             RangeOfHit = 2;
@@ -28,6 +30,7 @@ namespace roguelike_spbu
     {
         public TwoHandedSword()
         {
+            Type = ItemType.OneHandWeapon;
             Name = "Two Handed Sword";
             Damage = 26;
             RangeOfHit = 2;
@@ -40,6 +43,7 @@ namespace roguelike_spbu
     {
         public Aerondight()
         {
+            Type = ItemType.OneHandWeapon;
             Name = "Aerondight";
             Damage = 60;
             RangeOfHit = 3;
@@ -51,6 +55,7 @@ namespace roguelike_spbu
     {
         public Spear()
         {
+            Type = ItemType.OneHandWeapon;
             Name = "Spear";
             Damage = 16;
             RangeOfHit = 3;
@@ -62,6 +67,7 @@ namespace roguelike_spbu
     {
         public MagicBolt()
         {
+            Type = ItemType.OneHandWeapon;
             Name = "Magic Bolt";
             Damage = 15;
             RangeOfHit = 4;
@@ -74,6 +80,7 @@ namespace roguelike_spbu
     {
         public MagicLince()
         {
+            Type = ItemType.OneHandWeapon;
             Name = "Magic Lince";
             Damage = 25;
             RangeOfHit = 4;
@@ -85,6 +92,7 @@ namespace roguelike_spbu
     {
         public Bow()
         {
+            Type = ItemType.OneHandWeapon;
             Name = "Bow";
             Damage = 12;
             RangeOfHit = 4;
@@ -97,6 +105,7 @@ namespace roguelike_spbu
     {
         public MagicStrike()
         {
+            Type = ItemType.OneHandWeapon;
             Name = "Magic Strike";
             Damage = 25;
             RangeOfHit = 3;
@@ -109,6 +118,7 @@ namespace roguelike_spbu
     {
         public Mjolnir()
         {
+            Type = ItemType.OneHandWeapon;
             Name = "Mjolnir";
             Damage = 40;
             RangeOfHit = 4;
@@ -121,6 +131,7 @@ namespace roguelike_spbu
     {
         public Frostmourne()
         {
+            Type = ItemType.OneHandWeapon;
             Name = "Frostmourne";
             Damage = 100;
             RangeOfHit = 1;
@@ -133,6 +144,7 @@ namespace roguelike_spbu
     {
         public CrossBow()
         {
+            Type = ItemType.OneHandWeapon;
             Name = "Cross Bow";
             Damage = 30;
             RangeOfHit = 4;
