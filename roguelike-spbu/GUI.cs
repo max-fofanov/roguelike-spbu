@@ -171,6 +171,7 @@ namespace roguelike_spbu {
             description += String.Format("HP: {0}/{1}\n", GameInfo.player.HealthPoints, GameInfo.player.MaxHealthPoints);
             description += String.Format("Attack: {0}\n", GameInfo.player.GetTotalAttack());
             description += String.Format("Defence: {0}\n", GameInfo.player.GetTotalDefence());
+            description += String.Format("ROA: {0}\n", GameInfo.player.RangeOfHit);
             description += "\n";
             description += String.Format("LVL: {0}\n", GameInfo.player.LVL);
             description += String.Format("XP: {0}/{1}\n", GameInfo.player.XP, GameInfo.player.XPToLevelUP);
@@ -266,8 +267,9 @@ namespace roguelike_spbu {
                     case ConsoleKey.DownArrow:
                         GameGUIWindows.ListBox.ScroolDown();
                         break;
-                    case ConsoleKey.D1:
                     case ConsoleKey.Enter:
+                        return new ActionInfo(Action.UseItem, GameGUIWindows.GetItemInInventory(GameGUIWindows.ListBox.currentLine).ID, -2);
+                    case ConsoleKey.D1:
                         return new ActionInfo(Action.UseItem, GameGUIWindows.GetItemInInventory(GameGUIWindows.ListBox.currentLine).ID, 0);
                     case ConsoleKey.D2:
                         return new ActionInfo(Action.UseItem, GameGUIWindows.GetItemInInventory(GameGUIWindows.ListBox.currentLine).ID, 1);
@@ -299,6 +301,7 @@ namespace roguelike_spbu {
             description += String.Format("Attack: {0}\n", enemy.Damage);
             description += String.Format("ROW: {0}\n", enemy.RangeOfView);
             description += String.Format("ROA: {0}\n", enemy.RangeOfHit);
+            description += String.Format("XP: {0}\n", enemy.XP);
             description += "\n";
             description += enemy.Description;
 
@@ -316,6 +319,7 @@ namespace roguelike_spbu {
                 description += "\n\n";
                 //description += String.Format("HP: {0}\n", item.HealthPoints);
                 description += String.Format("Attack: {0}\n", item.Damage);
+                description += String.Format("Defence: {0}\n", item.Defence);
                 description += String.Format("ROA: {0}\n", item.RangeOfHit);
                 description += "\n";
                 description += item.Description;

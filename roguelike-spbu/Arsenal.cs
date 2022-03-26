@@ -1,7 +1,17 @@
 namespace roguelike_spbu
 {
-    ////swords
-    [Serializable]
+    class Helmet : Item
+    {
+        public Helmet()
+        {
+            Type = ItemType.Armor;
+            Name = "Helmet";
+            Defence = 999;
+            //Symbol = "п";
+            Description = "it's a helmet, lol";
+        }
+    }
+    //sword
     class SwordOneHanded: Item
     {
         
@@ -20,7 +30,7 @@ namespace roguelike_spbu
     {
         public BastardSword()
         {
-            Type = ItemType.OneHandWeapon;
+            Type = ItemType.TwoHandWeapon;
             Name = "Bastard Sword";
             Damage = 16;
             RangeOfHit = 1;

@@ -61,6 +61,7 @@ namespace roguelike_spbu
         public Item() {
             ID = Guid.NewGuid();
             Damage = 0;
+            RangeOfHit = 0;
             Name = "";
         }
         public virtual void Effect() {

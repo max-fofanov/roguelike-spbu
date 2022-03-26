@@ -136,10 +136,11 @@ namespace roguelike_spbu
             get;
             set;
         }
+        float _rangeOfHit = 0;
         public float RangeOfHit
         {
-            get;
-            set;
+            get { return Math.Max(_rangeOfHit, Math.Max((LeftHand ?? new Item()).RangeOfHit, (RightHand ?? new Item()).RangeOfHit)); }
+            set { _rangeOfHit = value; }
         }
         private string _symbol = "";
         public string Symbol
@@ -230,7 +231,8 @@ namespace roguelike_spbu
         }
         void PutItemOnEntity(Item item, int place = 0)
         {
-            if (!IsItemAlreadyEquiped(item.ID))
+            if (place != -1)
+            {
                 if (item.Type == ItemType.OneHandWeapon)
                 {
                     //Console.Beep();
@@ -240,26 +242,86 @@ namespace roguelike_spbu
                         {
                             LeftHand = null;
                         }
+                        if (item.ID == (LeftHand ?? new Item()).ID)
+                        {
+                            //LeftHand = null;
+                            LeftHand = RightHand;
+                        }
                         RightHand = item;
-                    } else if (place == 1)
+                    }
+                    else if (place == 1)
                     {
                         if (IsTwoHandWeaponEquiped())
                         {
                             RightHand = null;
                         }
+                        if (item.ID == (RightHand ?? new Item()).ID)
+                        {
+                            //RightHand = null;
+                            RightHand = LeftHand;
+                        }
                         LeftHand = item;
                     }
-                } else if (item.Type == ItemType.TwoHandWeapon)
+                    else if (place == -2)
+                    {
+                        if (!IsItemAlreadyEquiped(item.ID))
+                            if (IsTwoHandWeaponEquiped())
+                            {
+                                RightHand = item;
+                                LeftHand = null;
+                            }
+                            else if (RightHand == null)
+                            {
+                                RightHand = item;
+                            }
+                            else if (LeftHand == null)
+                            {
+                                LeftHand = item;
+                            }
+                    }
+                }
+                else if (item.Type == ItemType.TwoHandWeapon)
                 {
-                    LeftHand = item;
-                    RightHand = item;
-                } else if (item.Type == ItemType.Armor)
+                    if (!IsItemAlreadyEquiped(item.ID))
+                    {
+                        LeftHand = item;
+                        RightHand = item;
+                    }
+                }
+                else if (item.Type == ItemType.Armor)
                 {
-                    Body = item;
-                } else if (item.Type == ItemType.Consumable)
+                    if (!IsItemAlreadyEquiped(item.ID))
+                        Body = item;
+                }
+                else if (item.Type == ItemType.Consumable)
                 {
 
                 }
+            }
+            else if (IsItemAlreadyEquiped(item.ID) && place == -1)
+            {
+                //Console.Beep();
+                if (item.Type == ItemType.OneHandWeapon)
+                {
+                    if (item.ID == (LeftHand ?? new Item()).ID)
+                    {
+                        LeftHand = null;
+                    }
+                    else if (item.ID == (RightHand ?? new Item()).ID)
+                    {
+                        RightHand = null;
+                    }
+                }
+                else if (item.Type == ItemType.TwoHandWeapon)
+                {
+                    LeftHand = null;
+                    RightHand = null;
+                }
+                else if (item.Type == ItemType.Armor)
+                {
+                    Body = null;
+                }
+            }
         }
         public void UseItem(Guid itemID, int place = 0) {
             // TODO: make possible to remove items from hand
@@ -267,6 +329,7 @@ namespace roguelike_spbu
             {
                 if (item.ID == itemID)
                 {
+                    //Console.Beep();
                     PutItemOnEntity(item, place);
                     break;
                 }
@@ -292,7 +355,9 @@ namespace roguelike_spbu
         }
         public int GetTotalDefence()
         {
-            return 0;
+            return (Body ?? new Item()).Defence +
+                    (LeftHand ?? new Item()).Defence +
+                    (RightHand ?? new Item()).Defence;
         }
         public virtual void Attack(Entity target)
         {
