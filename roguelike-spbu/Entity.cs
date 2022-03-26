@@ -125,10 +125,11 @@ namespace roguelike_spbu
             get { return _mhp; }
             set { _mhp = value; }
         }
-        public void SetHealth(int hp)
+        public void SetHealth(int hp, bool regen = true)
         {
             MaxHealthPoints = hp;
-            HealthPoints = hp;
+            if (regen)
+                HealthPoints = hp;
         }
         public int XP
         {
