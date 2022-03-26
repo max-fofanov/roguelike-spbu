@@ -1,8 +1,10 @@
 namespace roguelike_spbu
 {
     ////swords
+    [Serializable]
     class SwordOneHanded: Item
     {
+        
         public SwordOneHanded()
         {
             Type = ItemType.OneHandWeapon;
@@ -10,23 +12,24 @@ namespace roguelike_spbu
             Damage = 10;
             RangeOfHit = 1;
             //Symbol = "/";
-            Description = " ";
+            Description = "The most ordinary, unremarkable cheap sword. Yes, it is almost useless, but without it it would be even worse.";
         }
     }
-
+    [Serializable]
     class BastardSword: Item
     {
         public BastardSword()
         {
             Type = ItemType.OneHandWeapon;
             Name = "Bastard Sword";
-            Damage = 18;
+            Damage = 16;
             RangeOfHit = 1;
+            Defence = 1;
             //Symbol = "½";
-            Description = " ";
+            Description = "A bastard sword is already much better than usual, though you need to be able to handle it at least a little, you know - to stab with a sharp end.";
         }
     }
-
+    [Serializable]
     class TwoHandedSword: Item
     {
         public TwoHandedSword()
@@ -37,9 +40,10 @@ namespace roguelike_spbu
             RangeOfHit = 2;
             //Symbol = "!";
             Defence = 2;
-            Description = " ";
+            Description = "A good two-handed sword, a weapon for good or large warriors. Why does it bring back memories...";
         }
     }
+    [Serializable]
     class Rapier: Item
     {
         public Rapier()
@@ -51,6 +55,7 @@ namespace roguelike_spbu
             Description = "";
         }
     }
+    [Serializable]
 
     class Aerondight: Item
     {
@@ -65,6 +70,7 @@ namespace roguelike_spbu
             Description = " ";
         }
     }
+    [Serializable]
     class Dager: Item
     {
         public Dager()
@@ -74,8 +80,10 @@ namespace roguelike_spbu
             Damage = 20;
             RangeOfHit = 1;
             Description = "";
+            Defence = 2;
         }
     }
+    [Serializable]
     class Frostmourne: Item
     {
         public Frostmourne()
@@ -89,6 +97,7 @@ namespace roguelike_spbu
         }
     }
     //////Ranged weapon
+    [Serializable]
     class Mjolnir: Item
     {
         public Mjolnir()
@@ -101,7 +110,7 @@ namespace roguelike_spbu
             Description = " ";
         }
     }
-
+    [Serializable]
     class CrossBow: Item
     {
         public CrossBow()
@@ -114,6 +123,7 @@ namespace roguelike_spbu
             Description = "";
         }
     }
+    [Serializable]
     class Bow: Item
     {
         public Bow()
@@ -126,6 +136,7 @@ namespace roguelike_spbu
             Description = " ";
         }
     }
+    [Serializable]
     class Vijaya: Item
     {
         public Vijaya()
@@ -138,6 +149,7 @@ namespace roguelike_spbu
         }
     }
     /// Magic
+    [Serializable]
     class MagicBolt: Item
     {
         public MagicBolt()
@@ -150,6 +162,7 @@ namespace roguelike_spbu
             Description = " ";
         }
     }
+    [Serializable]
     class Flamestrike: Item //all enemy
     {
         public Flamestrike()
@@ -161,6 +174,7 @@ namespace roguelike_spbu
             Description = " ";
         }
     }
+    [Serializable]
 
     class MagicLince: Item
     {
@@ -174,6 +188,7 @@ namespace roguelike_spbu
             Description = " ";
         }
     }
+    [Serializable]
     class MagicStrike: Item //all enem
     {
         public MagicStrike()
@@ -188,6 +203,7 @@ namespace roguelike_spbu
     }
     
     //Different
+    [Serializable]
     class EnchantedAxe: Item
     {
         public EnchantedAxe()
@@ -199,7 +215,7 @@ namespace roguelike_spbu
             Description = "";
         }
     }
-    
+    [Serializable]
     class Mace: Item
     {
         public Mace()
@@ -211,6 +227,7 @@ namespace roguelike_spbu
             Description = "";
         }
     }
+    [Serializable]
     class Spear: Item
     {
         public Spear()
@@ -224,6 +241,7 @@ namespace roguelike_spbu
             Description = " ";
         }
     }
+    [Serializable]
     class LanceOfLonginus: Item
     {
         public LanceOfLonginus()
@@ -237,7 +255,7 @@ namespace roguelike_spbu
         }
     }
     ///shields
-    
+    [Serializable]
     class Shield: Item
     {
         public Shield()
@@ -250,6 +268,7 @@ namespace roguelike_spbu
             Description = "";
         }
     }
+    [Serializable]
     class Buckler: Item
     {
         public Buckler()
@@ -262,6 +281,7 @@ namespace roguelike_spbu
             Description = "";
         }
     }
+    [Serializable]
     class BigShield: Item
     {
         public BigShield()
@@ -274,6 +294,7 @@ namespace roguelike_spbu
             Description = "";
         }
     }
+    [Serializable]
     class UltimateShield: Item
     {
         public UltimateShield()
@@ -286,6 +307,7 @@ namespace roguelike_spbu
             Description = "";
         }
     }
+    [Serializable]
     class Aegis: Item
     {
         public Aegis()

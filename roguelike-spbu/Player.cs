@@ -30,7 +30,7 @@ namespace roguelike_spbu
         {
             this.trait = trait;
             SetHealth(100);
-            Damage = 10;
+            Damage = 3;
             RangeOfHit = 2;
             XP = 0;
             XPToLevelUP = 15;
