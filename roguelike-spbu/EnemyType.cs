@@ -37,6 +37,7 @@ namespace roguelike_spbu
             CreatureType = "normal";
             RangeOfHit = 1;
             XP = 10;
+            Description = "1) Hobgoblins are stronger and more tenacious than usual, ordinary goblins are afraid of them, usually they are the leaders of the tribe. 2) Hobgoblins are much more dangerous than ordinary goblins, they are not only physically strong, but also smarter than their small counterparts.";
         }
     }
     
@@ -55,6 +56,7 @@ namespace roguelike_spbu
             CreatureType = "light";
             RangeOfHit = 3;
             XP = 5;
+            Description = "1) Goblins live underground, some of them sometimes got out, but since there are no living people next to them in the underworld, they also switched to dwarves and began to descend deeper, following them. \n2) They differ from ordinary goblins in the ability to throw daggers, axes and other open objects, but in the rest they differ little.";
         }
     }
 
@@ -146,6 +148,7 @@ namespace roguelike_spbu
             CreatureType = "heavy";
             RangeOfHit = 2;
             XP = 15;
+            Description = "1) The generation of experiments of alchemists and golem magicians, however, the experiment was not successful, moreover, it led to the death of the creators. 2) Unlike other artificial creatures, they can reproduce, but they do this at the expense of splitting the flow of mana and making sacrifices. 3) These generations cannot be controlled, at least no one has managed to do so yet.";
         }
     }
     
