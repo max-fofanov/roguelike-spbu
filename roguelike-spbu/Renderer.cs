@@ -18,6 +18,7 @@ namespace roguelike_spbu
         static int InnerHeight;
         static int InnerWidth;
         static bool StatinInnerBox = false;
+        public static Guid SelectedEntity = Guid.Empty;
         public Renderer(int height, int width)
         {
             Height = height;
@@ -56,13 +57,21 @@ namespace roguelike_spbu
         {
             if (allVisible) status = VisualStatus.isVisible;
 
+            Color entityBGColor = tile.PrimaryBackgroundColor;
+            if (entity != null)
+                if (entity.ID == SelectedEntity)
+                    entityBGColor = Color.FromArgb(191, 0, 255);
+                else
+                    entityBGColor = entity.PrimaryBackgroundColor ?? tile.PrimaryBackgroundColor;
+
+
             switch (status)
             {
                 case VisualStatus.isVisible:
                     return entity != null ?
                         entity.Symbol.
                         Pastel(entity.PrimaryForegroundColor).
-                        PastelBg(entity.PrimaryBackgroundColor ?? tile.PrimaryBackgroundColor)
+                        PastelBg(entityBGColor)
                         :
                         tile.Symbol.
                         Pastel(tile.PrimaryForegroundColor).

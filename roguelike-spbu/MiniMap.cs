@@ -1,7 +1,6 @@
 
 namespace roguelike_spbu {
     public class MiniMap {
-        
         public Map miniMap;
         public int prev = -1;
 
@@ -17,7 +16,6 @@ namespace roguelike_spbu {
                 }
             }      
         }
-
         public void Update() {
             if (prev != -1) {
                 for (int i = -1; i <= 1; i++) {

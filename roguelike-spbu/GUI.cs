@@ -212,17 +212,22 @@ namespace roguelike_spbu {
             GameGUIWindows.ListBox.UpdateTitle("Attack");
             GameGUIWindows.ListBox.UpdateList((from entity in GameGUIWindows.EntitiesInRange select entity.Name ?? "NoName").ToList());
 
+            Renderer.SelectedEntity = GameGUIWindows.GetEntityInRange(GameGUIWindows.ListBox.currentLine).ID;
+
             if (key != null)
             {
                 switch (key)
                 {
                     case ConsoleKey.UpArrow:
                         GameGUIWindows.ListBox.ScroolUp();
+                        Renderer.SelectedEntity = GameGUIWindows.GetEntityInRange(GameGUIWindows.ListBox.currentLine).ID;
                         break;
                     case ConsoleKey.DownArrow:
                         GameGUIWindows.ListBox.ScroolDown();
+                        Renderer.SelectedEntity = GameGUIWindows.GetEntityInRange(GameGUIWindows.ListBox.currentLine).ID;
                         break;
                     case ConsoleKey.Enter:
+                        Renderer.SelectedEntity = Guid.Empty;
                         return new ActionInfo(Action.Attack, GameGUIWindows.GetEntityInRange(GameGUIWindows.ListBox.currentLine).ID);
                     default:
                         break;
