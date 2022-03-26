@@ -166,6 +166,7 @@ namespace roguelike_spbu
             SetHealth(250);
             CreatureType = "heavy";
             RangeOfHit = 2;
+            XP = 100;
             Description = "1) Devils - the leaders of the armies of demons - are not from this world. Devils wear no armor and are strong in melee and ranged combat. Many warriors fall into a panic just at the mere sight of them. In addition, devils are able to open a portal to another territory. \n2) Devils hate angels and even more so archangels, it was they who put up the greatest resistance to the army of demons during the expansion to the northern islands.";
         }
     }

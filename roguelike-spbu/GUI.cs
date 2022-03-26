@@ -301,6 +301,7 @@ namespace roguelike_spbu {
             description += String.Format("Attack: {0}\n", enemy.Damage);
             description += String.Format("ROW: {0}\n", enemy.RangeOfView);
             description += String.Format("ROA: {0}\n", enemy.RangeOfHit);
+            description += String.Format("XP: {0}\n", enemy.XP);
             description += "\n";
             description += enemy.Description;
 
@@ -318,6 +319,7 @@ namespace roguelike_spbu {
                 description += "\n\n";
                 //description += String.Format("HP: {0}\n", item.HealthPoints);
                 description += String.Format("Attack: {0}\n", item.Damage);
+                description += String.Format("Defence: {0}\n", item.Defence);
                 description += String.Format("ROA: {0}\n", item.RangeOfHit);
                 description += "\n";
                 description += item.Description;

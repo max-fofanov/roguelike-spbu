@@ -355,7 +355,9 @@ namespace roguelike_spbu
         }
         public int GetTotalDefence()
         {
-            return 0;
+            return (Body ?? new Item()).Defence +
+                    (LeftHand ?? new Item()).Defence +
+                    (RightHand ?? new Item()).Defence;
         }
         public virtual void Attack(Entity target)
         {

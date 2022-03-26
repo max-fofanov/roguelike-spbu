@@ -38,7 +38,7 @@ namespace roguelike_spbu
             Symbol = symbol;
             PrimaryForegroundColor = color;
             LVL = 1;
-            Inventory = new List<Item>() { new SwordOneHanded(), new BastardSword(), new SwordOneHanded() };
+            Inventory = new List<Item>() { new SwordOneHanded(), new BastardSword(), new SwordOneHanded(), new Helmet() };
         }
         public override ActionInfo GetNextMove(Map map, List<Entity> entities, Player player) {
 
