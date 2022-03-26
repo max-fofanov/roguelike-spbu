@@ -8,6 +8,7 @@ namespace roguelike_spbu
         TwoHandWeapon,
         Armor
     }
+    [Serializable]
     public class Item 
     {
         public Guid ID

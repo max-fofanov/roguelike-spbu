@@ -3,6 +3,7 @@ using System.Drawing;
 
 namespace roguelike_spbu
 {
+    [Serializable]
     class Goblin : Enemy
     {
         public Goblin(int x, int y) : base(x, y)
@@ -22,6 +23,7 @@ namespace roguelike_spbu
         }
     }
 
+    [Serializable]
     class Hobgoblin : Enemy
     {
         public Hobgoblin(int x, int y) : base(x, y)
@@ -41,6 +43,7 @@ namespace roguelike_spbu
         }
     }
     
+    [Serializable]
     class GoblinFlinger : Enemy
     {
         public GoblinFlinger(int x, int y) : base(x, y)
@@ -60,6 +63,7 @@ namespace roguelike_spbu
         }
     }
 
+    [Serializable]
     class Skeleton : Enemy
     {
         public Skeleton(int x, int y) : base(x, y)
@@ -79,6 +83,7 @@ namespace roguelike_spbu
         }
     }
     
+    [Serializable]
     class Zombie : Enemy
     {
         public Zombie(int x, int y) : base(x, y)
@@ -97,6 +102,8 @@ namespace roguelike_spbu
             Description = "1) Zombies are slow, attacks are weak, but surprisingly they are able to withstand a lot of hits. \n2) The rotting bodies of zombies carry terrible diseases that can significantly weaken those who try to destroy these dead. \n3) The theory of vessels and the science of golems believe that zombies with the rudiments of reason got it because of the carelessness of the magician in the process of creation, from somewhere the living mana was obtained in insufficient quantities to give full functioning, or the vessel was damaged.";
         }
     }
+
+    [Serializable]
     class DeathKnight : Enemy
     {
         public DeathKnight(int x, int y) : base(x, y)
@@ -114,7 +121,8 @@ namespace roguelike_spbu
             Description = "1) Death knights - horsemen, faithful servants of the attorney to the master, some of whom were magicians and specialize in creating golems, often they did not go further than the living dead. \n2) They were once human, but many of them voluntarily gave up life for eternal service. High knights are recognized as the crowns of creation of magicians working to improve the human body.";
         }
     }
-    
+
+    [Serializable]
     class Lich : Enemy
     {
         public Lich(int x, int y) : base(x, y)
@@ -133,6 +141,7 @@ namespace roguelike_spbu
         }
     }
 
+    [Serializable]
     class Demon : Enemy
     {
         public Demon(int x, int y) : base(x, y)
@@ -152,6 +161,7 @@ namespace roguelike_spbu
         }
     }
     
+    [Serializable]
     class Devil : Enemy
     {
         public Devil(int x, int y) : base(x, y)
@@ -171,6 +181,7 @@ namespace roguelike_spbu
         }
     }
     
+    [Serializable]
     class Angel : Enemy
     {
         public Angel(int x, int y) : base(x, y)
@@ -188,6 +199,7 @@ namespace roguelike_spbu
         }
     }
     
+    [Serializable]
     class Archangel : Enemy
     {
         public Archangel(int x, int y) : base(x, y)

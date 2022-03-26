@@ -3,6 +3,7 @@ using System.Drawing;
 
 namespace roguelike_spbu
 {
+    [Serializable]
     class Void : Tile
     {
         public Void(int x, int y) : base(x, y) {
@@ -12,6 +13,7 @@ namespace roguelike_spbu
             PrimaryBackgroundColor = Color.Red;
         }
     }
+    [Serializable]
     class Border : Tile
     {
         public Border(int x, int y) : base(x, y)
@@ -23,6 +25,7 @@ namespace roguelike_spbu
             
         }
     }
+    [Serializable]
     public class Tree : Tile
     {
         public Tree(int x, int y) : base(x, y)
@@ -32,7 +35,7 @@ namespace roguelike_spbu
         }
 
     }
-
+    [Serializable]
     public class Rock : Tile
     {
         public Rock(int x, int y) : base(x, y)
@@ -43,6 +46,7 @@ namespace roguelike_spbu
 
     }
 
+    [Serializable]
     public class Field : Tile
     {
         public Field(int x, int y) : base(x, y)
@@ -54,6 +58,7 @@ namespace roguelike_spbu
 
     }
 
+    [Serializable]
     public class Exit : Tile
     {
         public int Room {
@@ -71,6 +76,7 @@ namespace roguelike_spbu
 
     }
 
+    [Serializable]
     public class Water : Tile
     {
         public Water(int x, int y) : base(x, y)
