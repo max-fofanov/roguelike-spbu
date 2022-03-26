@@ -74,7 +74,7 @@ namespace roguelike_spbu
             SetHealth(5);
             CreatureType = "light";
             RangeOfHit = 1.5f;
-            XP = 3;
+            XP = 2;
             Description = "1) While skeletons and skeleton warriors are average foot soldiers individually, it is possible to build massively populated troops of them. They are numerously produced, are the main creature produced by the Necromancy secondary skill, and other creature types can be converted into them at Necropolis skeleton transformers. \n2) Skeletons have a small number of hp, but in large numbers they represent a high danger due to the damage they deal. \n3) Skeletons are sometimes called a product of necromancy, which is not fully true, because they are not so much different from golems until human mana is placed in them. Of course, skeletons are more inherent in dark magicians, but they are also found in light ones. The idea of ​​the undead and necromancers is outdated at the present time.";
         }
     }
@@ -107,10 +107,10 @@ namespace roguelike_spbu
             //Stamina = 2;
             ForceType = "dark";
             Damage = 18;
-            SetHealth(45);
+            SetHealth(70);
             CreatureType = "normal";
             RangeOfHit = 2;
-            XP = 10;
+            XP = 15;
             Description = "1) Death knights - horsemen, faithful servants of the attorney to the master, some of whom were magicians and specialize in creating golems, often they did not go further than the living dead. \n2) They were once human, but many of them voluntarily gave up life for eternal service. High knights are recognized as the crowns of creation of magicians working to improve the human body.";
         }
     }
@@ -125,10 +125,10 @@ namespace roguelike_spbu
             //Stamina = 1;
             ForceType = "dark";
             Damage = 15;
-            SetHealth(5);
+            SetHealth(40);
             CreatureType = "light";
             RangeOfHit = 4;
-            XP = 8;
+            XP = 15;
             Description = "1) Liches are the highest form of undead. In the army of the dead, their main task is to provide fire support to the rest of the troops. They are armed with magical staves, with the help of which they strike enemies with a deadly cloud that destroys all life in long-range combat. \n2) Sometimes they can replace low-level magicians on the battlefield, but they themselves are extremely vulnerable to other people's magic and, as a rule, do not have protective spells.";
         }
     }
@@ -144,10 +144,10 @@ namespace roguelike_spbu
             //Stamina = 1;
             ForceType = "dark";
             Damage = 33;
-            SetHealth(66);
+            SetHealth(99);
             CreatureType = "heavy";
             RangeOfHit = 2;
-            XP = 15;
+            XP = 30;
             Description = "1) The generation of experiments of alchemists and golem magicians, however, the experiment was not successful, moreover, it led to the death of the creators. 2) Unlike other artificial creatures, they can reproduce, but they do this at the expense of splitting the flow of mana and making sacrifices. 3) These generations cannot be controlled, at least no one has managed to do so yet.";
         }
     }
@@ -166,6 +166,7 @@ namespace roguelike_spbu
             SetHealth(250);
             CreatureType = "heavy";
             RangeOfHit = 2;
+            XP = 66;
             Description = "1) Devils - the leaders of the armies of demons - are not from this world. Devils wear no armor and are strong in melee and ranged combat. Many warriors fall into a panic just at the mere sight of them. In addition, devils are able to open a portal to another territory. \n2) Devils hate angels and even more so archangels, it was they who put up the greatest resistance to the army of demons during the expansion to the northern islands.";
         }
     }
@@ -180,10 +181,11 @@ namespace roguelike_spbu
             Name = "Angel";
             //Stamina = 1;
             ForceType = "light";
-            Damage = 33;
-            SetHealth(33);
+            Damage = 20;
+            SetHealth(80);
             CreatureType = "normal";
             RangeOfHit = 2;
+            XP = 10;
         }
     }
     
@@ -198,9 +200,10 @@ namespace roguelike_spbu
             //Stamina = 2;
             ForceType = "light";
             Damage = 40;
-            SetHealth(150);
+            SetHealth(200);
             CreatureType = "normal";
             RangeOfHit = 2;
+            XP = 30;
             Description = "1) Archangels are the protectors of the human world. As a rule, these are the holy warriors of the old world, thanks to their prayers, who received inhuman abilities and a long life, in exchange they completely devote themselves to the service of God. \n2) If angels are still small people and who find themselves there only because of their origin, then the archangels are a fighting aristocracy, their temper is different, but people respect and a certain awe for each of them. \n3) Only three archangels were able to help hold half of the northern islands for 5 months and prevent the demonic army from passing further. It is a pity that the island magicians were scattered and most of them fled from their native lands.";
         }
     }

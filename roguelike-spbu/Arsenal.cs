@@ -1,12 +1,13 @@
 namespace roguelike_spbu
 {
+    ////swords
     class SwordOneHanded: Item
     {
         public SwordOneHanded()
         {
             Type = ItemType.OneHandWeapon;
             Name = "Sword One Handed";
-            Damage = 15;
+            Damage = 10;
             RangeOfHit = 1;
             //Symbol = "/";
             Description = " ";
@@ -19,7 +20,7 @@ namespace roguelike_spbu
         {
             Type = ItemType.OneHandWeapon;
             Name = "Bastard Sword";
-            Damage = 22;
+            Damage = 18;
             RangeOfHit = 1;
             //Symbol = "½";
             Description = " ";
@@ -35,7 +36,19 @@ namespace roguelike_spbu
             Damage = 35;
             RangeOfHit = 2;
             //Symbol = "!";
+            Defence = 2;
             Description = " ";
+        }
+    }
+    class Rapier: Item
+    {
+        public Rapier()
+        {
+            Type = ItemType.OneHandWeapon;
+            Name = "Rapier";
+            Damage = 23;
+            RangeOfHit = 2;
+            Description = "";
         }
     }
 
@@ -47,22 +60,84 @@ namespace roguelike_spbu
             Name = "Aerondight";
             Damage = 60;
             RangeOfHit = 3;
+            Defence = 5;
             //Symbol = "@";
             Description = " ";
         }
     }
-    class Spear: Item
+    class Dager: Item
     {
-        public Spear()
+        public Dager()
+        {
+            Type = ItemType.OneHandWeapon;
+            Name = "Dager";
+            Damage = 20;
+            RangeOfHit = 1;
+            Description = "";
+        }
+    }
+    class Frostmourne: Item
+    {
+        public Frostmourne()
         {
             Type = ItemType.TwoHandWeapon;
-            Name = "Spear";
-            Damage = 16;
-            RangeOfHit = 3;
-            //Symbol = "|";
+            Name = "Frostmourne";
+            Damage = 100;
+            RangeOfHit = 1;
+            //Symbol = "F";
+            Description = "For the glory of the whip!";
+        }
+    }
+    //////Ranged weapon
+    class Mjolnir: Item
+    {
+        public Mjolnir()
+        {
+            Type = ItemType.OneHandWeapon;
+            Name = "Mjolnir";
+            Damage = 40;
+            RangeOfHit = 4;
+            //Symbol = "%";
             Description = " ";
         }
     }
+
+    class CrossBow: Item
+    {
+        public CrossBow()
+        {
+            Type = ItemType.OneHandWeapon;
+            Name = "Cross Bow";
+            Damage = 30;
+            RangeOfHit = 4;
+            //Symbol = "c";
+            Description = "";
+        }
+    }
+    class Bow: Item
+    {
+        public Bow()
+        {
+            Type = ItemType.OneHandWeapon;
+            Name = "Bow";
+            Damage = 12;
+            RangeOfHit = 4;
+            //Symbol = ")";
+            Description = " ";
+        }
+    }
+    class Vijaya: Item
+    {
+        public Vijaya()
+        {
+            Type = ItemType.TwoHandWeapon;
+            Name = "Vijaya";
+            Damage = 88;
+            RangeOfHit = 4;
+            Description = " ";
+        }
+    }
+    /// Magic
     class MagicBolt: Item
     {
         public MagicBolt()
@@ -72,6 +147,17 @@ namespace roguelike_spbu
             Damage = 15;
             RangeOfHit = 4;
             //Symbol = "~";
+            Description = " ";
+        }
+    }
+    class Flamestrike: Item //all enemy
+    {
+        public Flamestrike()
+        {
+            Type = ItemType.TwoHandWeapon;
+            Name = "Flamestrike";
+            Damage = 40;
+            RangeOfHit = 4;
             Description = " ";
         }
     }
@@ -88,19 +174,6 @@ namespace roguelike_spbu
             Description = " ";
         }
     }
-    class Bow: Item
-    {
-        public Bow()
-        {
-            Type = ItemType.OneHandWeapon;
-            Name = "Bow";
-            Damage = 12;
-            RangeOfHit = 4;
-            //Symbol = ")";
-            Description = " ";
-        }
-    }
-
     class MagicStrike: Item //all enem
     {
         public MagicStrike()
@@ -114,56 +187,120 @@ namespace roguelike_spbu
         }
     }
     
-    class Mjolnir: Item
+    //Different
+    class EnchantedAxe: Item
     {
-        public Mjolnir()
+        public EnchantedAxe()
+        {
+            Type = ItemType.TwoHandWeapon;
+            Name = "Enchanted Axe";
+            Damage = 45;
+            RangeOfHit = 1;
+            Description = "";
+        }
+    }
+    
+    class Mace: Item
+    {
+        public Mace()
         {
             Type = ItemType.OneHandWeapon;
-            Name = "Mjolnir";
-            Damage = 40;
-            RangeOfHit = 4;
-            //Symbol = "%";
+            Name = "Mace";
+            Damage = 35;
+            RangeOfHit = 1;
+            Description = "";
+        }
+    }
+    class Spear: Item
+    {
+        public Spear()
+        {
+            Type = ItemType.TwoHandWeapon;
+            Name = "Spear";
+            Damage = 23;
+            RangeOfHit = 3;
+            Defence = 8;
+            //Symbol = "|";
             Description = " ";
         }
     }
-
-    class Frostmourne: Item
+    class LanceOfLonginus: Item
     {
-        public Frostmourne()
+        public LanceOfLonginus()
         {
             Type = ItemType.TwoHandWeapon;
-            Name = "Frostmourne";
-            Damage = 100;
+            Name = "Lance of Longinus";
+            Damage = 66;
+            RangeOfHit = 3;
+            Defence = 6;
+            Description = "";
+        }
+    }
+    ///shields
+    
+    class Shield: Item
+    {
+        public Shield()
+        {
+            Type = ItemType.OneHandWeapon;
+            Name = "Shield";
+            Damage = 8;
+            RangeOfHit = 1;
+            Defence = 10;
+            Description = "";
+        }
+    }
+    class Buckler: Item
+    {
+        public Buckler()
+        {
+            Type = ItemType.OneHandWeapon;
+            Name = "Buckler";
+            Damage = 15;
             RangeOfHit = 2;
-            //Symbol = "F";
-            Description = "For the glory of the whip!";
+            Defence = 5;
+            Description = "";
+        }
+    }
+    class BigShield: Item
+    {
+        public BigShield()
+        {
+            Type = ItemType.TwoHandWeapon;
+            Name = "Big Shield";
+            Damage = 5;
+            RangeOfHit = 1;
+            Defence = 20;
+            Description = "";
+        }
+    }
+    class UltimateShield: Item
+    {
+        public UltimateShield()
+        {
+            Type = ItemType.TwoHandWeapon;
+            Name = "Ultimate Shield";
+            Damage = 0;
+            RangeOfHit = 1;
+            Defence = 35;
+            Description = "";
+        }
+    }
+    class Aegis: Item
+    {
+        public Aegis()
+        {
+            Type = ItemType.TwoHandWeapon;
+            Name = "Aegis";
+            Damage = 25;
+            RangeOfHit = 2;
+            Defence = 50;
+            Description = "";
         }
     }
 
-    class CrossBow: Item
-    {
-        public CrossBow()
-        {
-            Type = ItemType.OneHandWeapon;
-            Name = "Cross Bow";
-            Damage = 30;
-            RangeOfHit = 4;
-            //Symbol = "c";
-            Description = "";
-        }
-    }
-    class Axe: Item
-    {
-        public Axe()
-        {
-            Type = ItemType.OneHandWeapon;
-            Name = "Cross Bow";
-            Damage = 30;
-            RangeOfHit = 4;
-            //Symbol = "c";
-            Description = "";
-        }
-    }
+    
+
 
 
 
