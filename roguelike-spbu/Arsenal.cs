@@ -62,7 +62,7 @@ namespace roguelike_spbu
             Name = "Rapier";
             Damage = 23;
             RangeOfHit = 2;
-            Description = "";
+            Description = "The rapier is certainly not the best weapon for war, but certainly better than a rusty sword.";
         }
     }
     [Serializable]
@@ -76,7 +76,7 @@ namespace roguelike_spbu
             RangeOfHit = 3;
             Defence = 5;
             //Symbol = "@";
-            Description = " ";
+            Description = "A sword obtained from a powerful water spirit, which was called the Lady of the Lake. I wonder what the White Wolf has to do with it ...";
         }
     }
     [Serializable]
@@ -88,7 +88,7 @@ namespace roguelike_spbu
             Name = "Dager";
             Damage = 20;
             RangeOfHit = 1;
-            Description = "";
+            Description = "The weapon of robbers and assassins, but in skillful hands, has not only a good attack, but also provides a good opportunity to protect.";
             Defence = 2;
         }
     }
@@ -116,7 +116,7 @@ namespace roguelike_spbu
             Damage = 40;
             RangeOfHit = 4;
             //Symbol = "%";
-            Description = " ";
+            Description = "<A hammer that only the worthy will lift>, they said, and in the end this thing had to be taken from the hobgoblin before he killed me with it.";
         }
     }
     [Serializable]
@@ -129,7 +129,7 @@ namespace roguelike_spbu
             Damage = 30;
             RangeOfHit = 4;
             //Symbol = "c";
-            Description = "";
+            Description = "A crossbow is almost like a bow, only more powerful, easier to handle, and it’s also easier for them to learn how to control it... - in general, it’s better.";
         }
     }
     [Serializable]
@@ -142,7 +142,7 @@ namespace roguelike_spbu
             Damage = 12;
             RangeOfHit = 4;
             //Symbol = ")";
-            Description = " ";
+            Description = "The bow is an extremely common weapon on the new and old continent, only if it slowly dies off in the old one, then in the new one it does not plan to lose ground. The elves are especially good with him, the dwarves don’t really use this, and no one saw the invaders from the north (demons) with him at all.";
         }
     }
     [Serializable]
@@ -154,7 +154,7 @@ namespace roguelike_spbu
             Name = "Vijaya";
             Damage = 88;
             RangeOfHit = 4;
-            Description = " ";
+            Description = "Vijaya, the bow of the legendary prince of the wood elves, it is even difficult to say that he forgot here, but they say a sylph lives inside him.";
         }
     }
     /// Magic
@@ -168,7 +168,7 @@ namespace roguelike_spbu
             Damage = 15;
             RangeOfHit = 4;
             //Symbol = "~";
-            Description = " ";
+            Description = "Magic bolt, hits weakly, but far - basic magic.";
         }
     }
     [Serializable]
@@ -180,7 +180,7 @@ namespace roguelike_spbu
             Name = "Flamestrike";
             Damage = 40;
             RangeOfHit = 4;
-            Description = " ";
+            Description = "A powerful and extremely dangerous spell that brings many problems to the founders of competitions and fighters in the arenas of the Southern Empire. \n<Flamestrike will leave the arena, the spell will be rare!>";
         }
     }
     [Serializable]
@@ -194,7 +194,7 @@ namespace roguelike_spbu
             Damage = 25;
             RangeOfHit = 4;
             //Symbol = "-";
-            Description = " ";
+            Description = "A middle-class spell, somewhat reminiscent of a spear, may have aspects of different elements, but it is said to be the most dangerous in its pure form, although magicians capable of this can be counted on the fingers of an unborn thief.";
         }
     }
     [Serializable]
@@ -207,7 +207,7 @@ namespace roguelike_spbu
             Damage = 25;
             RangeOfHit = 3;
             //Symbol = "*";
-            Description = " ";
+            Description = "A powerful spell with a circular attack that hits all enemies in the radius of destruction, weaker than high magic focused on one target, but not inferior to the average one.";
         }
     }
     
@@ -221,7 +221,7 @@ namespace roguelike_spbu
             Name = "Enchanted Axe";
             Damage = 45;
             RangeOfHit = 1;
-            Description = "";
+            Description = "An enchanted ax from the northern lands of the old mainland, it is difficult to say what kind of symbols are engraved on it. You can see the sign of the moon, but the old religion does not recognize the influence of Thealnebris...";
         }
     }
     [Serializable]
@@ -233,7 +233,7 @@ namespace roguelike_spbu
             Name = "Mace";
             Damage = 35;
             RangeOfHit = 1;
-            Description = "";
+            Description = "A good weapon that can kill even a knight in armor.";
         }
     }
     [Serializable]
@@ -243,11 +243,11 @@ namespace roguelike_spbu
         {
             Type = ItemType.TwoHandWeapon;
             Name = "Spear";
-            Damage = 23;
+            Damage = 22;
             RangeOfHit = 3;
-            Defence = 8;
+            Defence = 5;
             //Symbol = "|";
-            Description = " ";
+            Description = "The most common and dangerous weapon in the army, with good discipline and the right order, capable of breaking the onslaught of any army.";
         }
     }
     [Serializable]
@@ -260,7 +260,7 @@ namespace roguelike_spbu
             Damage = 66;
             RangeOfHit = 3;
             Defence = 6;
-            Description = "";
+            Description = "A legendary weapon sent to the hero of the New Faith to protect her, a long, ornate spear that oozes massive amounts of mana.";
         }
     }
     ///shields
@@ -274,7 +274,7 @@ namespace roguelike_spbu
             Damage = 8;
             RangeOfHit = 1;
             Defence = 10;
-            Description = "";
+            Description = "The most common one-handed shield, relatively comfortable and relatively good protection, moreover, it is quite possible to hit with it.";
         }
     }
     [Serializable]
@@ -287,7 +287,7 @@ namespace roguelike_spbu
             Damage = 15;
             RangeOfHit = 2;
             Defence = 5;
-            Description = "";
+            Description = "A good shield for duels or active combat against piercing weapons, allowing for good maneuverability and moderate protection.";
         }
     }
     [Serializable]
@@ -300,7 +300,7 @@ namespace roguelike_spbu
             Damage = 5;
             RangeOfHit = 1;
             Defence = 20;
-            Description = "";
+            Description = "A large two-handed shield covering most of the body.";
         }
     }
     [Serializable]
@@ -313,7 +313,7 @@ namespace roguelike_spbu
             Damage = 0;
             RangeOfHit = 1;
             Defence = 35;
-            Description = "";
+            Description = "A huge shield that completely protects the body, but is so heavy that it is impossible to hit them.";
         }
     }
     [Serializable]
@@ -326,7 +326,7 @@ namespace roguelike_spbu
             Damage = 25;
             RangeOfHit = 2;
             Defence = 50;
-            Description = "";
+            Description = "The shield of the ancient sagas of people who once lived on the southern islands of the old world.";
         }
     }
 
