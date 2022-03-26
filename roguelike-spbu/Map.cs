@@ -48,5 +48,12 @@ namespace roguelike_spbu
             }
         }
 
+        public static (int, int) GetMiniCoordinates() {
+            
+            int num = GameInfo.player.X % (GameInfo.mapHeight / 20) * (GameInfo.mapWidth / 30) + GameInfo.player.Y % (GameInfo.mapWidth / 30);
+
+            return (2 + num / (GameInfo.mapWidth / 30) * 4 , 2 + num % (GameInfo.mapWidth / 30) * 4);
+        }
+
     }
 }
