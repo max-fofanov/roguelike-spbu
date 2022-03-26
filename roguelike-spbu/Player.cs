@@ -26,18 +26,13 @@ namespace roguelike_spbu
             get;
             set;
         }
-        public int PlayerExperiencePoints
-        {
-            get;
-            set;
-        }
         public Player(int x, int y, Trait trait = Trait.Saber) : base(x, y)
         {
             this.trait = trait;
             SetHealth(100);
             Damage = 10;
             RangeOfHit = 2;
-            PlayerExperiencePoints = 0;
+            XP = 0;
             XPToLevelUP = 15;
             VStatus = VisualStatus.isVisible;
             Symbol = symbol;

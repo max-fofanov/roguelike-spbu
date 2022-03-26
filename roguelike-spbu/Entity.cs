@@ -125,10 +125,11 @@ namespace roguelike_spbu
             get { return _mhp; }
             set { _mhp = value; }
         }
-        public void SetHealth(int hp)
+        public void SetHealth(int hp, bool regen = true)
         {
             MaxHealthPoints = hp;
-            HealthPoints = hp;
+            if (regen)
+                HealthPoints = hp;
         }
         public int XP
         {
@@ -280,14 +281,12 @@ namespace roguelike_spbu
         }
         public int GetTotalAttack()
         {
-            int totalDamage = 0;
+            int totalDamage = Damage;
             
             totalDamage += (LeftHand ?? new Item()).Damage;
 
             if ((LeftHand ?? new Item()).Type != ItemType.TwoHandWeapon)
                 totalDamage += (RightHand ?? new Item()).Damage;
-            
-            if (totalDamage == 0) return Damage;
 
             return totalDamage;
         }
