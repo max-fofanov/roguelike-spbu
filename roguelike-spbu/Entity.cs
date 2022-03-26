@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Drawing;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace roguelike_spbu
 {
@@ -21,8 +21,6 @@ namespace roguelike_spbu
     }
     
     public class ActionInfo {
-        
-
         public ActionInfo() {}
 
         public ActionInfo(Action action) {
@@ -49,7 +47,11 @@ namespace roguelike_spbu
             Action = action;
             Number = number;
         }
-
+        public ActionInfo(Action action, Guid target)
+        {
+            Action = action;
+            Target = target;
+        }
         public ActionInfo(Action action, Guid target, int power) {
             Action = action;
             Target = target;
@@ -134,7 +136,7 @@ namespace roguelike_spbu
             get;
             set;
         }*/
-        public string? Name
+        public string Name
         {
             get;
             set;
@@ -230,16 +232,21 @@ namespace roguelike_spbu
             set;
         }
         
-        private Item[] _inventory = Array.Empty<Item>();
-        public Item[] Inventory
+        private List<Item> _inventory = new List<Item>();
+        public List<Item> Inventory
         {
             get { return _inventory; }
-            set { _inventory = value.Length > 0 ? value : Array.Empty<Item>(); }
+            set { _inventory = value; } //.Length > 0 ? value : Array.Empty<Item>(); }
         }
         public bool IgnoreEngine
         {
             get;
             set;
+        }
+        public Entity()
+        {
+            Name = "NoName";
+            ID = Guid.NewGuid();
         }
         public void SetCoordinates(int x, int y)
         {
@@ -254,7 +261,6 @@ namespace roguelike_spbu
         public void ChangeColor(Color TempColor) { }
         public void GetEffect(EntityEffect effect, int time) { }
         public void UseItem(int number) { }
-
         public virtual void Attack(Player player) {
             player.HealthPoints -= this.Damage;        
         }

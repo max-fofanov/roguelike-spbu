@@ -9,7 +9,7 @@ namespace roguelike_spbu
         {
             RangeOfView = 11;
             Symbol = "g";
-            PrimaryForegroundColor = Color.Green;
+            PrimaryForegroundColor = Color.DarkGreen;
             Name = "Goblin";
             //Stamina = 1;
             ForceType = "neutral";
@@ -28,7 +28,7 @@ namespace roguelike_spbu
         {
             RangeOfView = 11;
             Symbol = "H";
-            PrimaryForegroundColor = Color.Green;
+            PrimaryForegroundColor = Color.DarkGreen;
             Name = "Hobgoblin";
             //Stamina = 1;
             ForceType = "neutral";
@@ -46,7 +46,7 @@ namespace roguelike_spbu
         {
             RangeOfView = 11;
             Symbol = "f";
-            PrimaryForegroundColor = Color.Green;
+            PrimaryForegroundColor = Color.DarkGreen;
             Name = "Goblin Flinger";
             //Stamina = 1;
             ForceType = "neutral";

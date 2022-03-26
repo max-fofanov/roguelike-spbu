@@ -33,6 +33,24 @@ namespace roguelike_spbu
         {
             return Math.Abs(x - y) < exp;
         }
+        static void Main(string[] args)
+        {
+            MakeConsoleReady();
+            
+            Game game = new Game();
+            //Walkman.Play("./sounds/Bad theme. HоM&M III OST - Necropolis Town.wav");
+            
+            while (true) {
+                game.FullTurn();
+                if (!Walkman.IsPlaying && !Walkman.IsPaused) {
+                    Walkman.Play();
+                }
+                
+            }
+            
+        }
+        
+        /*
         static void Main3(string[] args)
         {
             MakeConsoleReady();
@@ -106,7 +124,8 @@ namespace roguelike_spbu
                 Console.ReadLine();
             }
         }
-        static void Main(string[] args)
+        /*
+        static void Main4(string[] args)
         {
             MakeConsoleReady();
 
@@ -155,7 +174,7 @@ namespace roguelike_spbu
             /*foreach ((int x, int y) in path)
             {
                 board.Tiles[x][y] = new Rock(x, y);
-            }*/
+            }
 
 
 
@@ -164,9 +183,9 @@ namespace roguelike_spbu
 
             //List<List<(int, int)>> Rays = FOV.GetRaysInEllipse((int)(16 * 1.5), (int)(9 * 1.5));\
 
-            Engine engine = new Engine(board, entities, player);
+            //Engine engine = new Engine(board, entities, player);
             Console.SetCursorPosition(0, 0);
-            engine.Turn(true);
+            //engine.Turn(true);
             string[,] screenMatrix = Renderer.Render(board, entities, player, engine.allVisible);
             for (int i = 0; i < screenMatrix.GetLength(0); i++)
             {
@@ -182,8 +201,8 @@ namespace roguelike_spbu
             while (true)
             {
                 Console.SetCursorPosition(0, 0);
-                (Map, List<Entity>) t = engine.Turn();
-                screenMatrix = Renderer.Render(t.Item1, t.Item2, player, engine.allVisible);
+                //(Map, List<Entity>) t = engine.Turn();
+                //screenMatrix = Renderer.Render(t.Item1, t.Item2, player, engine.allVisible);
                 for (int i = 0; i < screenMatrix.GetLength(0); i++)
                 {
                     for (int j = 0; j < screenMatrix.GetLength(1); j++)
@@ -192,5 +211,7 @@ namespace roguelike_spbu
                 }
             }
         }
+        */
+        
     }
 }

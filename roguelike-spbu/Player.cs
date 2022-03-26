@@ -33,16 +33,18 @@ namespace roguelike_spbu
             get;
             set;
         }
-        
 
-        
-        public Player(int x, int y, Trait trait = Trait.Saber)
+        public int maxCapacity = 5;
+
+
+
+        public Player(int x, int y, Trait trait = Trait.Saber) : base()
         {
             X = x;
             Y = y;
             this.trait = trait;
             HealthPoints = 100;
-            Damage = 1000;
+            Damage = 10;
             RangeOfHit = 2;
             PlayerExperiencePoints = 0;
             XPToLevelUP = 15;
@@ -52,9 +54,17 @@ namespace roguelike_spbu
             LVL = 1;
         }
 
+        public void AddToInventory(Item item) {
+            if (Inventory.Count < maxCapacity) {
+                Inventory.Add(item);
+            }
+        }
+
         public override ActionInfo GetNextMove(Map map, List<Entity> entities, Player player) {
 
-            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            return SystemInfo.gui.GetAction();
+
+            /*ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
             while (Console.KeyAvailable) {
                 Console.ReadKey(true);
@@ -79,10 +89,9 @@ namespace roguelike_spbu
                     return new ActionInfo(Action.Cheat, player, 1);
                 default:
                     return new ActionInfo(Action.StayInPlace, player, 1);
-
             }
 
-            throw new KeyNotFoundException("not yet implemented");
+            throw new KeyNotFoundException("not yet implemented");*/
         }
 
     }
