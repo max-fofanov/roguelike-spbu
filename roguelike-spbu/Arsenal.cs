@@ -1,5 +1,6 @@
 namespace roguelike_spbu
 {
+    [Serializable]
     class Helmet : Item
     {
         public Helmet()

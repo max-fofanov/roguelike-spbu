@@ -39,15 +39,9 @@ namespace roguelike_spbu
             
             Game game = new Game();
             //Walkman.Play("./sounds/Bad theme. HоM&M III OST - Necropolis Town.wav");
-        
-            
-            while (Saver.Save()) {
-                
+            while (true) {
                 game.FullTurn();
-
-                
             }
-            
         }
 
         

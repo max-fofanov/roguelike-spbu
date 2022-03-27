@@ -13,6 +13,7 @@ namespace roguelike_spbu
             Symbol = "П";
             Name = "Chest";
             Description = "Chest with items";
+            Inventory = new List<Item>() { new Helmet() };
         }
     }
 }

@@ -41,11 +41,14 @@ namespace roguelike_spbu
             }
         }
         List<(int, int)> visiblePoints = new List<(int, int)>();
+        public void ResetVisiblePoints()
+        {
+            visiblePoints = new List<(int, int)>();
+        }
         public bool allVisible {
             get {
                 return GameInfo.allVisible;
             }
-
             set {
                 GameInfo.allVisible = value;
             }
@@ -158,8 +161,8 @@ namespace roguelike_spbu
 
                 Random rnd = new Random();
                 this.entities = PlaceEntities(rnd.Next(5, 7 + player.LVL + history.Count));
-                
-                visiblePoints = new List<(int, int)>();
+
+                ResetVisiblePoints();
             }
         }
         public void Turn(bool renderOnly = false)
@@ -216,7 +219,7 @@ namespace roguelike_spbu
                 case Action.Down:
                     if (IsNewPlaceOK(entity.X + 1, entity.Y))
                         entity.moveDown();
-
+                        
                     GenerateMap(entity, Generation.From.Down); 
                     break;
                 case Action.Left:
