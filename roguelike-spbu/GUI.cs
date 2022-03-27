@@ -219,11 +219,10 @@ namespace roguelike_spbu {
                     modeName = "Description";
                     break;
                 case GameState.Chest:
-
                     modeName = "Chest";
                     break;
                 case GameState.ChestInventory:
-                    modeName = "Chest1";
+                    modeName = "Chest Inventory";
                     break;
                 case GameState.Menu:
                     modeName = "Menu";

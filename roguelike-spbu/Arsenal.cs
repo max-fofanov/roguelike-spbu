@@ -25,7 +25,6 @@ namespace roguelike_spbu
             Description = " ";
         }
     }
-
     [Serializable]
     class BastardSword: Item
     {
@@ -39,7 +38,6 @@ namespace roguelike_spbu
             Description = " ";
         }
     }
-
     [Serializable]
     class TwoHandedSword: Item
     {
@@ -53,7 +51,6 @@ namespace roguelike_spbu
             Description = " ";
         }
     }
-
     [Serializable]
     class Aerondight: Item
     {
@@ -67,7 +64,6 @@ namespace roguelike_spbu
             Description = " ";
         }
     }
-
     [Serializable]
     class Spear: Item
     {
@@ -94,7 +90,6 @@ namespace roguelike_spbu
             Description = " ";
         }
     }
-
     [Serializable]
     class MagicLince: Item
     {
@@ -108,7 +103,6 @@ namespace roguelike_spbu
             Description = " ";
         }
     }
-
     [Serializable]
     class Bow: Item
     {
@@ -122,7 +116,6 @@ namespace roguelike_spbu
             Description = " ";
         }
     }
-
     [Serializable]
     class MagicStrike: Item //all enem
     {
@@ -136,7 +129,6 @@ namespace roguelike_spbu
             Description = " ";
         }
     }
-    
     [Serializable]
     class Mjolnir: Item
     {
@@ -163,7 +155,6 @@ namespace roguelike_spbu
             Description = "For the glory of the whip!";
         }
     }
-
     [Serializable]
     class CrossBow: Item
     {
@@ -177,10 +168,4 @@ namespace roguelike_spbu
             Description = "";
         }
     }
-
-
-
-
-
-
 }
