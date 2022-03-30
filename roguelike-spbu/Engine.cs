@@ -105,7 +105,7 @@ namespace roguelike_spbu
                 monsters.Add(new Archangel(x, y));
                 monsters.Add(new Demon(x,y));
 
-                float[] monsterschance = { Math.Max(1, 60 - player.LVL - history.Count), 12, 10 + player.LVL + history.Count,  Math.Max(1, 40 - player.LVL), 20, 6 + player.LVL + history.Count, 1 + 3*(player.LVL + history.Count), 1 + 3*(player.LVL + history.Count), 1 + 4*(player.LVL + history.Count)};
+                float[] monsterschance = { Math.Max(1, 1000 - 140*(player.LVL + history.Count)),  Math.Max(20, 80 - 8*(player.LVL + history.Count)), 10 + player.LVL + history.Count,  Math.Max(1, 700 - 100* (player.LVL + history.Count)), 30, 20 + player.LVL + history.Count, 1 + 3*(player.LVL + history.Count), 1 + 3*(player.LVL + history.Count), 1 + 4*(player.LVL + history.Count)};
                 Entity tmp = monsters[Walker.Alias(monsterschance)];
 
                 while (this.map.Tiles[tmp.X][tmp.Y].Impassable || this.map.Tiles[tmp.X][tmp.Y].GetType() == typeof(Void))
@@ -160,9 +160,22 @@ namespace roguelike_spbu
                 // Console.ReadKey(true);
 
                 Random rnd = new Random();
-                this.entities = PlaceEntities(rnd.Next(5, 7 + player.LVL + history.Count));
+
+                
+                if (player.LVL + history.Count < 9)
+                {
+                    this.entities = PlaceEntities(rnd.Next(5, 5 + player.LVL + history.Count));
+                }
+                else if (player.LVL + history.Count < 20)
+                {
+                    this.entities = PlaceEntities(rnd.Next(3, 7));
+                }
+                else{
+                    this.entities = PlaceEntities(rnd.Next(7, 15));
+                }
 
                 ResetVisiblePoints();
+                //visiblePoints = new List<(int, int)>();
             }
         }
         public void Turn(bool renderOnly = false)
@@ -179,8 +192,8 @@ namespace roguelike_spbu
                 while (player.XP > player.XPToLevelUP)
                 {
                     player.LVL++;
-                    player.SetHealth(player.MaxHealthPoints + 50, false);
-                    player.Damage += 20;
+                    player.SetHealth(player.MaxHealthPoints + 25, false);
+                    player.Damage += 3;
                     player.XP -= player.XPToLevelUP;
                     player.XPToLevelUP += 30;
                 }
