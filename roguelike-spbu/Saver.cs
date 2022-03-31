@@ -21,7 +21,7 @@ namespace roguelike_spbu {
             FileStream fs;
 
             if (num >= 0) 
-                fs = new FileStream("DataFile" + num + ".dat", FileMode.Create);
+                fs = new FileStream("./saves/DataFile" + num + ".dat", FileMode.Create);
             else
                 return false;
 
@@ -52,7 +52,7 @@ namespace roguelike_spbu {
             FileStream fs;
 
             if (num >= 0)
-                fs = new FileStream("DataFile" + num + ".dat", FileMode.Open);
+                fs = new FileStream("./saves/DataFile" + num + ".dat", FileMode.Open);
             else
                 return false;
 

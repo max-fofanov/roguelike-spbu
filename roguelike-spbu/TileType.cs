@@ -77,6 +77,21 @@ namespace roguelike_spbu
     }
 
     [Serializable]
+    public class Door : Tile
+    {
+        public Door(int x, int y) : base(x, y)
+        {
+            
+            Symbol = "/";
+            PrimaryForegroundColor = Color.DarkGreen;
+            PrimaryBackgroundColor = Color.Green;
+            Impassable = true;
+            
+        }
+
+    }
+
+    [Serializable]
     public class Water : Tile
     {
         public Water(int x, int y) : base(x, y)

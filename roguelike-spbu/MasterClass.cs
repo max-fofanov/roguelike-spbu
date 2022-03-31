@@ -35,7 +35,7 @@ namespace roguelike_spbu
             Walkman.Play();
             new Renderer(SystemInfo.RenderHeight, SystemInfo.RenderWidth, 20, 20);
             
-            engine.GenerateMap(GameInfo.player, Generation.From.Down, true);
+            engine.GenerateMap(GameInfo.player, Generation.From.Left, true);
             engine.Turn(true);
 
             
