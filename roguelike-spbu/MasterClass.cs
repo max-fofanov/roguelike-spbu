@@ -3,6 +3,7 @@ namespace roguelike_spbu
     public static class GameInfo
     {
         public static Player player = new Player(0, 0);
+        public static Plane plane = new Plane();
         public static List<Entity> entities = new List<Entity>();
         public static List<Map> history = new List<Map>();
         public static int currentMap = 0;
@@ -35,7 +36,7 @@ namespace roguelike_spbu
             Walkman.Play();
             new Renderer(SystemInfo.RenderHeight, SystemInfo.RenderWidth, 20, 20);
             
-            engine.GenerateMap(GameInfo.player, Generation.From.Left, true);
+            engine.GenerateMap(GameInfo.player, Generation.From.Down, true);
             engine.Turn(true);
 
             
