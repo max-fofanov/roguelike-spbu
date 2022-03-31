@@ -11,7 +11,6 @@ namespace roguelike_spbu {
             Hashtable addresses = new Hashtable();
             addresses.Add("allVisible", GameInfo.allVisible);
             addresses.Add("currentMap", GameInfo.currentMap);
-            addresses.Add("entities", GameInfo.entities);
             addresses.Add("history", GameInfo.history);
             addresses.Add("isMusic", GameInfo.isMusic);
             addresses.Add("mapHeight", GameInfo.mapHeight);
@@ -69,8 +68,7 @@ namespace roguelike_spbu {
 
                 GameInfo.allVisible = (bool) addresses["allVisible"];
                 GameInfo.currentMap = (int) addresses["currentMap"];
-                GameInfo.entities = (List<Entity>) addresses["entities"];
-                GameInfo.history = (List<Map>) addresses["history"];
+                GameInfo.history = (List<Plane>) addresses["history"];
                 GameInfo.isMusic = (bool) addresses["isMusic"];
                 GameInfo.mapHeight = (int) addresses["mapHeight"];
                 GameInfo.mapWidth = (int) addresses["mapWidth"];

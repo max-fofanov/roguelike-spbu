@@ -4,9 +4,11 @@ namespace roguelike_spbu
 {
     
     [Serializable]
-    public struct Plane {
-        Map map;
-        List<Entity> entities;
+    public class Plane {
+        public Map? map;
+        public List<Entity>? entities;
+
+        public Plane() {}
 
         public Plane(Map map, List<Entity> entities) {
             this.map = map;

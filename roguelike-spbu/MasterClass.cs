@@ -4,8 +4,9 @@ namespace roguelike_spbu
     {
         public static Player player = new Player(0, 0);
         public static Plane plane = new Plane();
-        public static List<Entity> entities = new List<Entity>();
-        public static List<Map> history = new List<Map>();
+        //public static List<Entity> entities = new List<Entity>();
+        //public static List<Map> history = new List<Map>();
+        public static List<Plane> history = new List<Plane>();
         public static int currentMap = 0;
         public static bool allVisible = false;
         public static bool isMusic = true;
