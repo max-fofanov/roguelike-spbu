@@ -485,7 +485,7 @@ namespace roguelike_spbu {
                     {
                         continue;
                     }
-                    if (flag2 && hub.Tiles[10+i][60+k] == null)
+                    if (flag2 && hub.Tiles[10+i][60+k].Symbol == " ")
                     {
                         hub.Tiles[10+i][60+k] = new HubField (10+i, 60+k);
                     }
