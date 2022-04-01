@@ -215,19 +215,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/agath/.nuget/packages/": {}
+    "/home/max/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/agath/Desktop/roguelike-spbu/roguelike-spbu/roguelike-spbu.csproj",
+      "projectUniqueName": "/home/max/work/roguelike-spbu/roguelike-spbu/roguelike-spbu.csproj",
       "projectName": "roguelike-spbu",
-      "projectPath": "/Users/agath/Desktop/roguelike-spbu/roguelike-spbu/roguelike-spbu.csproj",
-      "packagesPath": "/Users/agath/.nuget/packages/",
-      "outputPath": "/Users/agath/Desktop/roguelike-spbu/roguelike-spbu/obj/",
+      "projectPath": "/home/max/work/roguelike-spbu/roguelike-spbu/roguelike-spbu.csproj",
+      "packagesPath": "/home/max/.nuget/packages/",
+      "outputPath": "/home/max/work/roguelike-spbu/roguelike-spbu/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/agath/.nuget/NuGet/NuGet.Config"
+        "/home/max/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -279,7 +279,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.101/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.101/RuntimeIdentifierGraph.json"
       }
     }
   }

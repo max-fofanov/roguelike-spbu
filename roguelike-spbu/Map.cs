@@ -2,6 +2,23 @@ using System;
 
 namespace roguelike_spbu
 {
+    
+    [Serializable]
+    public class Plane {
+        public Map? map;
+        public List<Entity>? entities;
+
+        public Plane() {}
+
+        public Plane(Map map, List<Entity> entities) {
+            this.map = map;
+            this.entities = entities;
+        }
+
+
+    }
+    
+    
     [Serializable]
     public class Map
     {

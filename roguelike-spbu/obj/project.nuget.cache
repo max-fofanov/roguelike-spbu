@@ -1,14 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "PtmX7T2ZGyyrtTMiOKaopAKoGpY0pAIXMtQsiqTbsSNgJv5jxs9YDnKmlrF41NtXsOit8hnC7VzkV9IkgQ7C0g==",
+  "dgSpecHash": "39ovXJ+bcY5EL3au+4iktQqFvZjzZrTjOmI7nE7RppcyeUPz0i5yupaa/RLTHtktYriHc7P62GSWsX8/VzBxKg==",
   "success": true,
-  "projectFilePath": "/Users/agath/Desktop/roguelike-spbu/roguelike-spbu/roguelike-spbu.csproj",
+  "projectFilePath": "/home/max/work/roguelike-spbu/roguelike-spbu/roguelike-spbu.csproj",
   "expectedPackageFiles": [
-    "/Users/agath/.nuget/packages/microsoft.win32.systemevents/6.0.0/microsoft.win32.systemevents.6.0.0.nupkg.sha512",
-    "/Users/agath/.nuget/packages/netcoreaudio/1.6.3/netcoreaudio.1.6.3.nupkg.sha512",
-    "/Users/agath/.nuget/packages/pastel/3.0.0/pastel.3.0.0.nupkg.sha512",
-    "/Users/agath/.nuget/packages/system.drawing.common/6.0.0/system.drawing.common.6.0.0.nupkg.sha512",
-    "/Users/agath/.nuget/packages/system.windows.extensions/6.0.0/system.windows.extensions.6.0.0.nupkg.sha512"
+    "/home/max/.nuget/packages/microsoft.win32.systemevents/6.0.0/microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "/home/max/.nuget/packages/netcoreaudio/1.6.3/netcoreaudio.1.6.3.nupkg.sha512",
+    "/home/max/.nuget/packages/pastel/3.0.0/pastel.3.0.0.nupkg.sha512",
+    "/home/max/.nuget/packages/system.drawing.common/6.0.0/system.drawing.common.6.0.0.nupkg.sha512",
+    "/home/max/.nuget/packages/system.windows.extensions/6.0.0/system.windows.extensions.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }

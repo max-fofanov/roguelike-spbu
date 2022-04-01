@@ -6,10 +6,10 @@ namespace roguelike_spbu
         public Map map {
             get {
                 if (GameInfo.history.Count() == 0) return new Map(0, 0, 0);
-                return GameInfo.history[GameInfo.currentMap];
+                return GameInfo.history[GameInfo.currentMap].map;
             }
             set {
-                GameInfo.history[GameInfo.currentMap] = value;
+                GameInfo.history[GameInfo.currentMap].map = value;
             }
         }
         public Player player {
@@ -23,15 +23,15 @@ namespace roguelike_spbu
         }
         public List<Entity> entities {
             get {
-                return GameInfo.entities;
+                return GameInfo.history[GameInfo.currentMap].entities;
             }
 
             set {
-                GameInfo.entities = value;
+                GameInfo.history[GameInfo.currentMap].entities = value;
             }
         }
 
-        public List<Map> history {
+        public List<Plane> history {
             get {
                 return GameInfo.history;
             }
@@ -144,7 +144,10 @@ namespace roguelike_spbu
                 }
                 else if (destinationMapNumber == history.Count()) {
                     // Console.WriteLine("Im creating a new map");
-                    history.Add(Generation.GenerateDungeon(GameInfo.mapHeight, GameInfo.mapWidth, EnterDirection, destinationMapNumber));
+
+                    Plane tmp = new Plane();
+                    tmp.map = Generation.GenerateDungeon(GameInfo.mapHeight, GameInfo.mapWidth, EnterDirection, destinationMapNumber);
+                    history.Add(tmp);
                 }
 
                 int currentMap = GameInfo.currentMap;
@@ -160,6 +163,11 @@ namespace roguelike_spbu
                 // Console.ReadKey(true);
 
                 Random rnd = new Random();
+<<<<<<< HEAD
+=======
+
+                
+>>>>>>> 1bca7f4b851cd77d155f2fdb8281e983ca4fc9fc
                 if (player.LVL + history.Count < 9)
                 {
                     this.entities = PlaceEntities(rnd.Next(5, 5 + player.LVL + history.Count));
@@ -171,9 +179,9 @@ namespace roguelike_spbu
                 else{
                     this.entities = PlaceEntities(rnd.Next(7, 15));
                 }
-                visiblePoints = new List<(int, int)>();
 
                 ResetVisiblePoints();
+                //visiblePoints = new List<(int, int)>();
             }
         }
         public void Turn(bool renderOnly = false)

@@ -999,7 +999,7 @@ namespace roguelike_spbu {
         }
         override public string[,] GetInsides()
         {
-            return Renderer.Render(GameInfo.history[GameInfo.currentMap], GameInfo.entities, GameInfo.player, GameInfo.allVisible);
+            return Renderer.Render(GameInfo.history[GameInfo.currentMap].map, GameInfo.history[GameInfo.currentMap].entities, GameInfo.player, GameInfo.allVisible);
         }
     }
     public class TextBox : Window
