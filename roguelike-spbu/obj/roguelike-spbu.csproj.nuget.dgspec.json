@@ -42,11 +42,7 @@
               "target": "Package",
               "version": "[1.6.3, )"
             },
-            "System.Windows.Extensions": {
-              "target": "Package",
-              "version": "[6.0.0, )"
-            },
-            "pastel": {
+            "Pastel": {
               "target": "Package",
               "version": "[3.0.0, )"
             }

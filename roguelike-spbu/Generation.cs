@@ -369,6 +369,130 @@ namespace roguelike_spbu {
             return dungeon;
 
         }
+         public static Map Hub() {
+
+            Map hub = new Map(40, 150, -1);
+            Random random = new Random();
+            //start pos (20 80)
+
+            for (int i = 0; i < 21; i++)
+            {
+                hub.Tiles[10][70+i] = new Mountain (10, 70+i);
+            }
+            int k = 2;
+            for (int i = 1; i < 6; i++)
+            {
+                hub.Tiles[10+i][72-k] = new Mountain (10+i, 72-k);
+                hub.Tiles[10+i][71-k] = new Mountain (10+i, 71-k);
+                hub.Tiles[10+i][70-k] = new Mountain (10+i, 70-k);
+                hub.Tiles[10+i][91+k] = new Mountain (10+i, 91+k);
+                hub.Tiles[10+i][90+k] = new Mountain (10+i, 90+k);
+                hub.Tiles[10+i][89+k] = new Mountain (10+i, 89+k);
+                k+=2;
+            }
+            hub.Tiles[11][71] = new House (11, 71);
+            hub.Tiles[11][72] = new Tree (11, 72);
+            hub.Tiles[12][71] = new House (12, 71);
+            hub.Tiles[12][70] = new House (12, 70);
+            hub.Tiles[12][69] = new House (12, 69);
+            for (int i = 0; i < 7; i++)
+            {
+                hub.Tiles[16+i][60] = new Mountain (16+i, 60);
+                hub.Tiles[16+i][61] = new Mountain (16+i, 61);
+                hub.Tiles[16+i][62] = new Mountain (16+i, 62);
+                hub.Tiles[16+i][63] = new Tree (16+i, 63);
+            }
+            for (int i = 0; i < 103-64; i++)
+            {
+                hub.Tiles[20][64+i] = new Road (20, 64+i);
+            }
+            for (int i = 0; i < 12; i++)
+            {
+                hub.Tiles[12+i][70] = new Road (12+i, 70);
+                hub.Tiles[13+i][80] = new Road (13+i,  80);
+            }
+            hub.Tiles[23][62] = new Mountain (23, 62);
+            for (int i = 0; i < 7; i++)
+            {
+                hub.Tiles[23][63+i] = new Tree (23, 63+i);
+                hub.Tiles[24][63+i] = new Mountain (24, 63+i);
+                hub.Tiles[25][68+i] = new Mountain (25, 68+i);
+                hub.Tiles[26][72+i] = new Mountain (26, 72+i);
+            }
+            for (int i = 0; i < 82-69; i++)
+            {
+                hub.Tiles[27][69+i] = new Mountain (27, 69+i);
+            }
+            for (int i = 0; i < 2; i++)
+            {
+                hub.Tiles[23][84+i] = new Tree (23, 84+i);
+                hub.Tiles[24][83+i] = new Mountain (24, 83+i);
+                hub.Tiles[25][82+i] = new Mountain (25, 82+i);
+                hub.Tiles[26][81+i] = new Mountain (26, 81+i);
+            }
+            for (int i = 0; i < 4; i++)
+            {
+                hub.Tiles[22][85+i] = new Mountain (22, 85+i);   
+            }
+            for (int i = 0; i < 6; i++)
+            {
+                hub.Tiles[21][88+i] = new Mountain (21, 88+i);   
+            }
+            hub.Tiles[20][103] = new Exit (20, 103, 0);
+            for (int i = 0; i < 4; i++)
+            {
+                hub.Tiles[16+i][101] = new Mountain (16+i, 101);   
+            }
+            hub.Tiles[19][102] = new Mountain (19, 102);
+            hub.Tiles[19][103] = new Mountain (19, 103);
+            for (int i = 0; i < 3; i++)
+            {
+                hub.Tiles[21][77+i] = new House (21, 77+i);   
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                hub.Tiles[21][64+i] = new House (21, 64+i);   
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                hub.Tiles[19][62+i] = new House (19, 62+i);   
+            }
+             for (int i = 0; i < 3; i++)
+            {
+                hub.Tiles[19][81+i] = new House (19, 81+i);   
+            }
+            hub.Tiles[21][71] = new TownHall (21, 71); 
+            hub.Tiles[19][69] = new Shop (19, 69);
+            hub.Tiles[19][69] = new Alchemy (19, 69);
+            for (int i = 0; i < 16; i++)
+            {
+                bool flag = false;
+                bool flag2 = false;
+
+                k = 0;
+                while(true)
+                {
+                    if (hub.Tiles[10+i][60+k].Symbol == "▲")
+                    {
+                        flag = true;
+                    }
+                    if (flag && hub.Tiles[10+i][60+k].Symbol != "▲")
+                    {
+                        flag2 = true;
+
+                    }
+                    if(flag2 &&  hub.Tiles[10+i][60+k].Symbol == "▲")
+                    {
+                        continue;
+                    }
+                    if (flag2 && hub.Tiles[10+i][60+k].Symbol == " ")
+                    {
+                        hub.Tiles[10+i][60+k] = new HubField (10+i, 60+k);
+                    }
+                }
+            }
+            return hub;
+        }
 
         static Map ConnectRooms(int x, int y, Map dungeon, /* Map /miniMap,*/ From from, List<Room> rooms, int num, int roomX, int roomY) {
 
@@ -641,6 +765,7 @@ namespace roguelike_spbu {
 
             return dungeon;
         }
+    
 
     }
 
