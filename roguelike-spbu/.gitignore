@@ -1,1 +1,5 @@
 .dat
+bun/
+obj/
+.vscode/
+roguelike-spbu.csproj

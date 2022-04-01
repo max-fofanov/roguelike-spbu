@@ -6,10 +6,10 @@ namespace roguelike_spbu
         public Map map {
             get {
                 if (GameInfo.history.Count() == 0) return new Map(0, 0, 0);
-                return GameInfo.history[GameInfo.currentMap];
+                return GameInfo.history[GameInfo.currentMap].map;
             }
             set {
-                GameInfo.history[GameInfo.currentMap] = value;
+                GameInfo.history[GameInfo.currentMap].map = value;
             }
         }
         public Player player {
@@ -23,15 +23,15 @@ namespace roguelike_spbu
         }
         public List<Entity> entities {
             get {
-                return GameInfo.entities;
+                return GameInfo.history[GameInfo.currentMap].entities;
             }
 
             set {
-                GameInfo.entities = value;
+                GameInfo.history[GameInfo.currentMap].entities = value;
             }
         }
 
-        public List<Map> history {
+        public List<Plane> history {
             get {
                 return GameInfo.history;
             }
@@ -41,11 +41,14 @@ namespace roguelike_spbu
             }
         }
         List<(int, int)> visiblePoints = new List<(int, int)>();
+        public void ResetVisiblePoints()
+        {
+            visiblePoints = new List<(int, int)>();
+        }
         public bool allVisible {
             get {
                 return GameInfo.allVisible;
             }
-
             set {
                 GameInfo.allVisible = value;
             }
@@ -141,7 +144,10 @@ namespace roguelike_spbu
                 }
                 else if (destinationMapNumber == history.Count()) {
                     // Console.WriteLine("Im creating a new map");
-                    history.Add(Generation.GenerateDungeon(GameInfo.mapHeight, GameInfo.mapWidth, EnterDirection, destinationMapNumber));
+
+                    Plane tmp = new Plane();
+                    tmp.map = Generation.GenerateDungeon(GameInfo.mapHeight, GameInfo.mapWidth, EnterDirection, destinationMapNumber);
+                    history.Add(tmp);
                 }
 
                 int currentMap = GameInfo.currentMap;
@@ -168,7 +174,9 @@ namespace roguelike_spbu
                 else{
                     this.entities = PlaceEntities(rnd.Next(7, 15));
                 }
-                visiblePoints = new List<(int, int)>();
+
+                ResetVisiblePoints();
+                //visiblePoints = new List<(int, int)>();
             }
         }
         public void Turn(bool renderOnly = false)
@@ -225,7 +233,7 @@ namespace roguelike_spbu
                 case Action.Down:
                     if (IsNewPlaceOK(entity.X + 1, entity.Y))
                         entity.moveDown();
-
+                        
                     GenerateMap(entity, Generation.From.Down); 
                     break;
                 case Action.Left:

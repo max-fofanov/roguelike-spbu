@@ -1,19 +1,16 @@
 using System.Collections;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace roguelike_spbu {
 
     public static class Saver {
-
-
         public static List<string> history = new List<string>();
         public static bool Save(int num = 0) {
             
             Hashtable addresses = new Hashtable();
             addresses.Add("allVisible", GameInfo.allVisible);
             addresses.Add("currentMap", GameInfo.currentMap);
-            addresses.Add("entities", GameInfo.entities);
             addresses.Add("history", GameInfo.history);
             addresses.Add("isMusic", GameInfo.isMusic);
             addresses.Add("mapHeight", GameInfo.mapHeight);
@@ -23,7 +20,7 @@ namespace roguelike_spbu {
             FileStream fs;
 
             if (num >= 0) 
-                fs = new FileStream("DataFile" + num + ".dat", FileMode.Create);
+                fs = new FileStream("./saves/DataFile" + num + ".dat", FileMode.Create);
             else
                 return false;
 
@@ -48,39 +45,45 @@ namespace roguelike_spbu {
             }
             
         }
-    
-
         public static bool Load(int num = 0)
         {
-            Hashtable addresses  = null;
+            Hashtable addresses = new Hashtable();
             FileStream fs;
 
-            if (num < history.Count && num >= 0) {
+            if (num >= 0)
+                fs = new FileStream("./saves/DataFile" + num + ".dat", FileMode.Open);
+            else
+                return false;
+
+            /*if (num < history.Count && num >= 0) {
                 fs = new FileStream(history[num], FileMode.Open);
             }
-            else return false;
-            
+            else return false;*/
+
             try
             {
-                
                 BinaryFormatter formatter = new BinaryFormatter();
 
                 addresses = (Hashtable) formatter.Deserialize(fs);
 
                 GameInfo.allVisible = (bool) addresses["allVisible"];
                 GameInfo.currentMap = (int) addresses["currentMap"];
-                GameInfo.entities = (List<Entity>) addresses["entities"];
-                GameInfo.history = (List<Map>) addresses["history"];
+                GameInfo.history = (List<Plane>) addresses["history"];
                 GameInfo.isMusic = (bool) addresses["isMusic"];
                 GameInfo.mapHeight = (int) addresses["mapHeight"];
                 GameInfo.mapWidth = (int) addresses["mapWidth"];
                 GameInfo.player = (Player) addresses["player"];
+
+                //SystemInfo.engine = new Engine();
+                SystemInfo.engine.ResetVisiblePoints();
+                SystemInfo.gui.Print();
 
                 return true;
             }
             catch (SerializationException e)
             {
                 fs.Close();
+                Console.WriteLine("Failed to deserialize. Reason: " + e.Message);
                 return false;
             }
         }
