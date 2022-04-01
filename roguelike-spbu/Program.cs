@@ -15,6 +15,8 @@ namespace roguelike_spbu
             Console.CursorVisible = false;
             backgroundColor = Console.BackgroundColor;
             foregroundColor = Console.ForegroundColor;
+
+            Statistics.InvokeCtor();
         }
 
         public static void NormilizeConsole()
@@ -24,6 +26,10 @@ namespace roguelike_spbu
 
             Console.BackgroundColor = backgroundColor;
             Console.ForegroundColor = foregroundColor;
+
+            Statistics.statistics["maxLevel"] = Math.Max((int) Statistics.statistics["maxLevel"], GameInfo.player.LVL);
+            Statistics.statistics["timeInGame"] = (long) Statistics.statistics["timeInGame"] + (DateTime.Now.Ticks - GameInfo.startTime);
+            Statistics.SaveStatistics();
 
             Walkman.Stop();
             Environment.Exit(0);
@@ -39,6 +45,7 @@ namespace roguelike_spbu
             
             Game game = new Game();
             //Walkman.Play("./sounds/Bad theme. HоM&M III OST - Necropolis Town.wav");
+
             while (true) {
                 game.FullTurn();
             }

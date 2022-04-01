@@ -6,6 +6,7 @@ namespace roguelike_spbu {
 
     public static class Saver {
         public static List<string> history = new List<string>();
+
         public static bool Save(int num = 0) {
             
             Hashtable addresses = new Hashtable();

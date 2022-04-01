@@ -12,6 +12,8 @@ namespace roguelike_spbu
         public static bool isMusic = true;
         public static int mapHeight = 45;
         public static int mapWidth = 180;
+
+        public static long startTime = 0; 
     }
     public static class SystemInfo
     {

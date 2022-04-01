@@ -190,6 +190,7 @@ namespace roguelike_spbu
                     if (entity.HealthPoints <= 0)
                     {
                         player.XP += entity.XP;
+                        Statistics.statistics["killed"] = (int) Statistics.statistics["killed"] + 1;
                     }
                 }
                 while (player.XP > player.XPToLevelUP)
@@ -282,6 +283,7 @@ namespace roguelike_spbu
                         }
 
                     if (player.HealthPoints <= 0) {
+                        Statistics.statistics["deaths"] = (int) Statistics.statistics["deaths"] + 1;
                         Program.NormilizeConsole();
                     }
                     break;
