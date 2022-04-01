@@ -344,6 +344,10 @@ namespace roguelike_spbu
                 Inventory.Add(item);
             }
         }
+        public void RemoveFromInventory(Guid ID)
+        {
+            Inventory.RemoveAll(t => t.ID == ID);
+        }
         public int GetTotalAttack()
         {
             int totalDamage = Damage + (RightHand ?? new Item()).Damage;
