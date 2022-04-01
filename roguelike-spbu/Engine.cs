@@ -163,11 +163,6 @@ namespace roguelike_spbu
                 // Console.ReadKey(true);
 
                 Random rnd = new Random();
-<<<<<<< HEAD
-=======
-
-                
->>>>>>> 1bca7f4b851cd77d155f2fdb8281e983ca4fc9fc
                 if (player.LVL + history.Count < 9)
                 {
                     this.entities = PlaceEntities(rnd.Next(5, 5 + player.LVL + history.Count));

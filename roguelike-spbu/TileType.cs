@@ -111,6 +111,19 @@ namespace roguelike_spbu
             Symbol = "⌂";
             PrimaryForegroundColor = Color.Gray;
             PrimaryBackgroundColor = Color.Black;
+            Impassable = true;
+        }
+
+    }
+     [Serializable]
+    public class Alchemy : Tile
+    {
+        public Alchemy(int x, int y) : base(x, y)
+        {
+            Symbol = "☺";
+            PrimaryForegroundColor = Color.Blue;
+            PrimaryBackgroundColor = Color.Black;
+            Impassable = true;
         }
 
     }
@@ -122,6 +135,7 @@ namespace roguelike_spbu
             Symbol = "♦";
             PrimaryForegroundColor = Color.Gray;
             PrimaryBackgroundColor = Color.Black;
+            Impassable = true;
         }
 
     }
@@ -133,6 +147,7 @@ namespace roguelike_spbu
             Symbol = "☻";
             PrimaryForegroundColor = Color.Green;
             PrimaryBackgroundColor = Color.Black;
+            Impassable = true;
         }
 
     }
@@ -166,6 +181,7 @@ namespace roguelike_spbu
             Symbol = "▲";
             PrimaryForegroundColor = Color.WhiteSmoke;
             PrimaryBackgroundColor = Color.Black;
+            Impassable = true;
         }
 
     }
@@ -177,6 +193,20 @@ namespace roguelike_spbu
             Symbol = "♣";
             PrimaryForegroundColor = Color.WhiteSmoke;
             PrimaryBackgroundColor = Color.Black;
+            Impassable = true;
+        }
+
+    }
+    
+    [Serializable]
+    public class Shrine : Tile
+    {
+        public Shrine(int x, int y) : base(x, y)
+        {
+            Symbol = "♥";
+            PrimaryForegroundColor = Color.WhiteSmoke;
+            PrimaryBackgroundColor = Color.Black;
+            Impassable = true;
         }
 
     }
