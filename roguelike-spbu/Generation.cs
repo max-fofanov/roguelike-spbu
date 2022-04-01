@@ -369,7 +369,7 @@ namespace roguelike_spbu {
             return dungeon;
 
         }
-         public static Map Hub() {
+         public static Map GenerateHub() {
 
             Map hub = new Map(40, 150, -1);
             Random random = new Random();
