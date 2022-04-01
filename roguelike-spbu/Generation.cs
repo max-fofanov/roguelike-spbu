@@ -397,7 +397,7 @@ namespace roguelike_spbu {
             hub.Tiles[12][69] = new House (12, 69);
             for (int i = 0; i < 7; i++)
             {
-                hub.Tiles[16+i][60] = new Mountain (16+i, 0);
+                hub.Tiles[16+i][60] = new Mountain (16+i, 60);
                 hub.Tiles[16+i][61] = new Mountain (16+i, 61);
                 hub.Tiles[16+i][62] = new Mountain (16+i, 62);
                 hub.Tiles[16+i][63] = new Tree (16+i, 63);
@@ -427,7 +427,7 @@ namespace roguelike_spbu {
             {
                 hub.Tiles[23][84+i] = new Tree (23, 84+i);
                 hub.Tiles[24][83+i] = new Mountain (24, 83+i);
-                hub.Tiles[25][82+i] = new Mountain (24, 82+i);
+                hub.Tiles[25][82+i] = new Mountain (25, 82+i);
                 hub.Tiles[26][81+i] = new Mountain (26, 81+i);
             }
             for (int i = 0; i < 4; i++)
@@ -463,7 +463,7 @@ namespace roguelike_spbu {
             }
             hub.Tiles[21][71] = new TownHall (21, 71); 
             hub.Tiles[19][69] = new Shop (19, 69);
-            hub.Tiles[19][69] = new Alchemy (19, 84);
+            hub.Tiles[19][69] = new Alchemy (19, 69);
             for (int i = 0; i < 16; i++)
             {
                 bool flag = false;
